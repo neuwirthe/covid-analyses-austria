@@ -1,0 +1,13 @@
+---
+title: Was wird kommen?
+author: Erich Neuwirth
+date: '2022-02-27'
+slug: was-wird-kommen
+categories: []
+tags: []
+---
+
+
+Das ist die Entwicklerversion der neuen Website für COVID-Analysen für Österreich
+
+
