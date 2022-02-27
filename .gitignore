@@ -2,5 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-.do_rsync
 .gitignore
+do_rsync
