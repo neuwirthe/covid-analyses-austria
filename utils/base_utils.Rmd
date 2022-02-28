@@ -1,0 +1,23 @@
+---
+title: "utils.Rmd"
+author: "Erich Neuwirth"
+date: '2022-02-28'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(fs)
+  library(here)
+  library(scales)
+  library(ggiraph)
+})
+```
+

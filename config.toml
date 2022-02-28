@@ -1,0 +1,41 @@
+baseurl = "/"
+languageCode = "de-at"
+title = "COVID-19 Analysen"
+theme = "hugo-lithium-neuwirthe"
+googleAnalytics = ""
+disqusShortname = ""
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "\\.knit\\.md$", "\\.utf8\\.md$", "_cache$"]
+relativeURLs = true
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "About"
+    url = "/about/"
+
+[params]
+    description = "Statistische Analysen zum Verlauf von COVID-19"
+    navname = "Erich Neuwirths COVID-19-Analysen"
+    # options for highlight.js (version, additional languages, and theme)
+    highlightjsVersion = "9.12.0"
+    highlightjsCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    highlightjsLang = ["r", "yaml"]
+    highlightjsTheme = "github"
+
+    MathJaxCDN = "//cdnjs.cloudflare.com/ajax/libs"
+    MathJaxVersion = "2.7.5"
+
+
+
+
+
+    # path to the favicon, under "static"
+    favicon = "favicon.ico"
+
+    [params.logo]
+    url = "erich_logo.png"
+    width = 50
+    height = 50
+    alt = "Logo"
+

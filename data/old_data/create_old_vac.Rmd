@@ -1,0 +1,135 @@
+---
+title: "create old vac data"
+author: "Erich Neuwirth"
+date: '2022-02-28'
+output: html_document
+---
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+
+
+
+```{r}
+read_carefully(path(here(),"data","old_data",
+                    "timeline-eimpfpass.csv")) |>
+  mutate(Datum=as.Date(Datum)) |> 
+  select(-ends_with("Pro100")) |>
+  rename(Bundesland=Name) |>
+  rename(pop=Bevölkerung) |>
+  mutate(Bundesland=str_replace(Bundesland,
+                                     "KeineZuordnung","Unbekannt")) ->
+  eimpfpass_raw
+```
+
+
+
+
+```{r}
+eimpfpass_raw |>
+  select(-contains("Gruppe")) |>
+  select(Datum:Bundesland,EingetrageneImpfungen,Teilgeimpfte,
+         Vollimmunisierte,
+         ends_with("_1")) |>
+  rename(Pfizer=EingetrageneImpfungenBioNTechPfizer_1) |>
+  rename(Moderna=EingetrageneImpfungenModerna_1) |>
+  rename(AstraZeneca=EingetrageneImpfungenAstraZeneca_1) |>
+  rename(Unbekannt=ImpfstoffNichtZugeordnet_1) |>
+  mutate(Dosis=1,.before=Teilgeimpfte) |>
+  rename(Impfungen=EingetrageneImpfungen) |>
+  rename(Teilgeimpft=Teilgeimpfte) |>
+  rename(Vollgeimpft=Vollimmunisierte) ->
+  eimpfpass_1
+```
+
+
+
+```{r}
+eimpfpass_raw |>
+  select(-contains("Gruppe")) |>
+  select(Datum:Bundesland,EingetrageneImpfungen,Teilgeimpfte,
+          Vollimmunisierte,
+         ends_with("_2"),EingetrageneImpfungenJanssen) |>
+  rename(Pfizer=EingetrageneImpfungenBioNTechPfizer_2) |>
+  rename(Moderna=EingetrageneImpfungenModerna_2) |>
+  rename(AstraZeneca=EingetrageneImpfungenAstraZeneca_2) |>
+  rename(Unbekannt=ImpfstoffNichtZugeordnet_2) |>
+  rename(Janssen=EingetrageneImpfungenJanssen) |>
+  mutate(Dosis=2,.before=Teilgeimpfte) |>
+  select(Datum:AstraZeneca,Janssen,Unbekannt) |>
+  rename(Impfungen=EingetrageneImpfungen) |>
+  rename(Teilgeimpft=Teilgeimpfte) |>
+  rename(Vollgeimpft=Vollimmunisierte) ->
+  eimpfpass_2
+```
+```{r}
+eimpfpass_1 |>
+  bind_rows(eimpfpass_2) |>
+  select(Datum,BundeslandID,Bundesland,pop,
+         everything())->
+  eimpfpass_data
+```
+
+```{r}
+remove(eimpfpass_1,eimpfpass_2)
+save(eimpfpass_data,
+     file=path(here(),"data","old_data","eimpfpass_data.RData"))
+```
+
+```{r}
+eimpfpass_raw |>
+  select(Datum:Bundesland,contains("Gruppe")) |>
+  pivot_longer(cols=`Gruppe_<15_M_1`:Gruppe_NichtZuordenbar,
+               names_to="Gruppe",
+               values_to="Geimpft") |>
+  mutate(Gruppe=str_remove(Gruppe,"Gruppe_")) |>
+  mutate(Geschlecht=ifelse(str_detect(Gruppe,"_M_"),"m",NA)) |>
+  mutate(Geschlecht=ifelse(str_detect(Gruppe,"_W_"),"w",Geschlecht)) |>
+  mutate(Geschlecht=ifelse(str_detect(Gruppe,"_D_"),"d",Geschlecht)) |>
+  mutate(Geschlecht=ifelse(str_detect(Gruppe,"NichtZuordenbar"),
+                           "u",Geschlecht)) |>
+  mutate(Alter=case_when(
+    str_detect(Gruppe,"<15") ~ "0-15",
+    str_detect(Gruppe,"15-24") ~ "15-24",
+    str_detect(Gruppe,"25-34") ~ "25-34",
+    str_detect(Gruppe,"35-44") ~ "35-44",
+    str_detect(Gruppe,"45-54") ~ "45-54",
+    str_detect(Gruppe,"55-64") ~ "55-64",
+    str_detect(Gruppe,"65-74") ~ "65-74",
+    str_detect(Gruppe,"75-84") ~ "75-84",
+    str_detect(Gruppe,">84") ~ "85-",
+    TRUE ~ "Unbekannt")
+    ) |>
+    mutate(Dosis=ifelse(str_detect(Gruppe,"_1"),1,NA)) |>
+    mutate(Dosis=ifelse(str_detect(Gruppe,"_2"),2,Dosis)) |>
+  select(-pop,-Gruppe) |>
+  select(Datum,BundeslandID,Bundesland,
+         Alter,Geschlecht,Dosis,Geimpft) ->
+  eimpfpass_age_gender_data
+```
+
+
+```{r}
+save(eimpfpass_age_gender_data,
+     file=path(here(),"data","old_data","eimpfpass_age_gender_data.RData"))
+```

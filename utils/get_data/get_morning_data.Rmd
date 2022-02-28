@@ -1,0 +1,65 @@
+---
+title: "get morning data"
+author: "Erich Neuwirth"
+date: '2022-02-28'
+output: html_document
+---
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+```{r}
+save_path <- path(here(),"data","raw_data")
+```
+
+```{r}
+suppressMessages(
+read_csv2(
+  "https://info.gesundheitsministerium.gv.at/data/timeline-faelle-ems.csv")) |>
+  mutate(Datum=as.Date(Datum)) |>
+  rename(Bundesland=Name) |>
+  rename(cases_EMS=BestaetigteFaelleEMS) |>
+  mutate_if(is.numeric,as.integer)  ->
+  ems_morning_data_raw  
+```
+
+```{r}
+load(path(
+  here(),"data","old_data",
+  "ems_bmi_data_upto_feb21.RData"
+))
+```
+
+```{r}
+ems_bmi_data_upto_feb21 |>
+  select(Datum:cases_EMS) |>
+  mutate_if(is.numeric,as.integer) |>
+  bind_rows(ems_morning_data_raw) ->
+  ems_morning_data 
+```
+
+```{r}
+save(ems_morning_data,
+     file=path(save_path,"ems_morning_data.RData"))
+```
+
