@@ -103,7 +103,7 @@ save(ages_age_data,
 
 ```{r}
 read_carefully(path(temp_path,
-                    "CovidFaelle_GKZ.csv")) |>
+                    "CovidFaelle_GKZ.csv")) 
   
 ```
 
