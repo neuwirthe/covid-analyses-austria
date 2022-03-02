@@ -1,8 +1,8 @@
-## ----setup, include=FALSE-------------------------------
+## ----setup, include=FALSE---------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
 
-## -------------------------------------------------------
+## ---------------------------------------------------------------------
 suppressPackageStartupMessages({
   library(here)
   library(fs)
@@ -11,7 +11,7 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 
 
-## -------------------------------------------------------
+## ---------------------------------------------------------------------
 bundesland_permanent_df <-
 tribble(
 ~BundeslandID, ~Kurzbezeichnung, ~Bundesland, ~pop,
@@ -29,7 +29,7 @@ tribble(
 ) 
 
 
-## -------------------------------------------------------
+## ---------------------------------------------------------------------
 read_carefully <- function(filename){
   try(read_file(filename),silent=TRUE) ->
         f
@@ -41,11 +41,11 @@ read_carefully <- function(filename){
      f <- iconv(f,from="latin1",to="utf8")
    }
    if(str_detect(first_line,"\t")){
-     f <- read_tsv(f)
+     f <- suppressMessages(read_tsv(f))
    } else if (str_detect(first_line,";")) {
      f <- suppressMessages(read_delim(f,delim=";"))
    } else {
-     f <- read_csv(f)
+     f <- suppressMessages(read_csv(f))
    }
   f
   }

@@ -51,11 +51,11 @@ read_carefully <- function(filename){
      f <- iconv(f,from="latin1",to="utf8")
    }
    if(str_detect(first_line,"\t")){
-     f <- read_tsv(f)
+     f <- suppressMessages(read_tsv(f))
    } else if (str_detect(first_line,";")) {
      f <- suppressMessages(read_delim(f,delim=";"))
    } else {
-     f <- read_csv(f)
+     f <- suppressMessages(read_csv(f))
    }
   f
   }

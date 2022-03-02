@@ -1,0 +1,108 @@
+---
+title: "get owid data"
+author: "Erich Neuwirth"
+date: '2022-03-01'
+output: html_document
+---
+
+
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+  library(readxl)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+```{r}
+save_path <- path(here(),"data","raw_data")
+```
+
+
+```{r}
+read_excel(path(here(),"data","old_data",
+                "Laender_Namen.xlsx")) ->
+  laender_namen
+```
+
+```{r}
+read_carefully(
+  "https://github.com/OxCGRT/covid-policy-tracker/raw/master/data/OxCGRT_latest.csv") |> 
+  left_join(
+    laender_namen |>
+      select(Land,alpha_3) |>
+      rename(CountryCode=alpha_3)
+  ) |>
+  select(Date,CountryCode,CountryName,Land,everything()) |>
+  mutate(Datum=paste(str_sub(Date,1,4),
+                     str_sub(Date,5,6),
+                     str_sub(Date,7,8),sep="-") |>
+           as.Date()) |>
+  select(Datum,everything()) |>
+  select(-Date) ->
+  oxcgrt_data
+```
+
+
+
+```{r}
+save(oxcgrt_data,
+     file=path(save_path,"oxcgrt_data.RData"))
+```
+
+```{r}
+#V1_Refugees/migrants
+#V3_Refugees/migrants
+```
+
+
+```{r}
+#read_carefully(
+#  "https://github.com/OxCGRT/covid-policy-tracker/raw/master/data/OxCGRT_vaccines_full.csv") |>
+#  select(Date,CountryName,52,166) |>
+#  group_by(`V3_Refugees/migrants`) |> 
+#  tally() 
+  
+```
+
+
+```{r}
+read_carefully(
+  "https://github.com/OxCGRT/covid-policy-tracker/raw/master/data/OxCGRT_vaccines_full.csv") |>
+    left_join(
+    laender_namen |>
+      select(Land,alpha_3) |>
+      rename(CountryCode=alpha_3)
+  ) |>
+  select(Date,CountryCode,CountryName,Land,everything()) |>
+  mutate(Datum=paste(str_sub(Date,1,4),
+                     str_sub(Date,5,6),
+                     str_sub(Date,7,8),sep="-") |>
+           as.Date()) |>
+  select(Datum,everything()) |>
+  select(-Date) ->
+  oxcgrt_vac_data
+```
+
+
+```{r}
+save(oxcgrt_data,
+     file=path(save_path,"oxcgrt_data.RData"))
+```
+

@@ -60,6 +60,6 @@ change_yaml_matter(path(here(),"content","post",
                    date=(Sys.Date() |> as.character()),
                    output_file=path(here(),"content","post",
                         "2022-02-27-was-wird-kommen",
-                        "index1.Rmd"))
+                        "index.Rmd"))
 ```
 

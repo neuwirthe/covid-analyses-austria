@@ -1,0 +1,85 @@
+---
+title: "get owid data"
+author: "Erich Neuwirth"
+date: '2022-03-01'
+output: html_document
+---
+
+
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+  library(readxl)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+```{r}
+save_path <- path(here(),"data","raw_data")
+```
+
+
+```{r}
+#read_excel(path(here(),"data","old_data",
+#                "Laender_Namen.xlsx")) ->
+#  laender_namen
+```
+
+```{r}
+load(path(here(),"data","old_data",
+                 "country_names_data.RData"))
+```
+
+
+```{r}
+read_carefully(
+  "https://covid.ourworldindata.org/data/owid-covid-data.csv") |>
+#  left_join(
+#    laender_namen |>
+#      select(Land,alpha_3) |>
+#      rename(iso_code=alpha_3)
+#  ) |>
+  left_join(country_names_data) |>
+  select(iso_code:location,country,Land,everything()) ->
+  owid_data
+```
+
+```{r}
+#owid_data |>
+#  select(iso_code,location,Land) |>
+#  distinct() |>
+#  rename(country=location) ->
+#  country_names_data
+#save(country_names_data,
+#     file=path(here(),"data","old_data",
+#              "country_names_data.Rdata")) 
+```
+
+
+```{r}
+save(owid_data,
+     file=path(save_path,"owid_data.RData"))
+```
+
+
+```{r}
+rm(owid_data,
+   country_names_data)
+```
+

@@ -1,0 +1,12 @@
+---
+title: "Documentation"
+author: "Erich Neuwirth"
+date: '2022-03-01'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[OxCGRT docs, https://github.com/OxCGRT/covid-policy-tracker/tree/master/documentation](https://github.com/OxCGRT/covid-policy-tracker/tree/master/documentation)

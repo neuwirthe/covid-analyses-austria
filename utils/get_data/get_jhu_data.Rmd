@@ -1,0 +1,121 @@
+---
+title: "get jhu data"
+author: "Erich Neuwirth"
+date: '2022-03-01'
+output: html_document
+---
+
+
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+  library(readxl)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+```{r}
+save_path <- path(here(),"data","raw_data")
+```
+
+
+```{r}
+read_carefully(
+  "https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+) ->
+  confirmed_wide
+confirmed_wide |> 
+  pivot_longer(cols=5:ncol(confirmed_wide),
+               names_to="Datum",
+               values_to="cases") |>
+  rowwise() |>
+  mutate(year=paste0("20",str_split_fixed(Datum,"/",3)[3]),
+         month=str_split_fixed(Datum,"/",3)[1],
+         day=str_split_fixed(Datum,"/",3)[2]) |>
+  mutate(Datum=paste(year,month,day,sep="-") |> as.Date()) |>
+  select(-year,-month,-day,-Lat,-Long) ->
+  jhu_cases
+```
+
+```{r}
+read_carefully(
+  "https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+) ->
+  deaths_wide
+deaths_wide |> 
+  pivot_longer(cols=5:ncol(deaths_wide),
+               names_to="Datum",
+               values_to="deaths") |>
+  rowwise() |>
+  mutate(year=paste0("20",str_split_fixed(Datum,"/",3)[3]),
+         month=str_split_fixed(Datum,"/",3)[1],
+         day=str_split_fixed(Datum,"/",3)[2]) |>
+  mutate(Datum=paste(year,month,day,sep="-") |> as.Date()) |>
+  select(-year,-month,-day,-Lat,-Long) ->
+  jhu_deaths
+```
+
+
+```{r}
+read_carefully(
+  "https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+) ->
+  recovered_wide
+recovered_wide |> 
+  pivot_longer(cols=5:ncol(recovered_wide),
+               names_to="Datum",
+               values_to="recovered") |>
+  rowwise() |>
+  mutate(year=paste0("20",str_split_fixed(Datum,"/",3)[3]),
+         month=str_split_fixed(Datum,"/",3)[1],
+         day=str_split_fixed(Datum,"/",3)[2]) |>
+  mutate(Datum=paste(year,month,day,sep="-") |> as.Date()) |>
+  select(-year,-month,-day,-Lat,-Long) ->
+  jhu_recovered
+```
+
+
+```{r}
+jhu_cases |>
+  left_join(jhu_deaths) |>
+  left_join(jhu_recovered) |>
+  mutate_if(is.numeric,as.integer) |>
+  left_join(
+    country_names_data |>
+      rename(`Country/Region`=country)) |>
+  select(1:2,iso_code,Land,everything()) ->
+  jhu_data 
+```
+
+```{r}
+save(jhu_data,
+     file=path(save_path,"jhu_data.RData"))
+```
+
+```{r}
+rm(jhu_cases,
+   jhu_deaths,
+   jhu_recovered,
+   jhu_data,
+   country_names_data,
+   confirmed_wide,
+   deaths_wide,
+   recovered_wide)
+```
+
