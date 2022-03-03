@@ -239,6 +239,7 @@ if(remove_dir) unlink(temp_path,recursive=TRUE)
 ```
 
 ```{r}
+if(exists("remove_data")){
 if (remove_data){
   ls() |>
     keep(\(x)str_detect(x,"^ages")) -> zzz
@@ -247,6 +248,6 @@ if (remove_data){
   remove(bundesland_permanent_df)
   remove(remove_data)
   remove(remove_dir)
-}
+}}
 ```
 

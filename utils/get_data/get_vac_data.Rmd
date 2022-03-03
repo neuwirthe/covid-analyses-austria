@@ -242,6 +242,7 @@ save(eimpfpass_data,
 ```
 
 ```{r}
+if(exists("remove_data")){
 if(remove_data){
   remove(
     bundesland_permanent_df,
@@ -251,7 +252,8 @@ if(remove_data){
     impf_zert_data,
     impfdosen_age_gender_data,
     impfdosen_data,vac_age_doses_data)
-}  
+  remove(remove_data)
+}}  
 ```
 
 

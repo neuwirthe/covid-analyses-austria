@@ -31,23 +31,37 @@ purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 ```
 
 ```{r}
+remove_data <- TRUE
+```
+
+
+```{r}
 save_path <- path(here(),"data","raw_data")
 ```
 
 
 ```{r}
-read_excel(path(here(),"data","old_data",
-                "Laender_Namen.xlsx")) ->
-  laender_namen
+#read_excel(path(here(),"data","old_data",
+#                "Laender_Namen.xlsx")) ->
+#  laender_namen
 ```
+
+```{r}
+load(path(here(),"data","old_data",
+          "country_names_data.RData"))
+```
+
 
 ```{r}
 read_carefully(
   "https://github.com/OxCGRT/covid-policy-tracker/raw/master/data/OxCGRT_latest.csv") |> 
   left_join(
-    laender_namen |>
-      select(Land,alpha_3) |>
-      rename(CountryCode=alpha_3)
+#    laender_namen |>
+#      select(Land,alpha_3) |>
+#      rename(CountryCode=alpha_3)
+    country_names_data |>
+      select(iso_code,Land) |>
+      rename(CountryCode=iso_code)
   ) |>
   select(Date,CountryCode,CountryName,Land,everything()) |>
   mutate(Datum=paste(str_sub(Date,1,4),
@@ -86,9 +100,13 @@ save(oxcgrt_data,
 read_carefully(
   "https://github.com/OxCGRT/covid-policy-tracker/raw/master/data/OxCGRT_vaccines_full.csv") |>
     left_join(
-    laender_namen |>
-      select(Land,alpha_3) |>
-      rename(CountryCode=alpha_3)
+#    laender_namen |>
+#      select(Land,alpha_3) |>
+#      rename(CountryCode=alpha_3)
+    country_names_data |>
+      select(iso_code,Land) |>
+      rename(CountryCode=iso_code)
+    
   ) |>
   select(Date,CountryCode,CountryName,Land,everything()) |>
   mutate(Datum=paste(str_sub(Date,1,4),
@@ -102,7 +120,11 @@ read_carefully(
 
 
 ```{r}
-save(oxcgrt_data,
-     file=path(save_path,"oxcgrt_data.RData"))
+save(oxcgrt_vac_data,
+     file=path(save_path,"oxcgrt_vac_data.RData"))
+```
+
+```{r}
+
 ```
 

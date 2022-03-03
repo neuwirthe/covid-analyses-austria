@@ -27,11 +27,19 @@ purl_and_source(path(here(),"utils","base_utils.Rmd"))
 ```
 
 ```{r}
+remove_data <- TRUE
+```
+
+```{r}
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 ```
 
 ```{r}
 save_path <- path(here(),"data","raw_data")
+```
+```{r}
+load(path(here(),"data","old_data",
+          "country_names_data.RData"))
 ```
 
 
@@ -109,13 +117,18 @@ save(jhu_data,
 ```
 
 ```{r}
-rm(jhu_cases,
+if(exists("remove_data")){
+if(remove_data){
+remove(jhu_cases,
    jhu_deaths,
    jhu_recovered,
    jhu_data,
    country_names_data,
    confirmed_wide,
    deaths_wide,
-   recovered_wide)
+   recovered_wide,
+   bundesland_permanent_df,
+   remove_data)
+}} 
 ```
 

@@ -27,6 +27,11 @@ purl_and_source(path(here(),"utils","base_utils.Rmd"))
 ```
 
 ```{r}
+remove_data <- TRUE
+```
+
+
+```{r}
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 ```
 
@@ -79,7 +84,12 @@ save(owid_data,
 
 
 ```{r}
-rm(owid_data,
-   country_names_data)
+if(exists("remove_data")){
+if(remove_data){
+remove(owid_data,
+   country_names_data,
+   bundesland_permanent_df,
+   remove_data)
+}}  
 ```
 
