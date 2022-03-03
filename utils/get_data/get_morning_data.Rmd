@@ -23,6 +23,10 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 ```
 
+```{r}
+remove_data <- TRUE
+```
+
 
 ```{r}
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
@@ -61,5 +65,15 @@ ems_bmi_data_upto_feb21 |>
 ```{r}
 save(ems_morning_data,
      file=path(save_path,"ems_morning_data.RData"))
+```
+
+```{r}
+if(remove_data){
+  remove(ems_bmi_data_upto_feb21,
+         ems_morning_data,
+         ems_morning_data_raw,
+         bundesland_permanent_df)
+  remove(remove_data)
+}
 ```
 

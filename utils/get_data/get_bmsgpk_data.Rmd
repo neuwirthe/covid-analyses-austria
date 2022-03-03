@@ -23,6 +23,13 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 ```
 
+
+
+
+```{r}
+remove_data <- TRUE
+```
+
 ```{r}
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 ```
@@ -92,4 +99,21 @@ read_carefully(
 ```{r}
 save(apotheken_betriebe_data,
      file=path(save_path,"apotheken_betriebe_data.RData"))
+```
+
+
+```{r}
+#if(remove_dir) unlink(temp_path,recursive=TRUE)
+```
+
+```{r}
+if (remove_data){
+  remove(bmi_data,
+         bmi_data_raw,
+         apotheken_betriebe_data,
+         ems_bmi_data_upto_feb21)
+  remove(bundesland_permanent_df)
+  remove(remove_data)
+  remove(remove_dir)
+}
 ```

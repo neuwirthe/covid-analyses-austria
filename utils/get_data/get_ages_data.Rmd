@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 remove_dir <- TRUE
+remove_data <- TRUE
 ```
 
 ```{r}
@@ -235,5 +236,17 @@ save(ages_hospital_capacity_data,
 
 ```{r}
 if(remove_dir) unlink(temp_path,recursive=TRUE)
+```
+
+```{r}
+if (remove_data){
+  ls() |>
+    keep(\(x)str_detect(x,"^ages")) -> zzz
+  remove(list=zzz)
+  remove(zzz)
+  remove(bundesland_permanent_df)
+  remove(remove_data)
+  remove(remove_dir)
+}
 ```
 

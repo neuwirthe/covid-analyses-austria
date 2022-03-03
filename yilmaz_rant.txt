@@ -1,0 +1,61 @@
+4 Datenquellen
+EMS-Morgenmeldung 8:00
+Krisentab 9:30
+AGES 14:00
+Impfungen 9:00
+
+Die BMSGPK-Seit zeigt nur kumulierte Werte, keine täglichen Werte
+und keine Inzidenzen.
+
+
+BMG-Daten und AGES-Daten 
+
+
+Datenformat leider nicht standardisiert
+
+Feldtrenner meist ; , machmal tab
+Zahlenformat englisch trotz Feldtrenner ; 
+
+Datenfelder gleichen Inhalts haben verschiedenen Namen
+Manchmal date, manchmal Datum
+Datum manchmal mit Uhrzeit, manchmal ohne,
+manchmal sogar mit Angabe der Zeitzone
+AGES-Daten haben ein nichstandardisiertes Format für Datum
+
+
+Manchmal Lücken in den Datenreihen, die erst nach eindriglicher
+Einmahnung gefüllt wurden.
+
+Positivrate nicht genau berechenbar wegen Schultests
+Positive Tests werden eingerechnet,
+in der Gesamtzahl der Tests kommen aber die Schultests
+wohl nicht vor (ist nicht ganz klar dokumentiert)
+
+
+BMG-Daten und AGES-Daten 
+Datumsangaben verschieden
+Altersgruppen für Impfung und für Fallzahlen verschieden.
+Man kann also die Wirkung der Impfung nicht einfach altersgruppenspezifische ermitteln.
+
+Fallzahlen für Bezirke,
+Impfdaten für Gemeinden
+Datenschutzargument zieht da wohl nicht.
+
+Eine AGES-Datei (CovidFaelleDelta.csv) endet am 28.11.2021
+Man braucht die nicht, man kann das aus den anderen Daten errechnen, 
+aber die Datei ist einfach unnötig.
+
+Spitalszahlen BMG Spital=Normal+Intensiv
+AGES Normal und Intensiv nur getrennt
+
+Spitalszahlen nur als Belagszahlen, keine Aufnahmen und Entlassungen,
+keine Belagsdauern.
+
+Bei Spitalspatienten kein Impfstatus verfügbar
+Auch nicht  bei Todesfällen
+
+
+
+
+
+

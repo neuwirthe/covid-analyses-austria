@@ -23,6 +23,11 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 ```
 
+
+```{r}
+remove_data <- TRUE
+```
+
 ```{r}
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 ```
@@ -235,5 +240,19 @@ remove(eimpfpass_1,eimpfpass_2)
 save(eimpfpass_data,
      file=path(save_path,"eimpfpass_data.RData"))
 ```
+
+```{r}
+if(remove_data){
+  remove(
+    bundesland_permanent_df,
+    eimpfpass_data,
+    eimpfpass_raw,
+    impf_bestellt_geliefert_data,
+    impf_zert_data,
+    impfdosen_age_gender_data,
+    impfdosen_data,vac_age_doses_data)
+}  
+```
+
 
 
