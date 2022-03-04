@@ -14,6 +14,11 @@ knitr::opts_chunk$set(
 ) 
 ```
 
+
+```{r}
+interpolate <- TRUE
+```
+
 ```{r}
 suppressPackageStartupMessages({
   library(here)
@@ -46,6 +51,33 @@ read_csv2(
   mutate_if(is.numeric,as.integer)  ->
   ems_morning_data_raw  
 ```
+
+959188
+
+```{r}
+if (interpolate) {
+  ems_morning_data_raw |>
+    filter(Datum %in% (as.Date("2021-11-13") + c(0,2))) |>
+    mutate_at(vars(cases_EMS),log) |>
+    group_by(Bundesland,BundeslandID) |>
+    summarise(cases_EMS=round(exp(mean(cases_EMS)))) |>
+    ungroup() |>
+    mutate(cases_EMS=ifelse(BundeslandID==10,
+                  sum(cases_EMS)-cases_EMS,
+                  cases_EMS)) |>
+    arrange(BundeslandID) |>
+    mutate(Datum=as.Date("2021-11-14"),.before=1)
+} ->
+  ems_20211114
+```
+```{r}
+ems_morning_data_raw |>
+  bind_rows(ems_20211114) |>
+  arrange(Datum,BundeslandID) |>
+  mutate_if(is.numeric,as.integer) ->
+  ems_morning_data_raw
+```
+
 
 ```{r}
 load(path(

@@ -35,7 +35,7 @@ library(sf)
 
 ```{r}
 # europe_plus <-read_sf(path(here(),"maps",
-             "europe_plus.geojson")) 
+#             "europe_plus.geojson")) 
 ```
 ```{r}
 #st_crop(europe_plus,,
