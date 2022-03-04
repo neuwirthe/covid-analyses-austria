@@ -1,0 +1,95 @@
+---
+title: "map test"
+author: "Erich Neuwirth"
+date: '2022-03-03'
+output: html_document
+---
+
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+) 
+```
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(here)
+  library(fs)
+})  
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
+```
+
+
+```{r}
+library(sf)
+```
+
+```{r}
+# europe_plus <-read_sf(path(here(),"maps",
+             "europe_plus.geojson")) 
+```
+```{r}
+#st_crop(europe_plus,,
+#        xmin=-25,xmax=43,ymin=30,ymax=70) |>
+#st_transform(
+#              crs=st_crs("EPSG:3035")) ->
+#europe_map   
+#  pull(country_eng)
+```
+
+```{r}
+#st_write(europe_map,
+#         path(here(),"maps",
+#              "europe_map.geojson"))
+```
+```{r}
+#rm(europe_map)
+```
+
+
+```{r}
+europe_map  <- read_sf(path(here(),"maps",
+              "europe_map.geojson"))
+```
+
+
+```{r}
+europe_map |>
+ggplot() +
+    geom_sf(aes(fill=country_eng)) +
+  guides(fill="none") +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank())
+
+```
+
+
+```{r}
+read_sf(path(here(),"maps","bezirke_999_geo.json")) |>
+  ggplot() +
+  geom_sf() +
+    theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank())
+
+```
+
+
+```{r}
+read_sf(path(here(),"maps","laender_999_geo.json")) |>
+  ggplot() +
+  geom_sf() +
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.text = element_blank())
+```

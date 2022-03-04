@@ -57,10 +57,13 @@ load(path(
 ```{r}
 ems_bmi_data_upto_feb21 |>
   select(Datum:cases_EMS) |>
+  mutate(Datum=as.Date(Datum)) |>
   mutate_if(is.numeric,as.integer) |>
-  bind_rows(ems_morning_data_raw) ->
+  bind_rows(ems_morning_data_raw |>
+              mutate(Datum=as.Date(Datum))) ->
   ems_morning_data 
 ```
+
 
 ```{r}
 save(ems_morning_data,

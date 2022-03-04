@@ -51,3 +51,10 @@ read_carefully <- function(filename){
   }
 }
 
+
+## ---------------------------------------------------------------------
+check_for_holes <- function(date_seq){
+  length(seq(min(date_seq),max(date_seq),by="1 day"))
+    length(date_seq |> sort() |> unique())
+}
+
