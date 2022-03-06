@@ -1,42 +1,33 @@
----
-title: "get vac data"
-author: "Erich Neuwirth"
-date: '2022-02-28'
-output: html_document
----
-
-
-```{r setup, echo=FALSE}
+## ----setup, echo=FALSE------------------------------------------------
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   message = FALSE
 ) 
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 suppressPackageStartupMessages({
   library(here)
   library(fs)
 })  
 source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 remove_data <- TRUE
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 save_path <- path(here(),"data","raw_data")
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 suppressMessages(
 read_carefully(
   "https://info.gesundheitsministerium.gv.at/data/COVID19_vaccination_doses_timeline.csv")) |>
@@ -50,15 +41,14 @@ read_carefully(
   rename(Dosen=doses_administered_cumulative) |>
   mutate_if(is.numeric,as.integer) ->
   impfdosen_data
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 save(impfdosen_data,
      file=path(save_path,"impfdosen_data.RData"))
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 file_template <- 
   "https://info.gesundheitsministerium.gv.at/data/archiv/COVID19_vaccination_doses_agegroups_xxxxxxxx.csv"
 
@@ -69,17 +59,17 @@ seq(from=as.Date("2021-10-29"),to=Sys.Date(),by="1 day") |>
 
 str_replace(file_template,"xxxxxxxx",date_seq) ->
   files_to_get
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 map(files_to_get,
     \(f)read_carefully(f)
     ) |>
   reduce(bind_rows) ->
   vac_age_doses_data 
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 vac_age_doses_data |>
   mutate(Datum=as.Date(date)+1,.before=1) |>
   select(-date) |>
@@ -87,7 +77,7 @@ vac_age_doses_data |>
   rename(Bundesland=state_name) |>
   mutate(Bundesland=str_replace(Bundesland,"NoState","Unbekannt")) |>
   rename(Alter=age_group) |>
-  mutate(Alter=str_replace(Alter,fixed("85+"),"85-")) |>
+  mutate(Alter=str_replace(Alter,"85+","85-")) |>
   mutate(Alter=str_replace(Alter,"00-","0-")) |>
   mutate(Alter=str_replace(Alter,"NotAssigned","Unbekannt")) |>
   rename(Geschlecht=gender) |>
@@ -100,18 +90,15 @@ vac_age_doses_data |>
   rename(Dosen=doses_administered_cumulative) |>
   mutate_if(is.numeric,as.integer) ->
   impfdosen_age_gender_data
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 rm(vac_age_doses_data)
 save(impfdosen_age_gender_data,
      file=path(save_path,"impfdosen_age_gender_data.RData"))
-```
 
 
-
-```{r}
+## ---------------------------------------------------------------------
 file_template <- 
   "https://info.gesundheitsministerium.gv.at/data/archiv/COVID19_vaccination_certificates_xxxxxxxx.csv"
 
@@ -122,19 +109,17 @@ seq(from=as.Date("2021-10-24"),to=Sys.Date(),by="1 day") |>
 
 str_replace(file_template,"xxxxxxxx",date_seq) ->
   files_to_get
-```
 
 
-
-```{r}
+## ---------------------------------------------------------------------
 map(files_to_get,
     \(f)read_carefully(f)
     ) |>
   reduce(bind_rows) ->
   vac_cert_data 
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 vac_cert_data |>
   mutate(Datum=as.Date(date)+1,.before=1) |>
   select(-date) |>
@@ -152,17 +137,15 @@ vac_cert_data |>
   select(-valid_certificates_percent) |>
   mutate_if(is.numeric,as.integer) ->
   impf_zert_data
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 rm(vac_cert_data)
 save(impf_zert_data,
      file=path(save_path,"impf_zert_data.RData"))
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 read_carefully(
   "https://info.gesundheitsministerium.gv.at/data/timeline-bbg.csv") |>
   mutate(Datum=as.Date(Datum) + 1) |>
@@ -173,15 +156,14 @@ read_carefully(
   mutate(Bestellungen=ifelse(is.na(Bestellungen),0,Bestellungen)) |>
   select(-AuslieferungenPro100) ->
   impf_bestellt_geliefert_data
-```
 
 
-```{r}
+## ---------------------------------------------------------------------
 save(impf_bestellt_geliefert_data,
      file=path(save_path,"impf_bestellt_geliefert_data.RData"))
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 read_carefully(path(here(),"data","old_data",
                     "timeline-eimpfpass.csv")) |>
   mutate(Datum=as.Date(Datum)) |> 
@@ -190,12 +172,9 @@ read_carefully(path(here(),"data","old_data",
   mutate(Bundesland=str_replace(Bundesland,
                                      "KeineZuordnung","Unbekannt")) ->
   eimpfpass_raw
-```
 
 
-
-
-```{r}
+## ---------------------------------------------------------------------
 eimpfpass_raw |>
   select(-contains("Gruppe")) |>
   select(Datum:Bundesland,EingetrageneImpfungen,Teilgeimpfte,
@@ -208,11 +187,9 @@ eimpfpass_raw |>
   rename(Geimpft=Teilgeimpfte) |>
   select(-EingetrageneImpfungen) ->
   eimpfpass_1
-```
 
 
-
-```{r}
+## ---------------------------------------------------------------------
 eimpfpass_raw |>
   select(-contains("Gruppe")) |>
   select(Datum:Bundesland,EingetrageneImpfungen,Teilgeimpfte,
@@ -229,20 +206,20 @@ eimpfpass_raw |>
   select(-Impfungen,-Teilgeimpfte) |>
   select(Datum:Dosis,Geimpft,everything()) ->
   eimpfpass_2
-```
-```{r}
+
+## ---------------------------------------------------------------------
 eimpfpass_1 |>
   bind_rows(eimpfpass_2) ->
   eimpfpass_data
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 remove(eimpfpass_1,eimpfpass_2)
 save(eimpfpass_data,
      file=path(save_path,"eimpfpass_data.RData"))
-```
 
-```{r}
+
+## ---------------------------------------------------------------------
 if(exists("remove_data")){
 if(remove_data){
   remove(
@@ -255,7 +232,4 @@ if(remove_data){
     impfdosen_data,vac_age_doses_data)
   remove(remove_data)
 }}  
-```
-
-
 

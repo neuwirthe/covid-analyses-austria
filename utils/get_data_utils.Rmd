@@ -38,6 +38,13 @@ tribble(
 ) 
 ```
 
+```{r}
+string_has_latin_1 <- function(x){
+  "ISO-8859-1" ==
+  (stringi::stri_enc_detect(x))[[1]][[1]][1]
+}
+```
+
 
 ```{r}
 read_carefully <- function(filename){
@@ -47,7 +54,7 @@ read_carefully <- function(filename){
     return(tibble())
   } else {
   first_line <- read_lines(f,n_max=1)
-   if(Encoding(f) != "UTF-8"){
+   if(string_has_latin_1(f)){
      f <- iconv(f,from="latin1",to="utf8")
    }
    if(str_detect(first_line,"\t")){
@@ -64,7 +71,7 @@ read_carefully <- function(filename){
 
 ```{r}
 check_for_holes <- function(date_seq){
-  length(seq(min(date_seq),max(date_seq),by="1 day"))
+  length(seq(min(date_seq),max(date_seq),by="1 day")) ==
     length(date_seq |> sort() |> unique())
 }
 ```

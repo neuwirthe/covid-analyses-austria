@@ -1,0 +1,137 @@
+---
+title: "Vergleich Wien Bundesländer"
+author: "Erich Neuwirth"
+date: '2022-03-06'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(fs)
+  library(here)
+})
+source(path(here(),"utils","purl_and_source.R"))
+purl_and_source(path(here(),"utils","base_utils.Rmd"))
+```
+
+```{r}
+load(path(here(),"data","raw_data",
+          "impfdosen_age_gender_data.RData"))
+```
+
+
+```{r}
+download_data <- FALSE
+```
+
+```{r}
+if(download_data){
+purl_and_source(path(here(),"utils","get_data",
+                     "get_vac_data.Rmd"))
+}
+load(path(here(),"data","raw_data",
+          "impfdosen_age_gender_data.RData"))
+
+```
+
+```{r}
+load(path(here(),"data","old_data",
+          "impf_agegroups.RData"))
+```
+
+
+```{r}
+impfdosen_age_gender_data |>
+  filter(Bundesland != "Unbekannt") |>
+  filter(Bundesland != "Österreich") |>
+  group_by(Datum,BundeslandID,Bundesland,Alter,
+           Dosis_nr) |>
+  summarise(Dosen=sum(Dosen)) ->
+  impfdosen_age_data
+```
+
+```{r}
+impfdosen_age_data |>
+  left_join(impf_agegroups) |>
+  mutate(Dosis_nr=as.factor(Dosis_nr)) |>
+  filter(Dosis_nr==2) |>
+  mutate(Dosen=100000*Dosen/pop) |>
+  ggplot(aes(x=Datum,y=Dosen,
+             color=Alter,
+             fill=Alter)) +
+  geom_area() +
+  facet_wrap(vars(Bundesland))
+```
+
+
+
+
+```{r}
+impfdosen_age_data |>
+  left_join(impf_agegroups) |>
+  filter(Dosis_nr==3) |>
+  mutate(Dosis_nr=as.factor(Dosis_nr)) |>
+  group_by(Bundesland,BundeslandID,Alter) |>
+  mutate(Dosen=Dosen-lag(Dosen,7)) |>
+  ungroup() |>
+  mutate(Dosen=100000*Dosen/pop) |>
+  ggplot(aes(x=Datum,y=Dosen,
+             color=Alter,
+             fill=Alter)) +
+  geom_area() +
+  scale_y_continuous(label=\(x)prettyNum(x,big.mark=".")) +
+  facet_wrap(vars(Bundesland)) +
+  scale_fill_manual(values=brewer.pal(10,"Paired")) +
+  scale_color_manual(values=brewer.pal(10,"Paired")) +
+  theme_minimal()
+```
+
+
+```{r}
+impfdosen_age_data |>
+  left_join(impf_agegroups) |>
+  filter(Dosis_nr==2) |>
+  mutate(Dosis_nr=as.factor(Dosis_nr)) |>
+  group_by(Bundesland,BundeslandID,Alter) |>
+  mutate(Dosen=Dosen-lag(Dosen,7)) |>
+  ungroup() |>
+  mutate(Dosen=100000*Dosen/pop) |>
+  ggplot(aes(x=Datum,y=Dosen,
+             color=Alter,
+             fill=Alter)) +
+  geom_area() +
+  scale_y_continuous(label=\(x)prettyNum(x,big.mark=".")) +
+  facet_wrap(vars(Bundesland)) +
+  scale_fill_manual(values=brewer.pal(10,"Paired")) +
+  scale_color_manual(values=brewer.pal(10,"Paired")) +
+  theme_minimal()
+```
+
+
+
+```{r}
+impfdosen_age_data |>
+  left_join(impf_agegroups) |>
+  filter(Dosis_nr==1) |>
+  mutate(Dosis_nr=as.factor(Dosis_nr)) |>
+  group_by(Bundesland,BundeslandID,Alter) |>
+  mutate(Dosen=Dosen-lag(Dosen,7)) |>
+  ungroup() |>
+  mutate(Dosen=100000*Dosen/pop) |>
+  ggplot(aes(x=Datum,y=Dosen,
+             color=Alter,
+             fill=Alter)) +
+  geom_area() +
+  scale_y_continuous(label=\(x)prettyNum(x,big.mark=".")) +
+  facet_wrap(vars(Bundesland)) +
+  scale_fill_manual(values=brewer.pal(10,"Paired")) +
+  scale_color_manual(values=brewer.pal(10,"Paired")) +
+  theme_minimal()
+```
+
+

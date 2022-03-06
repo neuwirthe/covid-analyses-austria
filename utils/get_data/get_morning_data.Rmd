@@ -52,7 +52,6 @@ read_csv2(
   ems_morning_data_raw  
 ```
 
-959188
 
 ```{r}
 if (interpolate) {
@@ -94,6 +93,10 @@ ems_bmi_data_upto_feb21 |>
   bind_rows(ems_morning_data_raw |>
               mutate(Datum=as.Date(Datum))) ->
   ems_morning_data 
+```
+
+```{r}
+check_for_holes(ems_morning_data$Datum)
 ```
 
 

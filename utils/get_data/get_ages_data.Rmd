@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 remove_dir <- TRUE
-remove_data <- TRUE
+remove_data <- FALSE
 ```
 
 ```{r}
@@ -250,4 +250,5 @@ if (remove_data){
   remove(remove_dir)
 }}
 ```
+
 

@@ -1,10 +1,10 @@
-## ----setup, include=FALSE----------------------------------------------
+## ----setup, include=FALSE---------------------------------------------
 knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE,
                       message = FALSE)
 
 
-## ----------------------------------------------------------------------
+## ---------------------------------------------------------------------
 suppressPackageStartupMessages({
   library(tidyverse)
   library(fs)
