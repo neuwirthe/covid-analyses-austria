@@ -1,8 +1,8 @@
-## ----setup, include=FALSE--------------------------------------------
+## ----setup, include=FALSE-----------------------------
 knitr::opts_chunk$set(echo = TRUE)
 
 
-## --------------------------------------------------------------------
+## -----------------------------------------------------
 suppressPackageStartupMessages({
   library(here)
   library(fs)
@@ -11,7 +11,7 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 
 
-## --------------------------------------------------------------------
+## -----------------------------------------------------
 bundesland_permanent_df <-
 tribble(
 ~BundeslandID, ~Kurzbezeichnung, ~Bundesland, ~pop,
@@ -29,14 +29,14 @@ tribble(
 ) 
 
 
-## --------------------------------------------------------------------
+## -----------------------------------------------------
 string_has_latin_1 <- function(x){
   "ISO-8859-1" ==
   (stringi::stri_enc_detect(x))[[1]][[1]][1]
 }
 
 
-## --------------------------------------------------------------------
+## -----------------------------------------------------
 read_carefully <- function(filename){
   try(read_file(filename),silent=TRUE) ->
         f
@@ -59,7 +59,7 @@ read_carefully <- function(filename){
 }
 
 
-## --------------------------------------------------------------------
+## -----------------------------------------------------
 check_for_holes <- function(date_seq){
   length(seq(min(date_seq),max(date_seq),by="1 day")) ==
     length(date_seq |> sort() |> unique())

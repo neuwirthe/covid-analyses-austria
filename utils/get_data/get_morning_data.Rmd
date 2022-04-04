@@ -5,6 +5,11 @@ date: '2022-02-28'
 output: html_document
 ---
 
+Die neue Datei beginnt 2020-03-01
+Wir binden die früheren Daten aus einer zusätzlichen Datei dazu.
+
+Die Daten von 2021-11-14 fehlen, die werden interpoliert.
+
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(
@@ -53,6 +58,7 @@ read_csv2(
 ```
 
 
+
 ```{r}
 if (interpolate) {
   ems_morning_data_raw |>
@@ -86,7 +92,16 @@ load(path(
 ```
 
 ```{r}
+ems_morning_data_raw |>
+  pull(Datum) |>
+  min() ->
+  first_date_new_file
+```
+
+
+```{r}
 ems_bmi_data_upto_feb21 |>
+  filter(Datum < first_date_new_file) |>
   select(Datum:cases_EMS) |>
   mutate(Datum=as.Date(Datum)) |>
   mutate_if(is.numeric,as.integer) |>
