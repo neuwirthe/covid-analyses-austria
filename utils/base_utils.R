@@ -1,7 +1,9 @@
 ## ----setup, include=FALSE------------------------------
-knitr::opts_chunk$set(echo = FALSE,
-                      warning = FALSE,
-                      message = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
 
 
 ## ------------------------------------------------------
@@ -12,4 +14,30 @@ suppressPackageStartupMessages({
   library(scales)
   library(ggiraph)
 })
+
+
+## ------------------------------------------------------
+pop_austria <-
+  tribble(
+    ~BundeslandID, ~Bundesland_short, ~Bundesland, ~pop,
+    0, "U", "Unbekannt", NA,
+    1, "B", "Burgenland", 296010,
+    2, "K", "Kärnten", 562089,
+    3, "N", "Niederösterreich", 1690879,
+    4, "O", "Oberösterreich", 1495608,
+    5, "Sa", "Salzburg", 560710,
+    6, "St", "Steiermark", 1247077,
+    7, "T", "Tirol", 760105,
+    8, "V", "Vorarlberg", 399237,
+    9, "W", "Wien", 1920949,
+    10, "Ö", "Österreich", 8932664
+  )
+
+
+## ----u26-----------------------------------------------
+theme_date_vert <- function(){
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle=90,size=7,hjust=1,
+                                   vjust=0.5))
+}
 
