@@ -1,0 +1,203 @@
+---
+title: "Impfungen International"
+output: html_document
+date: '2022-04-05'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+  
+```{r local_setup_inc, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE,
+  warning = FALSE, comment = NULL
+)
+options(scipen = 999)
+options(OutDec = ",")
+options(decimal.mark = ",")
+```
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(magrittr)
+  library(fs)
+  library(here)
+  library(ggiraph)
+  library(scales)
+  library(gt)
+  library(ggmosaic)
+  library(htmlwidgets)
+  library(cowplot)
+  library(clipr)
+  library(openxlsx)
+  library(ggiraph)
+})
+```
+
+
+```{r}
+short_date <- "2021-02-04"
+```
+
+```{r}
+pic_path <-
+  file.path(here(), "pics_png")
+```
+
+
+```{r}
+source(file.path(
+  here(),
+  "utils",
+  "purl_and_source.R"
+))
+purl_and_source(
+  file.path(
+    here(),
+    "utils",
+    "base_utils.Rmd"
+  )
+)
+```
+
+```{r}
+purl_and_source(
+  path(here(), "utils", "get_data",
+       "get_owid_data.Rmd"))
+load(path(here(), "data", "raw_data",
+          "owid_data.RData"))
+```
+```{r}
+purl_and_source(
+  path(here(), "utils", "get_data",
+       "get_bmsgpk_data.Rmd"))
+load(path(here(), "data", "raw_data",
+          "bmi_data.RData"))
+```
+
+```{r}
+countries_to_analyse <-
+  c("Österreich",
+    "Deutschland",
+    "Portugal",
+    "Spanien"
+    )
+```
+
+
+```{r}
+owid_data |>
+  left_join(bmi_data |>
+              filter(BundeslandID==10) |>
+              select(Datum,Tests_PCR_BMI) |>
+              mutate(date=as.Date(Datum)) |>
+              select(-Datum) |>
+              mutate(Land="Österreich")) |>
+  mutate(total_tests=ifelse(Land=="Österreich",
+                            Tests_PCR_BMI,total_tests)) |>
+  select(-Tests_PCR_BMI) ->
+  owid_data_mod
+```
+
+
+```{r}
+owid_data_mod |>
+  select(date,Land,total_cases,total_tests,population,
+         people_vaccinated,
+         people_fully_vaccinated,
+         total_boosters,
+         total_deaths) |> 
+  filter(Land %in% countries_to_analyse) ->
+  compare_tmp
+```
+
+
+
+```{r}
+compare_tmp |>
+  left_join(
+    compare_tmp |>
+#      select(date,Land,total_cases,total_tests,
+#         people_vaccinated,
+#         people_fully_vaccinated,
+#         total_boosters
+#             ) |>
+        mutate(date=date+7) |>
+        rename_at(vars(total_cases:total_deaths),
+                  .funs=list(\(x)paste0(x,"_7")))) ->
+    compare_data
+```
+
+
+```{r}
+compare_data |>
+  mutate(Tests_pop=100000*(total_tests-total_tests_7)/
+           population) |>
+  select(date,Land,Tests_pop) |>
+  drop_na() |>
+  ggplot(aes(x=date,y=Tests_pop,color=Land)) +
+  geom_line()
+```
+
+
+```{r}
+compare_data |>
+  mutate(Geimpft=people_fully_vaccinated/population) |>
+  select(date,Land,Geimpft) |>
+  drop_na() |>
+  ggplot(aes(x=date,y=Geimpft,color=Land)) +
+  geom_line()
+```
+
+
+
+```{r}
+compare_data |>
+  mutate(Boostered=total_boosters/population) |>
+  select(date,Land,Boostered) |>
+  drop_na() |>
+  ggplot(aes(x=date,y=Boostered,color=Land)) +
+  geom_line()
+```
+
+
+```{r}
+compare_data |>
+  mutate(Inzidenz=100000*(total_cases-total_cases_7)/
+           population) |>
+  select(date,Land,Inzidenz) |>
+  drop_na() |>
+  filter(Inzidenz >= 0) |>
+  ggplot(aes(x=date,y=Inzidenz,color=Land)) +
+  geom_line()
+```
+
+
+```{r}
+compare_data |>
+  mutate(Positivrate=(total_cases-total_cases_7)/
+           (total_tests-total_tests_7)) |>
+  select(date,Land,Positivrate) |>
+  drop_na() |>
+  filter(date >= as.Date("2021-07-01") |
+           Positivrate < 0.4) |>
+  filter(Positivrate >= 0) |>
+  ggplot(aes(x=date,y=Positivrate,color=Land)) +
+  geom_line()
+```
+
+
+```{r}
+compare_data |>
+  mutate(Tote=1000000*(total_deaths-total_deaths_7)/
+           population) |>
+  select(date,Land,Tote) |>
+  drop_na() |>
+  filter(Tote >= 0) |>
+  ggplot(aes(x=date,y=Tote,color=Land)) +
+  geom_line()
+```
