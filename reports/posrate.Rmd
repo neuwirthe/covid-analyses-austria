@@ -37,8 +37,8 @@ suppressPackageStartupMessages({
 
 
 ```{r}
-source(path(here(),"utils","purl_and_source.R"))
-purl_and_source(path(here(),"utils","base_utils.Rmd"))
+source(path(here(), "utils", "purl_and_source.R"))
+purl_and_source(path(here(), "utils", "base_utils.Rmd"))
 ```
 
 
@@ -48,111 +48,142 @@ theme_set(theme_date_vert())
 
 ```{r}
 purl_and_source(
-  path(here(), "utils", "get_data",
-       "get_bmsgpk_data.Rmd")
+  path(
+    here(), "utils", "get_data",
+    "get_bmsgpk_data.Rmd"
+  )
 )
 ```
 
 ```{r}
-load(path(here(), "data", "raw_data",
-          "bmi_data.RData"))
+load(path(
+  here(), "data", "raw_data",
+  "bmi_data.RData"
+))
 ```
 
 ```{r}
 bmi_data |>
   left_join(pop_austria |>
-              select(BundeslandID,pop)) |>
+    select(BundeslandID, pop)) |>
   filter(Datum >= as.Date("2022-01-01") - 7) |>
   group_by(Bundesland) |>
-  mutate(Inzidenz=100000*(cases_BMI- 
-                            lag(cases_BMI,7))/pop) |>
-  mutate(Tests_pro=100000*(Tests_PCR_BMI-
-                             lag(Tests_PCR_BMI,7))/pop) |>
-  mutate(Positivrate=Inzidenz/Tests_pro) ->
-  posrate_data
+  mutate(Inzidenz = 100000 * (cases_BMI -
+    lag(cases_BMI, 7)) / pop) |>
+  mutate(Tests_pro = 100000 * (Tests_PCR_BMI -
+    lag(Tests_PCR_BMI, 7)) / pop) |>
+  mutate(Positivrate = Inzidenz / Tests_pro) ->
+posrate_data
 ```
 
 ```{r}
 scale_factor <- 200000
 posrate_data |>
-  filter(BundeslandID==10) |>
+  filter(BundeslandID == 10) |>
   filter(Datum >= as.Date("2022-01-01")) |>
-  select(Datum,Inzidenz,Tests_pro,Positivrate) |>
-  pivot_longer(cols = Inzidenz:Positivrate,
-               names_to = "typ",
-               values_to = "value") |>
+  select(Datum, Inzidenz, Tests_pro, Positivrate) |>
+  pivot_longer(
+    cols = Inzidenz:Positivrate,
+    names_to = "typ",
+    values_to = "value"
+  ) |>
   filter(typ %in% c("Tests_pro", "Positivrate")) |>
-  mutate(value=value*ifelse(typ=="Positivrate",
-                            scale_factor,1)) |>
-  ggplot(aes(x=Datum,y=value,color=typ)) +
+  mutate(value = value * ifelse(typ == "Positivrate",
+    scale_factor, 1
+  )) |>
+  ggplot(aes(x = Datum, y = value, color = typ)) +
   geom_line() +
   scale_y_continuous("Tests pro 100.000 (7-Tage-Summe)",
-                     labels = 
-                       \(x)prettyNum(x,big.mark = ".",
-                                     decimal.mark = ","),
-                     sec.axis = 
-                       sec_axis("Positivrate",
-                                trans=\(x)x/scale_factor,
-                    label=\(x)percent(x,accuracy=1))) +
-  theme(axis.text.y.right = element_text(color="red"),
-        axis.title.y.right=element_text(color="red"))  +
-  guides(color="none") 
+    labels =
+      \(x)prettyNum(x,
+        big.mark = ".",
+        decimal.mark = ","
+      ),
+    sec.axis =
+      sec_axis("Positivrate",
+        trans = \(x)x / scale_factor,
+        label = \(x)percent(x, accuracy = 1)
+      )
+  ) +
+  theme(
+    axis.text.y.right = element_text(color = "red"),
+    axis.title.y.right = element_text(color = "red")
+  ) +
+  guides(color = "none")
 ```
 
 
 ```{r}
 scale_factor <- 1000000
 posrate_data |>
-  filter(BundeslandID==9) |>
+  filter(BundeslandID == 9) |>
   filter(Datum >= as.Date("2022-01-01")) |>
-  select(Datum,Inzidenz,Tests_pro,Positivrate) |>
-  pivot_longer(cols = Inzidenz:Positivrate,
-               names_to = "typ",
-               values_to = "value") |>
+  select(Datum, Inzidenz, Tests_pro, Positivrate) |>
+  pivot_longer(
+    cols = Inzidenz:Positivrate,
+    names_to = "typ",
+    values_to = "value"
+  ) |>
   filter(typ %in% c("Tests_pro", "Positivrate")) |>
-  mutate(value=value*ifelse(typ=="Positivrate",
-                            scale_factor,1)) |>
-  ggplot(aes(x=Datum,y=value,color=typ)) +
+  mutate(value = value * ifelse(typ == "Positivrate",
+    scale_factor, 1
+  )) |>
+  ggplot(aes(x = Datum, y = value, color = typ)) +
   geom_line() +
   scale_y_continuous("Tests pro 100.000 (7-Tage-Summe)",
-                     labels = 
-                       \(x)prettyNum(x,big.mark = ".",
-                                     decimal.mark = ","),
-                     sec.axis = 
-                       sec_axis("Positivrate",
-                                trans=\(x)x/scale_factor,
-                    label=\(x)percent(x,accuracy=1))) +
-  theme(axis.text.y.right = element_text(color="red"),
-        axis.title.y.right=element_text(color="red"))  +
-  guides(color="none") +
-  labs(title="Wien")
+    labels =
+      \(x)prettyNum(x,
+        big.mark = ".",
+        decimal.mark = ","
+      ),
+    sec.axis =
+      sec_axis("Positivrate",
+        trans = \(x)x / scale_factor,
+        label = \(x)percent(x, accuracy = 1)
+      )
+  ) +
+  theme(
+    axis.text.y.right = element_text(color = "red"),
+    axis.title.y.right = element_text(color = "red")
+  ) +
+  guides(color = "none") +
+  labs(title = "Wien")
 ```
 
 
 ```{r}
 scale_factor <- 10000
 posrate_data |>
-  filter(BundeslandID==2) |>
+  filter(BundeslandID == 2) |>
   filter(Datum >= as.Date("2022-01-01")) |>
-  select(Datum,Inzidenz,Tests_pro,Positivrate) |>
-  pivot_longer(cols = Inzidenz:Positivrate,
-               names_to = "typ",
-               values_to = "value") |>
+  select(Datum, Inzidenz, Tests_pro, Positivrate) |>
+  pivot_longer(
+    cols = Inzidenz:Positivrate,
+    names_to = "typ",
+    values_to = "value"
+  ) |>
   filter(typ %in% c("Tests_pro", "Positivrate")) |>
-  mutate(value=value*ifelse(typ=="Positivrate",
-                            scale_factor,1)) |>
-  ggplot(aes(x=Datum,y=value,color=typ)) +
+  mutate(value = value * ifelse(typ == "Positivrate",
+    scale_factor, 1
+  )) |>
+  ggplot(aes(x = Datum, y = value, color = typ)) +
   geom_line() +
   scale_y_continuous("Tests pro 100.000 (7-Tage-Summe)",
-                     labels = 
-                       \(x)prettyNum(x,big.mark = ".",
-                                     decimal.mark = ","),
-                     sec.axis = 
-                       sec_axis("Positivrate",
-                                trans=\(x)x/scale_factor,
-                    label=\(x)percent(x,accuracy=1))) +
-  theme(axis.text.y.right = element_text(color="red"),
-        axis.title.y.right=element_text(color="red"))  +
-  guides(color="none") +
-  labs(title="Kärnten")
+    labels =
+      \(x)prettyNum(x,
+        big.mark = ".",
+        decimal.mark = ","
+      ),
+    sec.axis =
+      sec_axis("Positivrate",
+        trans = \(x)x / scale_factor,
+        label = \(x)percent(x, accuracy = 1)
+      )
+  ) +
+  theme(
+    axis.text.y.right = element_text(color = "red"),
+    axis.title.y.right = element_text(color = "red")
+  ) +
+  guides(color = "none") +
+  labs(title = "Kärnten")
 ```
