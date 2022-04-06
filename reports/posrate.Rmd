@@ -187,3 +187,39 @@ posrate_data |>
   guides(color = "none") +
   labs(title = "Kärnten")
 ```
+
+
+```{r}
+purl_and_source(
+  path(here(), "utils", "get_data",
+       "get_bmsgpk_data.Rmd")
+)
+```
+
+
+```{r}
+purl_and_source(
+  path(here(), "utils", "get_data",
+       "get_vac_data.Rmd")
+)
+```
+
+```{r}
+load(path(here(), "data", "raw_data",
+          "bmi_data.RData"))
+load(path(here(), "data", "raw_data",
+          "impfdosen_age_gender_data.RData"))
+
+```
+
+
+
+```{r}
+impfdosen_age_gender_data |>
+  filter(BundeslandID!=0) |>
+  group_by(Datum,BundeslandID,Bundesland,Dosis_nr) |>
+  summarise(Dosen=sum(Dosen)) |>
+  ungroup() ->
+  impf_dosen_bl
+```
+
