@@ -82,6 +82,62 @@ save(owid_data,
      file=path(save_path,"owid_data.RData"))
 ```
 
+```{r}
+openxlsx::write.xlsx(owid_data,
+                     path(here(), "data", "xlsx_to_work",
+                          "owid_data.xlsx"))
+```
+
+```{r}
+owid_data |>
+  names() #|>
+#  keep(\(x)str_detect(x,"total"))
+```  
+```{r}
+owid_data |> 
+  select(date,Land,total_cases,population,
+         total_deaths_per_million,
+         total_tests_per_thousand,
+         people_fully_vaccinated_per_hundred,
+         total_boosters_per_hundred) |>
+  filter(total_cases > 10) |>
+  group_by(Land)  |>
+  summarise_all(\(x)max(x,na.rm = TRUE)) |>
+  ungroup() |>
+  mutate(Anteil=total_cases/population) |>
+  mutate_at(vars(-Land),(\(x)ifelse(is.finite(x),x,NA))) |>
+  filter(!is.na(total_cases)) |>
+  filter(!is.na(population)) |>
+  rename(Datum=date,
+         Fälle=total_cases,
+         Einwohner=population,
+         Tote_per_Mio=total_deaths_per_million,
+         Tests_pro_Tsd=total_tests_per_thousand,
+         Geimpft_2x=people_fully_vaccinated_per_hundred,
+         Geimpft_3x=total_boosters_per_hundred,
+         Anteil_Positiv=Anteil) |>
+  mutate_at(vars(Geimpft_2x,Geimpft_3x),\(x)x/100) |>
+  mutate_at(vars(Tote_per_Mio,Tests_pro_Tsd),round) |>
+  arrange(desc(Anteil_Positiv)) |>
+  select(-Datum) ->
+  wb_data
+#  clipr::write_clip()
+ class(wb_data$Geimpft_2x) <- "percentage"
+ class(wb_data$Geimpft_3x) <- "percentage"
+ class(wb_data$Anteil_Positiv) <- "percentage"
+wb <- createWorkbook()
+sheet <- "COVID_Kennzahlen"
+addWorksheet(wb = wb, sheet = sheet)
+addStyle(wb = wb, sheet = sheet, 
+         style = createStyle(numFmt = "NUMBER"), 
+         rows = 2:1000, cols = 2)
+
+  openxlsx::write.xlsx(wb_data,
+                      file=
+                        path(here(),"COVID_current_state.xlsx"))
+ 
+```
+
 
 ```{r}
 if(exists("remove_data")){
