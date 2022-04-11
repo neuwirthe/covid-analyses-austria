@@ -135,7 +135,6 @@ addStyle(wb = wb, sheet = sheet,
   openxlsx::write.xlsx(wb_data,
                       file=
                         path(here(),"COVID_current_state.xlsx"))
- 
 ```
 
 
