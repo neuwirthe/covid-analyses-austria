@@ -1,35 +1,26 @@
----
-title: "Datum utilities"
-output: html_document
-date: '2022-04-11'
----
-
-```{r setup, include=FALSE}
+## ----setup, include=FALSE-----------------------------
 knitr::opts_chunk$set(echo = FALSE)
-```
 
 
-```{r u7}
+## ----u7-----------------------------------------------
 ger_date_1_Jan <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
   as.POSIXct(in_date) %>%
     strftime(format = "%d. %b.", locale = locale("de_AT")) %>%
     ifelse(str_sub(.,1,1)=="0",str_sub(.,2),.)
 }
-```
 
-```{r u8}
+
+## ----u8-----------------------------------------------
 ger_date_long <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
   as.POSIXct(in_date) %>%
     strftime(format = "%d. %B", locale = locale("de_AT")) %>%
     ifelse(str_sub(., 1, 1) == "0", str_sub(., 2), .)
 }
-```
 
 
-
-```{r u9}
+## ----u9-----------------------------------------------
 ger_date_full <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
   as.POSIXct(in_date) %>%
@@ -37,32 +28,28 @@ ger_date_full <- function(in_date) {
     ifelse(str_sub(., 1, 1) == "0", str_sub(., 2), .) %>%
     str_replace(.,"Februar","Feber")
 }
-```
 
-```{r u10}
+
+## ----u10----------------------------------------------
 ger_date_with_year <- function(x){
   paste(ger_date(x),
         paste0("'",str_sub(as.character(year(x)),3,4)))
 }
-```
 
 
-
-```{r u10a}
+## ----u10a---------------------------------------------
 ger_date_num <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
   as.POSIXct(in_date) %>%
     strftime(format = "%d. %m.", locale = locale("de_AT"))
 }
-```
 
-```{r u10b}
+
+## ----u10b---------------------------------------------
 ger_date_month <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
   as.POSIXct(in_date) %>%
     strftime(format = "%b. %y", locale = locale("de_AT"))
 }
-
-```
 
 

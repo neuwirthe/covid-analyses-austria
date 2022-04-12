@@ -1,0 +1,142 @@
+---
+title: "Wöchentlich"
+output: html_document
+date: '2022-04-11'
+---
+
+
+
+
+  
+```{r local_setup_inc, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE,
+  warning = FALSE, comment = NULL
+)
+options(scipen = 999)
+options(OutDec = ",")
+options(decimal.mark = ",")
+```
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(magrittr)
+  library(fs)
+  library(here)
+  library(ggiraph)
+  library(scales)
+  library(gt)
+  library(ggmosaic)
+  library(htmlwidgets)
+  library(cowplot)
+  library(clipr)
+  library(openxlsx)
+  library(ggiraph)
+})
+```
+
+
+```{r}
+source(path(here(), "utils", "purl_and_source.R"))
+purl_and_source(path(here(), "utils", "base_utils.Rmd"))
+purl_and_source(path(here(), "utils", "date_utils.Rmd"))
+```
+
+
+```{r}
+theme_set(theme_date_vert())
+```
+
+```{r}
+purl_and_source(
+  path(
+    here(), "utils", "get_data",
+    "get_bmsgpk_data.Rmd"
+  )
+)
+```
+
+```{r}
+load(path(here(),"data","raw_data",
+          "bmi_data.RData"))
+```
+
+```{r}
+bmi_data |>
+  names()
+```
+
+```{r}
+bmi_data |>
+  mutate(Datum=as.Date(Datum)) |>
+  filter(Datum >= (Sys.Date() - 6*7)) |>
+  group_by(Bundesland,BundeslandID) |>
+  mutate(cases_weekly=cases_BMI-lag(cases_BMI,7),
+         tests_weekly=Tests_PCR_BMI-
+           lag(Tests_PCR_BMI,7)) |>
+  mutate(cases_rate=cases_weekly/lag(cases_weekly,7)) |>
+  mutate(tests_rate=tests_weekly/lag(tests_weekly,7)) |>
+  ungroup() ->
+  rates
+```
+
+```{r}
+signed_percent <- function(x,accuracy=1){
+  res <- percent(x,accuracy=accuracy,decimal.mark = ",") 
+  if (x > 0) res <- paste0("+",res)
+  if (x == 0) res <- paste0("±",res)
+  res
+}
+```
+
+
+```{r}
+rates |>
+  filter(BundeslandID==10) |>
+  drop_na() |>
+  select(Datum,ends_with("rate")) |>
+  rename(Fälle=cases_rate,
+         Tests=tests_rate) |>
+  pivot_longer(cols = Fälle:Tests,
+               names_to = "Veränderung",
+               values_to = "values") |>
+  mutate(values=values-1) |>
+  ggplot(aes(x=Datum,y=values,color=Veränderung)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype="dotted") +
+  scale_y_continuous("Veränderung",
+                     labels = signed_percent) +
+  scale_color_discrete("") +
+  scale_x_date(labels = ger_date_1_Jan) +
+  labs(title="Fallzahlen und Tests pro Woche (Vergleich zur Vorwoche)") +
+  theme(axis.text.x = element_blank(),
+        legend.position = "top") ->
+  chart_1
+```
+```{r}
+rates |>
+  mutate(pos_rate=cases_weekly/tests_weekly) |>
+  filter(BundeslandID==10) |>
+  drop_na() |>
+  ggplot(aes(x=Datum,y=pos_rate)) +
+  geom_line() +
+  scale_y_continuous("Positivitätsrate",
+                     labels = \(x)percent(x,accuracy=1),
+                     breaks=seq(0,0.2,by=0.02), 
+                     limits=c(0,NA)) +
+  scale_x_date(labels = ger_date_1_Jan)->
+  chart_2
+  
+```
+
+
+```{r}
+library(cowplot)
+```
+
+```{r}
+plot_grid(chart_1,chart_2,nrow=2)
+```
+
