@@ -63,6 +63,22 @@ load(path(here(),"data","raw_data",
           "bmi_data.RData"))
 ```
 
+
+```{r}
+purl_and_source(
+  path(
+    here(), "utils", "get_data",
+    "get_ages_data.Rmd"
+  )
+)
+```
+
+
+```{r}
+load(path(here(),"data","raw_data",
+          "ages_data.RData"))
+```
+
 ```{r}
 bmi_data |>
   names()
@@ -140,3 +156,96 @@ library(cowplot)
 plot_grid(chart_1,chart_2,nrow=2)
 ```
 
+### Heldenplatz Konzert
+
+
+
+```{r}
+ages_data |>
+  names()
+```
+
+
+```{r}
+heldenplatz_konzert_datum <- as.Date("2022-03-25")
+happelstadion_konzert_datum <- as.Date("2022-03-19")
+```
+
+
+```{r}
+ages_data |> 
+  filter(Datum >= (happelstadion_konzert_datum-3*7)) |>
+  select(Datum,BundeslandID,Bundesland,
+         cases_7_AGES
+         ) |>
+  left_join(pop_austria |>
+              select(BundeslandID,Bundesland,pop)) |>
+  mutate(Inzidenz=100000*cases_7_AGES/pop) ->
+  konzert_data
+```
+
+
+```{r}
+konzert_data |>
+  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz)) +
+  geom_line() +
+  geom_vline(xintercept = heldenplatz_konzert_datum,
+             linetype = "dashed") +
+  geom_vline(xintercept = happelstadion_konzert_datum,
+             linetype = "dashed")
+```
+
+
+```{r}
+bl_pal <-
+  gg_color_hue(10)
+names(bl_pal) <- 
+  pop_austria |>
+  slice(-1) |>
+  pull(Bundesland) 
+bl_pal["Österreich"] <- "black" 
+bl_pal["Wien"] <- "red"
+```
+
+
+```{r}
+konzert_data |>
+  filter(Datum==max(Datum)) |>
+  select(Bundesland,Inzidenz) |>
+  arrange(desc(Inzidenz)) |>
+  pull(Bundesland) ->
+  bl_order
+```
+```{r}
+bl_pal <-
+  bl_pal[bl_order]
+```
+
+```{r}
+linesize_pal <- c(wide=1.5,narrow=0.5)
+konzert_data |>
+  mutate(Bundesland=factor(Bundesland,
+                           levels=bl_order)) |>
+  mutate(linesize=ifelse(BundeslandID %in% 9:10,
+                          "wide", "narrow")) |>
+#  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz,color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+  geom_vline(xintercept = heldenplatz_konzert_datum,
+             linetype = "dashed") +
+  geom_vline(xintercept = happelstadion_konzert_datum,
+             linetype = "dashed")  +
+  geom_text(x=heldenplatz_konzert_datum-0.75,y=1700,
+            label="Heldenplatz-Konzert",
+            size=3.5,angle=90,
+            inherit.aes = FALSE) +
+  geom_text(x=happelstadion_konzert_datum-0.75,y=1700,
+            label="Happelstadion-Konzert",
+            size=3.5,angle=90,
+            inherit.aes = FALSE) +  
+  scale_size_manual(values=linesize_pal) +
+  scale_color_manual(values=bl_pal) +
+  guides(size="none")
+```
