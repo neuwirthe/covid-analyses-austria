@@ -21,6 +21,7 @@ suppressPackageStartupMessages({
   library(here)
   library(fs)
   library(readxl)
+  library(openxlsx)
 })  
 source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
@@ -135,6 +136,11 @@ addStyle(wb = wb, sheet = sheet,
   openxlsx::write.xlsx(wb_data,
                       file=
                         path(here(),"COVID_current_state.xlsx"))
+```
+
+```{r}
+#wb_data |>
+#  filter(Land %in% c("Österreich", "Schweden"))
 ```
 
 
