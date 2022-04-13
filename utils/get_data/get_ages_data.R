@@ -1,78 +1,64 @@
----
-title: "get ages data"
-author: "Erich Neuwirth"
-date: '2022-02-28'
-output: html_document
----
-
-
-```{r setup, echo=FALSE}
+## ----setup, echo=FALSE--------------------------------
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
   message = FALSE
 ) 
-```
 
 
-```{r}
+## -----------------------------------------------------
 remove_dir <- TRUE
 remove_data <- FALSE
-```
 
-```{r}
+
+## -----------------------------------------------------
 suppressPackageStartupMessages({
   library(here)
   library(fs)
 })  
 source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
-```
 
-```{r}
+
+## -----------------------------------------------------
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
-```
 
-```{r}
+
+## -----------------------------------------------------
 save_path <- path(here(),"data","raw_data")
-```
 
-```{r}
+
+## -----------------------------------------------------
 temp_path <-
   path(here(),"data","temp_data")
-```
 
-```{r}
+
+## -----------------------------------------------------
 if(!dir_exists(temp_path)) dir_create(temp_path)
-```
 
 
-```{r}
+## -----------------------------------------------------
 curl::curl_download(
   "https://covid19-dashboard.ages.at/data/data.zip",
   destfile=path(temp_path,
                  "data.zip"))
 
-```
 
 
-```{r}
+## -----------------------------------------------------
 unzip(path(temp_path,"data.zip"),
       overwrite=TRUE,
       exdir=temp_path)
-```
 
-```{r}
+
+## -----------------------------------------------------
 char_to_date <- function(s){
   strptime(s,format="%d.%m.%Y") |>
     as.Date()
 }
-```
 
 
-Not needed !
-
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,"CovidFaelleDelta.csv")) |>
   mutate(Datum=char_to_date(Datum) + 1) |>
   rename(cases_AGES_daily=DeltaAnzahlVortag) |>
@@ -82,16 +68,14 @@ read_carefully(path(temp_path,"CovidFaelleDelta.csv")) |>
   rename(Tests_alle_AGES_daily=DeltaTestGesamtVortag) |>
   mutate_if(is.numeric,as.integer) ->
   ages_daily_data
-```
 
 
-```{r}
+## -----------------------------------------------------
 #save(ages_daily_data,
 #     file=path(save_path,"ages_daily_data.RData"))
-```
 
 
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "CovidFaelle_Altersgruppe.csv")) |>
   mutate(Datum=char_to_date(Time) + 1, .before=1) |>
@@ -109,16 +93,14 @@ read_carefully(path(temp_path,
          pop,everything()) |>
   mutate_if(is.numeric,as.integer) ->
   ages_age_data 
-```
 
 
-```{r}
+## -----------------------------------------------------
 save(ages_age_data,
      file=path(save_path,"ages_age_data.RData"))
-```
 
 
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "CovidFaelle_GKZ.csv")) |>
   rename(pop=AnzEinwohner) |>
@@ -129,16 +111,14 @@ read_carefully(path(temp_path,
   mutate(Datum=Sys.Date(),.before=1) |>
   mutate_if(is.numeric,as.integer) ->
   ages_bez_today_data 
-```
 
 
-```{r}
+## -----------------------------------------------------
 save(ages_bez_today_data,
      file=path(save_path,"ages_bez_today_data.RData"))
-```
 
 
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "CovidFaelle_Timeline_GKZ.csv")) |>
   mutate(Datum=char_to_date(Time)+1,.before=1) |>
@@ -156,16 +136,14 @@ read_carefully(path(temp_path,
   mutate_if(is.numeric,as.integer) ->
   ages_bez_data
 
-```
 
 
-```{r}
+## -----------------------------------------------------
 save(ages_bez_data,
      file=path(save_path,"ages_bez_data.RData"))
-```
 
 
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "CovidFaelle_Timeline.csv")) |>
   mutate(Datum=char_to_date(Time)+1,.before=1) |>
@@ -181,16 +159,14 @@ read_carefully(path(temp_path,
   rename(Genesen_AGES=AnzahlGeheiltSum) |>
   mutate_if(is.numeric,as.integer) ->
   ages_data
-```
 
 
-```{r}
+## -----------------------------------------------------
 save(ages_bez_data,
      file=path(save_path,"ages_data.RData"))
-```
 
 
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "CovidFallzahlen.csv")) |>
   mutate(Datum=char_to_date(MeldeDatum),.before=1) |>
@@ -204,16 +180,14 @@ read_carefully(path(temp_path,
   rename(Intensiv_frei=FZICUFree) |>
   mutate_if(is.numeric,as.integer) ->
   ages_hospital_tests_data 
-```
 
-```{r}
+
+## -----------------------------------------------------
 save(ages_hospital_tests_data,
      file=path(save_path,"ages_hospital_tests_data.RData"))
-```
 
 
-
-```{r}
+## -----------------------------------------------------
 read_carefully(path(temp_path,
                     "Hospitalisierung.csv")) |>
   mutate(Datum=char_to_date(Meldedatum),.before=1) |>
@@ -226,19 +200,18 @@ read_carefully(path(temp_path,
   rename(Tests_alle=TestGesamt) |>
   mutate_if(is.numeric,as.integer) ->
   ages_hospital_capacity_data
-```
 
 
-```{r}
+## -----------------------------------------------------
 save(ages_hospital_capacity_data,
      file=path(save_path,"ages_hospital_capacity_data.RData"))
-```
 
-```{r}
+
+## -----------------------------------------------------
 if(remove_dir) unlink(temp_path,recursive=TRUE)
-```
 
-```{r}
+
+## -----------------------------------------------------
 if(exists("remove_data")){
 if (remove_data){
   ls() |>
@@ -249,6 +222,4 @@ if (remove_data){
   remove(remove_data)
   remove(remove_dir)
 }}
-```
-
 
