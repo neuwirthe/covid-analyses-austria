@@ -1,0 +1,605 @@
+---
+title: "Wellenverlauf um die Spitzenwerte"
+author: "Erich Neuwirth"
+output: html_document
+date: '2022-04-14'
+---
+
+
+
+
+  
+```{r local_setup_inc, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE,
+  warning = FALSE, comment = NULL
+)
+options(scipen = 999)
+options(OutDec = ",")
+options(decimal.mark = ",")
+```
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(magrittr)
+  library(fs)
+  library(here)
+  library(ggiraph)
+  library(scales)
+  library(cowplot)
+  library(clipr)
+  library(openxlsx)
+  library(ggiraph)
+  library(gt)
+  library(patchwork)
+  library(cowplot)
+})
+```
+
+
+```{r, echo=FALSE}
+source(path(here(), "utils", "purl_and_source.R"))
+purl_and_source(path(here(), "utils", "base_utils.Rmd"))
+purl_and_source(path(here(), "utils", "date_utils.Rmd"))
+```
+
+
+```{r, echo=FALSE}
+purl_and_source(path(here(), "utils", "chart_utils.Rmd"))
+```
+
+
+```{r}
+theme_set(theme_date_vert())
+```
+
+```{r}
+purl_and_source(
+  path(
+    here(), "utils", "get_data",
+    "get_ages_data.Rmd"
+  )
+)
+```
+
+```{r}
+load(path(
+  here(), "data", "raw_data",
+  "ages_data.RData"
+))
+```
+
+
+
+```{r}
+purl_and_source(
+  path(
+    here(), "utils", "get_data",
+    "get_bmsgpk_data.Rmd"
+  )
+)
+```
+
+```{r}
+load(path(
+  here(), "data", "raw_data",
+  "bmi_data.RData"
+))
+```
+```{r}
+konzert_dates <-
+  tribble(
+    ~Konzert, ~Datum,
+    "Heldenplatz", as.Date("2022-03-25"),
+    "Ernst-Happel-Stadion", as.Date("2022-03-19")
+  )
+```
+
+
+
+```{r}
+ages_data |>
+  select(
+    Datum, BundeslandID, Bundesland,
+    cases_7_AGES
+  ) |>
+  left_join(pop_austria |>
+    select(BundeslandID, Bundesland, pop)) |>
+  mutate(Inzidenz = 100000 * cases_7_AGES / pop) ->
+all_data
+```
+
+
+
+```{r}
+bmi_data |>
+  mutate(Datum = as.Date(Datum)) |>
+  left_join(pop_austria |>
+    select(BundeslandID, Bundesland, pop)) |>
+  select(Datum, BundeslandID, Bundesland, Tot_BMI, pop) |>
+  group_by(BundeslandID, Bundesland) |>
+  mutate(Tote = 100000 * (Tot_BMI - lag(Tot_BMI, 7)) / pop) |>
+  ungroup() |>
+  select(Datum, BundeslandID, Bundesland, Tote) |>
+  filter(Datum >= as.Date("2020-02-27")) ->
+death_data
+```
+
+
+
+## Einleitung
+
+Die Pandemie ist in Österreich in mehreren Wellen verlaufen. Wir sehen uns an, wie sich die Zahlen in den einzelnen Bundesländern vor und nach den bundsweiten Spitzenwerten entwickelt haben.
+
+Der Verlauf der Inzidenzen für ganz Österreich seit Beginn der Pandemie:
+
+
+```{r}
+all_data |>
+  filter(BundeslandID == 10) |>
+  #  filter(Datum >= start_date & Datum <= end_date) |>
+  ggplot(aes(x = Datum, y = Inzidenz)) +
+  geom_line() +
+  scale_x_date(
+    labels = ger_date_1_Jan_20,
+    date_breaks = "3 months",
+    date_minor_breaks = "1 month"
+  ) +
+  theme(aspect.ratio = 1/3) -> chart
+chart
+#make_chart_html(chart,height_factor=1,width_factor=1)
+```
+
+
+```{r}
+peak_dates <-
+  tibble(
+    Datum =
+      as.Date(
+        c(
+          "2020-03-29",
+          "2020-11-13",
+          "2021-03-29",
+          "2021-11-23",
+          "2022-02-02",
+          "2022-03-18"
+        )
+      ),
+    Variante = c(
+      "Wildtyp", "Wildtyp",
+      "Alpha", "Delta",
+      "Omikron", "Omikron"
+    )
+  ) |>
+  mutate(
+    Welle = seq_along(Datum),
+    .before = 1
+  )
+```
+
+
+Wir sehen deutlich 6 Spitzen:
+
+
+```{r}
+all_data |>
+  filter(BundeslandID == 10) |>
+  #  filter(Datum >= peak_dates$date[6]-14) |>
+  #  filter(Datum <= peak_dates$date[6]+14) |>
+  #  filter(Datum >= start_date & Datum <= end_date) |>
+  ggplot(aes(x = Datum, y = Inzidenz)) +
+  geom_line() +
+  scale_x_date(
+    labels = ger_date_1_Jan_20,
+    date_breaks = "3 months",
+    date_minor_breaks = "1 month"
+  ) +
+  geom_vline(aes(xintercept = Datum),
+    linetype = "dashed",
+    data = peak_dates
+  ) +  theme(aspect.ratio = 1/3) ->
+  spitzen_chart
+  spitzen_chart
+```
+
+
+
+
+Die genauen Daten dieser Spitzen sind
+
+```{r}
+peak_dates |>
+  mutate(Datum = ger_date_1_Jan_20(Datum)) |>
+  gt() |>
+  cols_align(align = "right")
+```
+
+Die Spitzen sind deutlich verschieden hoch. Auf einer logarithmischen Skala können wir die prozentuellen Zu- und Abnahmen der Werte besser erkennen.
+
+
+```{r}
+all_data |>
+  filter(BundeslandID == 10) |>
+  #  filter(Datum >= peak_dates$date[6]-14) |>
+  #  filter(Datum <= peak_dates$date[6]+14) |>
+  #  filter(Datum >= start_date & Datum <= end_date) |>
+  ggplot(aes(x = Datum, y = Inzidenz)) +
+  geom_line() +
+  scale_x_date(
+    labels = ger_date_1_Jan_20,
+    date_breaks = "3 months",
+    date_minor_breaks = "1 month"
+  ) +
+  scale_y_log10() +
+  geom_vline(aes(xintercept = Datum),
+    linetype = "dashed",
+    data = peak_dates
+  ) +
+   theme(aspect.ratio = 1/3) 
+```
+
+Wir sehen eine exponentielle Wachstumsphase von Anfang Juli 2020 bis Mitte November 2020. Dieses Wachstum wird allerings mehrmals von Beruhigungsphasen unterbrochen.
+
+Sehr deutliche exponentielle Abnahmephasen gibt es von Anfang Mai 2021 bis Anfang Juli 2021 und im Jänner 2022.
+
+## Inzidenzen und COVID-Todesfälle in den Bundesländern
+
+Im folgenden untersuchen wir den Verlauf der Inzidenzen in den Bundesländern in der Zeit von 3 Wochen vor bis 5 Wochen nach den Spitzen. Die längere Nachlaufzeit nach der Spitze ist notwendig, weil die Todesfallzahlen den Inzidenzen erst mit Verzögerung folgen.
+
+
+
+Wenn wir die Inzidenzen und die Zahlen der Todesfälle gemeinsam betrachten, dann ergibt sich folgendes Bild:
+
+
+
+```{r}
+death_data |>
+  filter(BundeslandID == 10) |>
+  filter(Tote >= 0) |>
+  #  filter(Datum >= peak_dates$date[6]-14) |>
+  #  filter(Datum <= peak_dates$date[6]+14) |>
+  #  filter(Datum >= start_date & Datum <= end_date) |>
+  ggplot(aes(x = Datum, y = Tote)) +
+  geom_line() +
+  scale_x_date(
+    labels = ger_date_1_Jan_20,
+    date_breaks = "3 months",
+    date_minor_breaks = "1 month"
+  ) +
+  geom_vline(aes(xintercept = Datum),
+    linetype = "dashed",
+    data = peak_dates
+  ) + 
+  labs(y="COVID-Tote pro 100.000") +
+    theme(
+    axis.text.y =
+      element_text(margin = margin(0, 0, 0, 10, "pt"))) +
+   theme(aspect.ratio = 1/3) ->
+  tote_chart
+```
+
+```{r}
+pcol <- plot_grid(spitzen_chart +
+  theme(legend.position = "none"),
+  tote_chart +
+  theme(legend.position = "none"),
+ncol = 1, axis = "lr"
+)
+pcol
+```
+
+
+
+
+### 1. Welle Frühjahr 2020, Wildtyp
+
+
+```{r}
+bl_pal <-
+  gg_color_hue(10)
+names(bl_pal) <-
+  pop_austria |>
+  slice(-1) |>
+  pull(Bundesland)
+bl_pal["Österreich"] <- "black"
+bl_pal["Wien"] <- "red"
+linesize_pal <- c(wide = 1.5, narrow = 0.5)
+```
+
+
+```{r}
+bl_chart_peak <- function(from_date, to_date,
+                          data = all_data,
+                          var = Inzidenz) {
+  {{ data }} |>
+    filter(Datum == to_date-3*7) |>
+    select(Bundesland, {{ var }}) |>
+    arrange(desc({{ var }})) |>
+    pull(Bundesland) ->
+  bl_order
+  bl_pal_current <-
+    bl_pal[bl_order]
+  {{ data }} |>
+    filter(Datum >= from_date & Datum <= to_date) |>
+    mutate(Bundesland = factor(Bundesland,
+      levels = bl_order
+    )) |>
+    mutate(linesize = ifelse(BundeslandID %in% 9:10,
+      "wide", "narrow"
+    )) |>
+    ggplot(aes(
+      x = Datum, y = {{ var }}, 
+      color = Bundesland,
+      data_id=Bundesland,
+      tooltip=Bundesland,
+      size = linesize
+    )) +
+    geom_line_interactive() +
+    scale_size_manual(values = linesize_pal) +
+    scale_color_manual(values = bl_pal_current) +
+    scale_x_date(
+      labels = ger_date_1_Jan_20,
+      date_breaks = "1 week",
+      date_minor_breaks = "1 week"
+    ) +
+    guides(size = "none")
+} 
+```
+
+
+```{r}
+inz_tote_chart <- function(date, 
+                           weeks_before=3,
+                           weeks_after=5) {
+  from_date <- date-weeks_before*7
+  to_date <- date+weeks_after*7
+  
+  peak_dates |>
+    filter(Datum >= from_date &
+             Datum <= to_date) ->
+    peak_dates_current
+
+bl_chart_peak(
+  from_date, to_date,
+  all_data, Inzidenz
+) + theme(axis.text.x=element_blank()) +
+  geom_vline(aes(xintercept=Datum),
+             data=peak_dates_current,
+             linetype="dashed") -> chart_inzid
+  bl_chart_peak(
+  from_date, to_date,
+  death_data, Tote
+)  +
+  geom_vline(aes(xintercept=Datum),
+             data=peak_dates_current,
+             linetype="dashed") +
+    labs(y="COVID-Tote pro 100.000") +
+  theme(
+    axis.text.y =
+      element_text(margin = margin(0, 0, 0, 15, "pt")))-> 
+    chart_tote
+pcol <- plot_grid(chart_inzid +
+  theme(legend.position = "none"),
+chart_tote +
+  theme(legend.position = "none"),
+ncol = 1, axis = "lr"
+)
+legend <- get_legend(
+  # create some space to the left of the legend
+  chart_inzid + theme(
+    legend.box.margin =
+      margin(0, 0, 0, 20)
+  )
+)
+pcol <- plot_grid(chart_inzid +
+  theme(legend.position = "none"),
+chart_tote +
+  theme(legend.position = "none"),
+ncol = 1, axis = "lr",
+rel_heights = c(0.6,1)
+)
+
+plot_grid(pcol, legend, rel_widths = c(3, 1)) |>
+  make_chart_html(height_factor = 1)
+}
+```
+
+
+
+```{r}
+inz_tote_chart(peak_dates$Datum[1],3,5)
+```
+
+
+In der ersten Welle waren zum Zeitpunkt die Inzidenzen in den westlichen Bundesländern Tirol, Salzburg und Voraslberg (also mit Bundesländer mit Skigebieten) besonders hoch, 3 Wochen nach dem Spitzenwert waren die Unterschiede zwischen den Bundesländern aber nur mehr gering.
+
+Die Werte nahmen in Tirol gegen Ende der Welle sehr stark ab, in den anderen Bundesländern war der Verlauf der Abnahme ziemlich gleich. Wien hatte gegen Ende des untersuchten Zeitraums eine geringere Abnahme als die anderen Bundesländern  zu verzeichnen.
+
+Die COVID-Todesfälle ereichen den Spitzenwert ungefähr 2 Wochen nach den Inzidenzen. Auch hier hat Tirol die allerhöchsten Werte, Wien liegt im Mittelfeld.
+
+
+
+
+
+## 2. Welle Herbst 2020, Wildtyp
+
+
+
+```{r}
+inz_tote_chart(peak_dates$Datum[2],3,5)
+```
+
+Auch in der 2. Welle waren die Inzidenzen in Westösterreich und dazu noch in Oberösterreich besonders hoch. Die Abnahme nach der Spitze war in diesen Bundesländern ausgeprägter als in den übrigen Bundesländern.
+In Niederösterreich fiel der Rückgang der Inzidenzen deutlich schwächer aus als in den anderen Bundesländern.
+Wien hatte vor dem Spitzenwert eine im Vergleich zu den anderen Bundesländeren eher hohe Inzidenz, nach dem Spitzenwert hatte Wien die niedrigste Inziden aller Bundesländer.
+
+Die Todesfälle erreichen die Spitzenwerte mit einer Verzögerung von etwas mehr als 2 Wochen. Der steile Anstieg der Wiener Zahlen dürfte auf einen Schub von Nachmeldungen zurückzuführen sein. Nachmeldungen an einem Tag
+
+
+## 3. Welle Frühjahr 2021, Alpha
+
+
+```{r}
+inz_tote_chart(peak_dates$Datum[3],3,5)
+```
+
+In dieser Welle hatte Wien von Anfang an im Bundesländervergleich sehr hohe Inzidenzwerte.
+In einigen Bundesländern ist in diesem Zeitraum kaum ein Rückgang der Inzidenzen festzustellen, in Wien, im Burgenland und in Niederösterreich ist der Rückgang aber ausgeprägt.
+
+Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenlands eine deutlich ausgeprägte Spitze. Im Burgenland gibt es zu Beginn der Welle einen ausgeprägten Anstieg, dann mehrer Wochen hindurch gleichmaßig hohe Werte, und am Ende der Welle wieder einen ausgeprägten Rückgang.         
+
+## 4. Welle Herbst 2021, Delta
+
+
+```{r}
+inz_tote_chart(peak_dates$Datum[4],3,5)
+```
+
+In dieser Welle schneidet Wien deutlich besser als die anderen Bundesländer ab.
+
+
+## 5. Welle Winter 2022
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[5] - 3 * 7,
+  peak_dates$Datum[5] + 3 * 7
+)
+```
+
+
+Der gesamtösterreichische Verlauf zeigt in dieser Welle keine so ausgeprägte Spitze wie in den Wellen davor.
+Der Grund ist, dass einige Bundesländer, insbesondere Vorarlberg, Kärnten und Oberösterreich, die Spitzenwerte erst später erreichten als die anderen Bundesländer.
+
+Die zu Beginn der Welle recht deutlichen Unterschiede zwischen den einzelnen Bundesländern waren in der Endphase deutlich geringer.
+
+In einigen Bundesländern, z.B. dem Burgenland und Oberösterreich, wird das Ende der 5. Welle bereits vom Anfang der 6. Welle überlagert.
+
+Wien liegt zu Beginn der Welle relativ hoch, gegen Ende der Welle aber recht niedrig.
+
+
+6. Welle Frühjahr 2022
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[6] - 3 * 7,
+  peak_dates$Datum[6] + 3 * 7
+)
+```
+
+In der 6. Welle gibt es wieder einen recht ausgeprägten Gipfel. Am Anfang der Welle haben Wien und das Burgenland relativ niedrige Werte, in der Endphase sind die Werte von Wien, Niederösterreich und dem Burgenland höher als die aller anderen Bundesländer.
+
+```{r}
+demo_dates <-
+  tibble(
+    Datum =
+      c(
+        "2021-04-10",
+        "2021-11-20",
+        "2021-12-04",
+        "2021-04-11",
+        "2022-01-08",
+        "2022-01-15",
+        "2022-01-29",
+        "2022-02-27",
+        "2022-03-12"
+      )
+  )
+```
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[1] - 3 * 7,
+  peak_dates$Datum[1] + 3 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[1],
+    linetype = "dashed"
+  ) +
+  labs(y = "Covid-Todesfälle pro 100.000")
+```
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[2] - 3 * 7,
+  peak_dates$Datum[2] + 5 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[2],
+    linetype = "dashed"
+  )
+```
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[3] - 3 * 7,
+  peak_dates$Datum[3] + 5 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[3],
+    linetype = "dashed"
+  )
+```
+
+
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[4] - 3 * 7,
+  peak_dates$Datum[4] + 5 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[4],
+    linetype = "dashed"
+  )
+```
+
+
+
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[5] - 3 * 7,
+  peak_dates$Datum[5] + 10 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[5],
+    linetype = "dashed"
+  ) +
+  geom_vline(
+    xintercept = peak_dates$Datum[6],
+    linetype = "dashed"
+  )
+```
+
+
+
+```{r}
+bl_chart_peak(
+  peak_dates$Datum[6] - 3 * 7,
+  peak_dates$Datum[6] + 5 * 7,
+  death_data,
+  Tote
+) +
+  geom_vline(
+    xintercept = peak_dates$Datum[6],
+    linetype = "dashed"
+  )
+```

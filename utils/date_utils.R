@@ -2,6 +2,10 @@
 knitr::opts_chunk$set(echo = FALSE)
 
 
+## -----------------------------------------------------
+require(lubridate,quietly=TRUE)
+
+
 ## ----u7-----------------------------------------------
 ger_date_1_Jan <- function(in_date) {
   Sys.setlocale("LC_TIME", "de_AT")
@@ -31,8 +35,8 @@ ger_date_full <- function(in_date) {
 
 
 ## ----u10----------------------------------------------
-ger_date_with_year <- function(x){
-  paste(ger_date(x),
+ger_date_1_Jan_20 <- function(x){
+  paste(ger_date_1_Jan(x),
         paste0("'",str_sub(as.character(year(x)),3,4)))
 }
 

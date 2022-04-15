@@ -172,16 +172,22 @@ happelstadion_konzert_datum <- as.Date("2022-03-19")
 ```
 
 
+
 ```{r}
 ages_data |> 
-  filter(Datum >= (happelstadion_konzert_datum-3*7)) |>
   select(Datum,BundeslandID,Bundesland,
          cases_7_AGES
          ) |>
   left_join(pop_austria |>
               select(BundeslandID,Bundesland,pop)) |>
   mutate(Inzidenz=100000*cases_7_AGES/pop) ->
-  konzert_data
+  all_data
+```
+
+```{r}
+all_data |>
+  filter(Datum >= (happelstadion_konzert_datum-3*7)) ->
+  konzert_data 
 ```
 
 
@@ -217,6 +223,8 @@ konzert_data |>
   pull(Bundesland) ->
   bl_order
 ```
+
+
 ```{r}
 bl_pal <-
   bl_pal[bl_order]
@@ -246,6 +254,184 @@ konzert_data |>
             size=3.5,angle=90,
             inherit.aes = FALSE) +  
   scale_size_manual(values=linesize_pal) +
+  scale_color_manual(values=bl_pal) +
+  guides(size="none")
+```
+
+
+
+
+```{r}
+all_data |>
+  filter(BundeslandID==10) |>
+#  filter(Datum >= start_date & Datum <= end_date) |>
+ ggplot(aes(x=Datum,y=Inzidenz)) +
+  geom_line()   
+```
+
+
+```{r}
+start_date <- as.Date("2022-01-15")
+end_date <- as.Date("2022-02-28")
+```
+
+```{r}
+all_data |>
+  filter(Datum==end_date) |>
+  select(Bundesland,Inzidenz) |>
+  arrange(desc(Inzidenz)) |>
+  pull(Bundesland) ->
+  bl_order
+```
+
+```{r}
+bl_pal <-
+  bl_pal[bl_order]
+```
+
+
+```{r}
+all_data |>
+  filter(Datum >= start_date & Datum <= end_date) |>
+  mutate(Bundesland=factor(Bundesland,
+                           levels=bl_order)) |>
+  mutate(linesize=ifelse(BundeslandID %in% 9:10,
+                          "wide", "narrow")) |>
+#  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz,color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+    scale_size_manual(values=linesize_pal) +
+  scale_color_manual(values=bl_pal) +
+  guides(size="none")
+```
+
+```{r}
+all_data |>
+  filter(BundeslandID==10) |>
+  filter(Datum >= start_date & Datum <= end_date) |>
+ ggplot(aes(x=Datum,y=Inzidenz)) +
+  geom_line()   
+```
+
+
+
+
+```{r}
+start_date <- as.Date("2021-11-07")
+end_date <- as.Date("2021-12-21")
+```
+
+
+```{r}
+all_data |>
+  filter(Datum==end_date) |>
+  select(Bundesland,Inzidenz) |>
+  arrange(desc(Inzidenz)) |>
+  pull(Bundesland) ->
+  bl_order
+```
+```{r}
+bl_pal <-
+  bl_pal[bl_order]
+```
+
+
+```{r}
+all_data |>
+  filter(Datum >= start_date & Datum <= end_date) |>
+  mutate(Bundesland=factor(Bundesland,
+                           levels=bl_order)) |>
+  mutate(linesize=ifelse(BundeslandID %in% 9:10,
+                          "wide", "narrow")) |>
+#  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz,color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+    scale_size_manual(values=linesize_pal) +
+  scale_color_manual(values=bl_pal) +
+  guides(size="none")
+```
+
+
+
+
+
+```{r}
+start_date <- as.Date("2021-03-15")
+end_date <- as.Date("2021-05-01")
+```
+
+
+```{r}
+all_data |>
+  filter(Datum==end_date) |>
+  select(Bundesland,Inzidenz) |>
+  arrange(desc(Inzidenz)) |>
+  pull(Bundesland) ->
+  bl_order
+```
+
+```{r}
+bl_pal <-
+  bl_pal[bl_order]
+```
+
+
+```{r}
+all_data |>
+  filter(Datum >= start_date & Datum <= end_date) |>
+  mutate(Bundesland=factor(Bundesland,
+                           levels=bl_order)) |>
+  mutate(linesize=ifelse(BundeslandID %in% 9:10,
+                          "wide", "narrow")) |>
+#  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz,color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+    scale_size_manual(values=linesize_pal) +
+  scale_color_manual(values=bl_pal) +
+  guides(size="none")
+```
+
+
+
+
+
+
+```{r}
+start_date <- as.Date("2020-11-01")
+end_date <- as.Date("2020-12-15")
+```
+
+
+```{r}
+all_data |>
+  filter(Datum==end_date) |>
+  select(Bundesland,Inzidenz) |>
+  arrange(desc(Inzidenz)) |>
+  pull(Bundesland) ->
+  bl_order
+```
+
+```{r}
+bl_pal <-
+  bl_pal[bl_order]
+```
+
+
+```{r}
+all_data |>
+  filter(Datum >= start_date & Datum <= end_date) |>
+  mutate(Bundesland=factor(Bundesland,
+                           levels=bl_order)) |>
+  mutate(linesize=ifelse(BundeslandID %in% 9:10,
+                          "wide", "narrow")) |>
+#  filter(BundeslandID==10) |>
+  ggplot(aes(x=Datum,y=Inzidenz,color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+    scale_size_manual(values=linesize_pal) +
   scale_color_manual(values=bl_pal) +
   guides(size="none")
 ```

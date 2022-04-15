@@ -1,0 +1,200 @@
+## ----setup, include=FALSE-----------------------------
+knitr::opts_chunk$set(echo = FALSE)
+
+
+## -----------------------------------------------------
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(here)
+  library(fs)
+})
+
+
+## -----------------------------------------------------
+theme_date_vert <- function() {
+  theme_minimal() +
+    theme(axis.text.x = element_text(
+      angle = 90, size = 7, hjust = 1,
+      vjust = 0.5
+    ))
+}
+
+
+## -----------------------------------------------------
+make_chart_html <- function(chart_in, 
+                            height_factor = 1,
+                            width_factor = 1) {
+  height_svg <- 3.6 * height_factor
+  width_svg <- 6 * width_factor
+  sizing_width <- 0.9
+  hover_inv_opacity <- "opacity:0.25;"
+
+  girafe(
+    ggobj = chart_in,
+    width_svg = width_svg * width_factor,
+    height_svg = height_svg * height_factor
+  ) -> ggobj
+
+  #  ggobj
+  girafe_options(
+    x = ggobj,
+    opts_zoom(min = 1, max = 3),
+    opts_sizing(width = sizing_width),
+    opts_hover(css = "stroke:dimgrey;stroke-width:2pt;"),
+    opts_hover_inv(css = hover_inv_opacity),
+    opts_tooltip(
+      css = "font-family:sans-serif;color:black;font-size:small;bacground-color:white;",
+      use_fill = FALSE,
+      offx = -10, offy = -20
+    )
+  )
+}
+
+
+## -----------------------------------------------------
+save_chart_html <- function(chart_name, filename,
+                            file_path =
+                              path(
+                                here(),
+                                "pics_html"
+                              )) {
+  if (!str_detect(filename, ".html$")) {
+    save_file_name <- paste0(filename, ".html")
+  } else {
+    save_file_name <- filename
+  }
+  saveWidget(chart_name,
+    selfcontained = TRUE,
+    file = path(
+      file_path,
+      save_file_name
+    )
+  )
+  save_help_files_dir <-
+    save_file_name %>%
+    str_replace(".html", "_files")
+  dir_delete(path(file_path, save_help_files_dir))
+}
+
+
+## -----------------------------------------------------
+save_chart_png <- function(chart_name, file_name,
+                           file_path =
+                             path(
+                               here(),
+                               "pics_png"
+                             ),
+                           height_factor = 1) {
+  if (str_detect(file_name, ".png")) {
+    file_name <- str_replace(file_name, ".png", "")
+  }
+  pdf_tmp_file <- path(
+    file_path,
+    paste0(file_name, ".pdf")
+  )
+
+  ggsave(pdf_tmp_file,
+    plot = chart_name,
+    width = unit(5, "cm"),
+    height = unit(3 * height_factor, "cm")
+  )
+  bitmap <- pdftools::pdf_render_page(pdf_tmp_file,
+    dpi = 150
+  )
+  png::writePNG(
+    bitmap,
+    path(file_path, paste0(file_name, ".png"))
+  )
+  unlink(pdf_tmp_file)
+}
+
+
+## -----------------------------------------------------
+gg_color_hue <- function(n) {
+  hues <- seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+
+## -----------------------------------------------------
+video_mp4_embed <- function(x, width = 400, controls = TRUE, autoplay = FALSE, preload = "metadata", compress = TRUE, ...) {
+  if (grepl("\\.(mp4)|(webm)|(ogg)$", x, ignore.case = TRUE)) {
+    knitr::knit_print(htmltools::browsable(as_html_video_en(x, width, controls, autoplay, preload, compress)))
+    #     ...)
+  } else {
+    warning("The video format doesn't support HTML", call. = FALSE)
+    invisible(NULL)
+  }
+}
+as_html_video_en <- function(x, width = NULL, controls = TRUE, autoplay = FALSE, preload = TRUE, compress = TRUE) {
+  if (!requireNamespace("base64enc", quietly = TRUE)) {
+    stop("The base64enc package is required for showing video")
+  }
+  if (!requireNamespace("htmltools", quietly = TRUE)) {
+    stop("The htmltools package is required for showing video")
+  }
+
+  format <- tolower(sub("^.*\\.(.+)$", "\\1", x))
+  tmpfile <- tempfile(fileext = paste0(".", format))
+  if (compress & has_system_command("handbrakeCLI")) {
+    compress_video(x, tmpfile)
+  } else {
+    tmpfile <- x
+  }
+  if (has_system_command("ffmpeg")) {
+    #    imagefile <- tempfile(".png")
+    imagefile <- filename_extension_changed(x, "png")
+    extract_startframe(x, imagefile)
+  }
+  htmltools::HTML(paste0(
+    "<video ",
+    ifelse(controls, "controls ", ""),
+    ifelse(autoplay, "autoplay ", ""),
+    ifelse(has_system_command("ffmpeg"),
+      paste0(
+        'poster="data:image/png;base64,',
+        base64enc::base64encode(imagefile),
+        '"'
+      )
+    ),
+    ifelse(nchar(preload) > 0, paste0('preload="', preload, '" '), ""),
+    if (is.null(width)) "" else paste0(' width="', width, '" '),
+    '><source src="data:video/',
+    format,
+    ";base64,",
+    #    base64enc::base64encode(x),
+    base64enc::base64encode(tmpfile),
+    #    '#t=0.1',
+    '" type="video/mp4"></video>'
+  )) -> res
+  file.remove(imagefile)
+  res
+}
+
+compress_video <- function(videofile_in, videofile_out) {
+  system(paste("handbrakeCLI -i", videofile_in, "-o", videofile_out), ignore.stderr = TRUE, ignore.stdout = TRUE)
+}
+
+butlast <- function(vec) {
+  vec[1:(length(vec) - 1)]
+}
+
+filename_extension_changed <- function(filename, new_extension) {
+  filename %>%
+    str_split("\\.") %>%
+    unlist() %>%
+    butlast() %>%
+    c(., new_extension) %>%
+    paste(collapse = ".")
+}
+
+extract_startframe <- function(videofile_in, imagefile_out) {
+  #  image_file <- filename_extension_changed(videofile_in,"png")
+  command <- paste("ffmpeg -y -ss 00:00:00.00 -i ", videofile_in, "-frames:v 1", imagefile_out)
+  system(command)
+}
+
+has_system_command <- function(command) {
+  Sys.which(command) != ""
+}
+

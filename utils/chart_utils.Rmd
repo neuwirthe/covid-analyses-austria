@@ -6,7 +6,7 @@ date: '2022-04-06'
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r}
@@ -29,14 +29,18 @@ theme_date_vert <- function() {
 ```
 
 
-```{r u5}
-make_chart_html <- function(chart_in, height_factor = 1) {
+```{r}
+make_chart_html <- function(chart_in, 
+                            height_factor = 1,
+                            width_factor = 1) {
   height_svg <- 3.6 * height_factor
-  width_svg <- 6
+  width_svg <- 6 * width_factor
   sizing_width <- 0.9
+  hover_inv_opacity <- "opacity:0.25;"
+
   girafe(
     ggobj = chart_in,
-    width_svg = width_svg,
+    width_svg = width_svg * width_factor,
     height_svg = height_svg * height_factor
   ) -> ggobj
 
