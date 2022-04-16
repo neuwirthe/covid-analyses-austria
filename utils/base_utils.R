@@ -1,4 +1,4 @@
-## ----setup, include=FALSE-----------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 )
 
 
-## -----------------------------------------------------
+## -----------------------------------------------------------------------------
 suppressPackageStartupMessages({
   library(tidyverse)
   library(fs)
@@ -16,7 +16,7 @@ suppressPackageStartupMessages({
 })
 
 
-## -----------------------------------------------------
+## -----------------------------------------------------------------------------
 pop_austria <-
   tribble(
     ~BundeslandID, ~Bundesland_short, ~Bundesland, ~pop,
@@ -34,7 +34,7 @@ pop_austria <-
   )
 
 
-## ----u26----------------------------------------------
+## ----u26----------------------------------------------------------------------
 theme_date_vert <- function(){
   theme_minimal() +
   theme(axis.text.x = element_text(angle=90,size=7,hjust=1,
@@ -42,7 +42,7 @@ theme_date_vert <- function(){
 }
 
 
-## -----------------------------------------------------
+## -----------------------------------------------------------------------------
 gg_color_hue <- function(n) {
   hues = seq(15, 375, length = n + 1)
   hcl(h = hues, l = 65, c = 100)[1:n]

@@ -1,4 +1,4 @@
-## ----setup, echo=FALSE---------------------------------
+## ----setup, echo=FALSE--------------------------------
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 ) 
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 suppressPackageStartupMessages({
   library(here)
   library(fs)
@@ -15,19 +15,19 @@ source(path(here(),"utils","purl_and_source.R"))
 purl_and_source(path(here(),"utils","base_utils.Rmd"))
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 remove_data <- TRUE
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 purl_and_source(path(here(),"utils","get_data_utils.Rmd"))
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 save_path <- path(here(),"data","raw_data")
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 suppressMessages(
 read_carefully(
   "https://info.gesundheitsministerium.gv.at/data/timeline-faelle-bundeslaender.csv")) |>
@@ -45,14 +45,14 @@ read_carefully(
   bmi_data_raw  
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 load(path(
   here(),"data","old_data",
   "ems_bmi_data_upto_feb21.RData"
 ))
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 ems_bmi_data_upto_feb21 |>
   select(Datum,BundeslandID,Bundesland,ends_with("_BMI")) |>
   select(-Datum_BMI) |>
@@ -61,12 +61,12 @@ ems_bmi_data_upto_feb21 |>
   bmi_data 
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 save(bmi_data,
      file=path(save_path,"bmi_data.RData"))
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 suppressMessages(
 read_carefully(
 "https://info.gesundheitsministerium.gv.at/data/timeline-testungen-apotheken-betriebe.csv")) |>
@@ -79,16 +79,16 @@ read_carefully(
   apotheken_betriebe_data
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 save(apotheken_betriebe_data,
      file=path(save_path,"apotheken_betriebe_data.RData"))
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 #if(remove_dir) unlink(temp_path,recursive=TRUE)
 
 
-## ------------------------------------------------------
+## -----------------------------------------------------
 if(exists("remove_data")){
 if (remove_data){
   remove(bmi_data,
