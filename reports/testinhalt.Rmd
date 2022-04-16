@@ -1,0 +1,85 @@
+---
+title: "Tests"
+author: "Erich Neuwirth"
+date: '2022-04-14'
+output:
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
+  pdf_document:
+    includes:
+      in_header: mystyles.sty
+    toc: yes
+    toc_depth: 2
+fontsize: 12pt
+keep_md: true
+---
+
+
+```{r, echo=FALSE}
+output_format <- function(){
+  knitr::opts_knit$get("rmarkdown.pandoc.to")
+}
+```
+
+
+Output to `r output_format()`
+
+
+```{r, echo=FALSE}
+pagebreak <- function(){
+  if (output_format() == "latex") return("\\pagebreak\n")
+  if (output_format() == "html") {
+  return(paste(
+    '<p style="page-break-after: always;">&nbsp;</p>\n',
+    '<p style="page-break-before: always;">&nbsp;</p>\n'
+  ))
+  }
+}
+```
+
+```{r}
+leerzeile <- function(lines=1){
+    if (output_format() == "latex") 
+      return(
+          paste0("\n\\vspace{",
+                  lines*12,
+                     "pt}\n")
+      )
+  if(output_format()=="html")
+    return(paste(rep("<br>",lines),collapse=" "))
+}
+```
+
+# Erstes
+
+Zeile 1
+
+
+Zeile 2
+
+
+`r leerzeile()`
+
+Zeile 3
+
+`r leerzeile(2)`
+
+Zeile 4
+
+
+
+## Erstes Unter
+
+## Zweites Unter
+
+# Zweites
+
+## Erstes Unter
+
+`r pagebreak()`
+
+
+## Zweites Unter
+

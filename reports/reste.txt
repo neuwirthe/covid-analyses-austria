@@ -1,0 +1,114 @@
+
+
+### 1. Welle Frühjahr 2020, Wildtyp
+
+
+```{r}
+bl_pal <-
+  gg_color_hue(10)
+names(bl_pal) <-
+  pop_austria |>
+  slice(-1) |>
+  pull(Bundesland)
+bl_pal["Österreich"] <- "black"
+bl_pal["Wien"] <- "red"
+linesize_pal <- c(wide = 1.5, narrow = 0.5)
+```
+
+
+```{r}
+bl_chart_peak <- function(from_date, to_date,
+                          data = all_data,
+                          var = Inzidenz) {
+  {{ data }} |>
+    filter(Datum == to_date-3*7) |>
+    select(Bundesland, {{ var }}) |>
+    arrange(desc({{ var }})) |>
+    pull(Bundesland) ->
+  bl_order
+  bl_pal_current <-
+    bl_pal[bl_order]
+  {{ data }} |>
+    filter(Datum >= from_date & Datum <= to_date) |>
+    mutate(Bundesland = factor(Bundesland,
+      levels = bl_order
+    )) |>
+    mutate(linesize = ifelse(BundeslandID %in% 9:10,
+      "wide", "narrow"
+    )) |>
+    ggplot(aes(
+      x = Datum, y = {{ var }}, 
+      color = Bundesland,
+      data_id=Bundesland,
+      tooltip=Bundesland,
+      size = linesize
+    )) +
+    geom_line_interactive() +
+    scale_size_manual(values = linesize_pal) +
+    scale_color_manual(values = bl_pal_current) +
+    scale_x_date(
+      labels = ger_date_1_Jan_20,
+      date_breaks = "1 week",
+      date_minor_breaks = "1 week"
+    ) +
+    guides(size = "none")
+} 
+```
+
+
+```{r}
+inz_tote_chart <- function(date, 
+                           weeks_before=3,
+                           weeks_after=5) {
+  from_date <- date-weeks_before*7
+  to_date <- date+weeks_after*7
+  
+  peak_dates |>
+    filter(Datum >= from_date &
+             Datum <= to_date) ->
+    peak_dates_current
+
+bl_chart_peak(
+  from_date, to_date,
+  all_data, Inzidenz
+) + theme(axis.text.x=element_blank()) +
+  geom_vline(aes(xintercept=Datum),
+             data=peak_dates_current,
+             linetype="dashed") -> chart_inzid
+  bl_chart_peak(
+  from_date, to_date,
+  death_data, Tote
+)  +
+  geom_vline(aes(xintercept=Datum),
+             data=peak_dates_current,
+             linetype="dashed") +
+    labs(y="COVID-Tote pro 100.000") +
+  theme(
+    axis.text.y =
+      element_text(margin = margin(0, 0, 0, 15, "pt")))-> 
+    chart_tote
+pcol <- plot_grid(chart_inzid +
+  theme(legend.position = "none"),
+chart_tote +
+  theme(legend.position = "none"),
+ncol = 1, axis = "lr"
+)
+legend <- get_legend(
+  # create some space to the left of the legend
+  chart_inzid + theme(
+    legend.box.margin =
+      margin(0, 0, 0, 20)
+  )
+)
+pcol <- plot_grid(chart_inzid +
+  theme(legend.position = "none"),
+chart_tote +
+  theme(legend.position = "none"),
+ncol = 1, axis = "lr",
+rel_heights = c(0.6,1)
+)
+
+plot_grid(pcol, legend, rel_widths = c(3, 1)) |>
+  make_chart_html(height_factor = 1)
+}
+```
