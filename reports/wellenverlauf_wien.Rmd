@@ -1,7 +1,7 @@
 ---
 title: "COVID-Wellen - Wien und Bundesländer"
 author: "Erich Neuwirth"
-date: '2022-04-16'
+date: "`r Sys.Date()`"
 output:
   pdf_document:
     includes:
@@ -16,6 +16,19 @@ fontsize: 12pt
 ---
 
 
+
+```{r local_setup_inc, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE,
+  warning = FALSE, comment = NULL,
+  fig.align = "center" #x,
+#  fig.width=5
+)
+options(scipen = 999)
+options(OutDec = ",")
+options(decimal.mark = ",")
+```
+
 ```{r, echo=FALSE}
 output_format <- function(){
   knitr::opts_knit$get("rmarkdown.pandoc.to") -> 
@@ -24,7 +37,6 @@ output_format <- function(){
   res
 }
 ```
-
 
 ```{r, echo=FALSE}
 pagebreak <- function(){
@@ -37,7 +49,6 @@ pagebreak <- function(){
   }
 }
 ```
-
 
 ```{r, echo=FALSE}
 leerzeile <- function(lines=1){
@@ -52,16 +63,17 @@ leerzeile <- function(lines=1){
 }
 ```
 
-
-```{r local_setup_inc, include=FALSE}
-knitr::opts_chunk$set(
-  echo = FALSE, message = FALSE,
-  warning = FALSE, comment = NULL
-)
-options(scipen = 999)
-options(OutDec = ",")
-options(decimal.mark = ",")
+```{r}
+begin_center <- function(){
+  if(output_format() == "latex")
+  return("\\begin{center}")
+}
+end_center <- function(){
+  if(output_format() == "latex")
+  return("\\end{center}")
+}
 ```
+
 
 
 ```{r}
@@ -82,18 +94,15 @@ suppressPackageStartupMessages({
 })
 ```
 
-
 ```{r, echo=FALSE}
 source(path(here(), "utils", "purl_and_source.R"))
 purl_and_source(path(here(), "utils", "base_utils.Rmd"))
 purl_and_source(path(here(), "utils", "date_utils.Rmd"))
 ```
 
-
 ```{r, echo=FALSE}
 purl_and_source(path(here(), "utils", "chart_utils.Rmd"))
 ```
-
 
 ```{r}
 theme_set(theme_date_vert())
@@ -115,8 +124,6 @@ load(path(
 ))
 ```
 
-
-
 ```{r}
 purl_and_source(
   path(
@@ -132,6 +139,7 @@ load(path(
   "bmi_data.RData"
 ))
 ```
+
 ```{r}
 konzert_dates <-
   tribble(
@@ -140,8 +148,6 @@ konzert_dates <-
     "Ernst-Happel-Stadion", as.Date("2022-03-19")
   )
 ```
-
-
 
 ```{r}
 ages_data |>
@@ -154,8 +160,6 @@ ages_data |>
   mutate(Inzidenz = 100000 * cases_7_AGES / pop) ->
 all_data
 ```
-
-
 
 ```{r}
 bmi_data |>
@@ -170,14 +174,47 @@ bmi_data |>
   filter(Datum >= as.Date("2020-02-27")) ->
 death_data
 ```
+`r pagebreak()`
+
+## Zusammenfassung
+
+Ein Vergleich des Verlaufs der Inzidenzzahlen in den Bundesländern zeigt einige bemerkenswerte Unterschiede.
+
+In der 1. Welle (Höhepunkt 29. März 2020) waren die Inzidenzen in Wien eher niedrig, die COVID-Todesfallzahlen lagen im Bundesdurchschnitt.
+
+In der 2. Welle (Höhepnkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern.
+
+In der 3. Welle (Höhepunkt 29. März 2021) hatte Wien  meist die höchsten Inzidenzen und (nach dem Burgenland) die zweithöchsten COVID-Todesfallzahlen .
+
+In der 4. Welle (Höhepunkt 23. November) galten in Wien deutlich schärfere Einschränkungen als in den anderen Bundesländern. 
+
+Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID- Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien.
+
+
+In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
+
+Knapp nach dem Inzidenz-Höchstwert am 18. März, gab es in Wien zwei Freiluft-Großveranstaltungen,
+nämlich ein Konzert am 19. März im Ernst-Happel-Stadion und ein Konzert am 25. März am Heldenplatz. Zu dieser Zeit gab es keine generelle Maskenplficht mehr, und ein Großteil des Publikums trug trotz deutlicher Empfehlung der Veranstalter keine Masken.
+
+In Zeitraum nach diesen beiden Veranstaltungen nahm die Inzidenz in Wien ab, die Abnahme war aber merklich weniger ausgeprägt als in den anderen Bundesländern. Das ist natürlich kein Beweis, dass die Veranstaltungen diese Entwicklung verursacht haben, aber doch ein Hinweis, der nicht vernachlässigt werden sollte.
+
+Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven der Inzidenz geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion
+
+
+
+`r pagebreak()`
 
 ## Einleitung
 
-Die Pandemie ist in Österreich in mehreren Wellen verlaufen. Wir sehen uns an, wie sich die Zahlen in den einzelnen Bundesländern vor und nach den bundsweiten Spitzenwerten entwickelt haben.
+Die Pandemie ist in Österreich in mehreren Wellen verlaufen.
+Wir sehen uns an, wie sich die Zahlen in den einzelnen Bundesländern vor und nach den bundesweiten Spitzenwerten entwickelt haben.
 
 Der Verlauf der Inzidenzen für ganz Österreich seit Beginn der Pandemie:
 
-```{r}
+
+
+
+```{r, fig.width=5}
 all_data |>
   filter(BundeslandID == 10) |>
   #  filter(Datum >= start_date & Datum <= end_date) |>
@@ -189,7 +226,8 @@ all_data |>
     date_minor_breaks = "1 month"
   ) +
   theme(aspect.ratio = 1/3) -> chart
-make_chart_html(chart)
+chart
+#make_chart_html(chart)
 #make_chart_html(chart,height_factor=1,width_factor=1)
 ```
 
@@ -221,14 +259,17 @@ peak_dates <-
 ```
 
 
+```{r}
+#https://www.ages.at/mensch/krankheit/krankheitserreger-von-a-bis-z/coronavirus
+#https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Österreich
+```
+
 `r pagebreak()`
-
-
 
 Wir sehen deutlich 6 Spitzen:
 
 
-```{r}
+```{r, fig.width=5}
 all_data |>
   filter(BundeslandID == 10) |>
   #  filter(Datum >= peak_dates$date[6]-14) |>
@@ -246,9 +287,9 @@ all_data |>
     data = peak_dates
   ) +  theme(aspect.ratio = 1/3) ->
   spitzen_chart
-make_chart_html(spitzen_chart)
+  spitzen_chart
+  
 ```
-
 
 
 
@@ -256,21 +297,18 @@ Die genauen Daten dieser Spitzen sind
 
 `r leerzeile()`
 
-
 ```{r}
 peak_dates |>
   mutate(Datum = ger_date_1_Jan_20(Datum)) |>
   gt() |>
   cols_align(align = "right") |>
-  tab_options(table.align="left") 
+  tab_options(table.align="center") 
 ```
-
 
 `r leerzeile()`
 
-
-Die Spitzen sind deutlich verschieden hoch. Auf einer logarithmischen Skala können wir die prozentuellen Zu- und Abnahmen der Werte besser erkennen.
-
+Die Spitzen sind deutlich verschieden hoch.
+Auf einer logarithmischen Skala können wir die prozentuellen Zu- und Abnahmen der Werte besser erkennen.
 
 ```{r}
 all_data |>
@@ -295,24 +333,19 @@ all_data |>
 make_chart_html(chart)
 ```
 
-Wir sehen eine exponentielle Wachstumsphase von Anfang Juli 2020 bis Mitte November 2020. Dieses Wachstum wird allerings mehrmals von Beruhigungsphasen unterbrochen.
+Wir sehen eine exponentielle Wachstumsphase von Anfang Juli 2020 bis Mitte November 2020.
+Dieses Wachstum wird allerdings mehrmals von Beruhigungsphasen unterbrochen.
 
 Sehr deutliche exponentielle Abnahmephasen gibt es von Anfang Mai 2021 bis Anfang Juli 2021 und im Jänner 2022.
 
 `r pagebreak()`
 
+## Inzidenzen und COVID-Todesfälle
 
-
-
-## Inzidenzen und COVID-Todesfälle 
-
-Im folgenden untersuchen wir den Verlauf der Inzidenzen in den Bundesländern in der Zeit von 3 Wochen vor bis 5 Wochen nach den Spitzen. Die längere Nachlaufzeit nach der Spitze ist notwendig, weil die Todesfallzahlen den Inzidenzen erst mit Verzögerung folgen.
-
-
+Im folgenden untersuchen wir den Verlauf der Inzidenzen in den Bundesländern in der Zeit von 3 Wochen vor bis 5 Wochen nach den Spitzen.
+Die längere Nachlaufzeit nach der Spitze ist notwendig, weil die Todesfallzahlen den Inzidenzen erst mit Verzögerung folgen.
 
 Wenn wir die Inzidenzen und die Zahlen der Todesfälle gemeinsam betrachten, dann ergibt sich folgendes Bild:
-
-
 
 ```{r}
 death_data |>
@@ -350,16 +383,9 @@ ncol = 1, axis = "lr"
 pcol
 ```
 
-
-
-
 `r pagebreak()`
 
 ## Inzidenzen und COVID-Todesfälle in den Bundesländern
-
-
-
-
 
 ```{r}
 bl_pal <-
@@ -372,7 +398,6 @@ bl_pal["Österreich"] <- "black"
 bl_pal["Wien"] <- "red"
 linesize_pal <- c(wide = 1.5, narrow = 0.5)
 ```
-
 
 ```{r}
 bl_chart_peak <- function(from_date, to_date,
@@ -412,7 +437,6 @@ bl_chart_peak <- function(from_date, to_date,
     guides(size = "none")
 } 
 ```
-
 
 ```{r}
 inz_tote_chart <- function(date, 
@@ -478,56 +502,99 @@ plot_grid(pcol, legend, rel_widths = c(3, 1)) |>
 inz_tote_chart(peak_dates$Datum[1],3,5)
 ```
 
+
+*Anmerkung: Die Namen in der Legende sind in dieser und den folgenden Grafiken nach den höchsten Inzidenzen der Bundesländer geordnet.* 
+
+
 ```{r, results="asis"}
 if(output_format() == "html"){
   cat(
-"\n*Anmerkung: Grafiken mit Kurven für die Bundesländer sind interaktiv, wenn der Mauszeiger auf eine Kurve geführt wird, dann wird diese Kurve hervorgehoben und das Bundesland angezeigt*\n")
+"*Die Grafiken mit Kurven für die Bundesländer sind interaktiv, wenn der Mauszeiger auf eine Kurve geführt wird, dann wird diese Kurve hervorgehoben und das Bundesland angezeigt*\n")
 }    
 ```
 
 
+Während dieser 1. Welle gab es österreichweit die gleichen Einschränkungen: 
 
-In der ersten Welle waren zum Zeitpunkt die Inzidenzen in den westlichen Bundesländern Tirol, Salzburg und Vorarlberg (also mit Bundesländer mit Skigebieten) besonders hoch, 3 Wochen nach dem Spitzenwert waren die Unterschiede zwischen den Bundesländern aber nur mehr gering.
+* Physische Distanzregel (Babyelefant)
+* Absage von Veranstaltungen
+* Schul- und Unviersitätsschließungen
+* Einschränkunge für Geschäfte und Restaurants
+* Verbot des Betretens öffentlicher Orte
+* MNS-Maskenpflicht ab 30. März 2020    
 
-Die Werte nahmen in Tirol gegen Ende der Welle sehr stark ab, in den anderen Bundesländern war der Verlauf der Abnahme ziemlich gleich. Wien hatte gegen Ende des untersuchten Zeitraums eine geringere Abnahme als die anderen Bundesländern  zu verzeichnen.
+In der ersten Welle waren zum Zeitpunkt die Inzidenzen in den westlichen Bundesländern Tirol, Salzburg und Vorarlberg (also Bundesländer mit Skigebieten) besonders hoch, 3 Wochen nach dem Spitzenwert waren die Unterschiede zwischen den Bundesländern aber nur mehr gering.
 
-Die COVID-Todesfälle ereichen den Spitzenwert ungefähr 2 Wochen nach den Inzidenzen. Auch hier hat Tirol die allerhöchsten Werte, Wien liegt im Mittelfeld.
+Die Werte nahmen in Tirol gegen Ende der Welle sehr stark ab, in den anderen Bundesländern war der Verlauf der Abnahme ziemlich gleich.
+Wien hatte gegen Ende des untersuchten Zeitraums eine geringere Abnahme als die anderen Bundesländer zu verzeichnen.
 
+Die COVID-Todesfälle erreichen den Spitzenwert ungefähr 2 Wochen nach den Inzidenzen.
+Auch hier hat Tirol die allerhöchsten Werte, Wien liegt im Mittelfeld.
 
 
 
 
 ### 2. Welle Herbst 2020, Wildtyp
 
-
-
 ```{r}
 inz_tote_chart(peak_dates$Datum[2],3,5)
 ```
 
-Auch in der 2. Welle waren die Inzidenzen in Westösterreich und dazu noch in Oberösterreich besonders hoch. Die Abnahme nach der Spitze war in diesen Bundesländern ausgeprägter als in den übrigen Bundesländern.
+Seit Mitte September 2020 gab es folgende Maßnahmen
+
+* Maskenpflicht in Handel, Gastronomie und öffentlich zugänglichen geschlossenen Räumen
+* Maskenplflicht auch im Freien, z.B. auf Märkten
+* Beschränkung der Größe von Besuchergruppen in der Gastronomie
+* Konsumation in der Gstronomie nur sitzend an Tischen
+* Beschränkung der Anzahl von Personen bei Zusammenkünften
+* Lockdown light ab 3. November (Ausgangsbeschränkungen zwischen 20 und 6 Uhr)
+* Harter Lockdown ab 17. November (Ausgangsbeschränkungen den ganzen Tag, Ausnahmen für Notfälle)
+
+Auch in der 2.
+Welle waren die Inzidenzen in Westösterreich und dazu noch in Oberösterreich besonders hoch.
+Die Abnahme nach der Spitze war in diesen Bundesländern ausgeprägter als in den übrigen Bundesländern.
 In Niederösterreich fiel der Rückgang der Inzidenzen deutlich schwächer aus als in den anderen Bundesländern.
-Wien hatte vor dem Spitzenwert eine im Vergleich zu den anderen Bundesländeren eher hohe Inzidenz, nach dem Spitzenwert hatte Wien die niedrigste Inziden aller Bundesländer.
+Wien hatte vor dem Spitzenwert eine im Vergleich zu den anderen Bundesländern eher hohe Inzidenz, nach dem Spitzenwert hatte Wien die niedrigste Inzidenz aller Bundesländer.
 
-In dieser Welle kam es im Vergleich zu den anderen Wellen zu den höchste COVID-Todesfallzahlen.
+In dieser Welle kam es im Vergleich zu den anderen Wellen zu den höchsten COVID-Todesfallzahlen.
 
-Die Todesfälle erreichen die Spitzenwerte mit einer Verzögerung von etwas mehr als 2 Wochen. Der steile Anstieg der Wiener Zahlen dürfte auf einen Schub von Nachmeldungen zurückzuführen sein. 
+Die Todesfälle erreichen die Spitzenwerte mit einer Verzögerung von etwas mehr als 2 Wochen.
+
+
+Der steile Anstieg der Wiener Zahlen dürfte auf einen Schub von Nachmeldungen zurückzuführen sein.
 Unter den Bundesländern hatte Kärnten die höchsten Todesfallzahlen.
-
-Die Todesfälle erreichen die Spitzenwerte mit einer Verzögerung von etwas mehr als 2 Wochen. Der steile Anstieg der Wiener Zahlen dürfte auf einen Schub von Nachmeldungen zurückzuführen sein. Nachmeldungen an einem Tag
 
 
 ### 3. Welle Frühjahr 2021, Alpha
-
 
 ```{r}
 inz_tote_chart(peak_dates$Datum[3],3,5)
 ```
 
-In dieser Welle hatte Wien von Anfang an im Bundesländervergleich sehr hohe Inzidenzwerte.
-In einigen Bundesländern ist in diesem Zeitraum kaum ein Rückgang der Inzidenzen festzustellen, in Wien, im Burgenland und in Niederösterreich ist der Rückgang aber ausgeprägt.
 
-Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenlands eine deutlich ausgeprägte Spitze. Im Burgenland gibt es zu Beginn der Welle einen ausgeprägten Anstieg, dann mehrer Wochen hindurch gleichmaßig hohe Werte, und am Ende der Welle wieder einen ausgeprägten Rückgang.         
+Österreichweit folgende Einschränkungen:
+
+* Ausgangsbeschränkungen ganztägig
+* Körpernahe Dienstleister, Zoos und Museen geschlossen
+* Alle Geschäfte außer Geschäften, mit Gütern des täglichen Bedarfs geschlossen
+* Distance Learning in Schulen ab 6. April
+* Zusätzlich in Wien an einzelnen stark belebten Plätzen Maskenpflicht
+
+
+Ab 1. April 2021 (Gründonnerstag) wurden die Lockdown-Regeln aufgrund der schlechten Situation in den Spitälern in Ostösterreich (Wien, Niederösterreich und Burgenland) über Ostern bis 11. April wweiter verschärft. 
+
+In diesen 3 Bundesländern war der Rückgang der Inzidenzen um einiges deutlicher ausgeprägt als in den anderen Bundesländern. In Vorarlberg kam es gegen Ende dieser Periode sogar zu einem starken Anstieg der Inzidenz. 
+
+
+
+Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenlandes eine deutlich ausgeprägte Spitze.
+
+In Wien kam es trotz der schärferen Lockdown-Regeln zu keiner deutlichen Verringerung der Zahl der Todesfälle.
+
+Im Burgenland gibt es zu Beginn der Welle einen ausgeprägten Anstieg, dann mehrere Wochen hindurch gleichmäßig hohe Werte und am Ende der Welle wieder einen ausgeprägten Rückgang.
+
+
+
 
 ### 4. Welle Herbst 2021, Delta
 
@@ -535,36 +602,56 @@ Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenland
 inz_tote_chart(peak_dates$Datum[4],3,5)
 ```
 
-In dieser Welle schneidet Wien den ganzen Verlauf hindurch deutlich besser ab als die anderen Bundesländer, und zwar sowohl bei den Inzidenzen als auch bei den Fallzahlen.
+In dieser Welle gab es erstmals in Wien schärfere Maßnahmen als in den anderen Bundesländern.
 
-Besoders hohe COVID-Todesfallzahlen gibt es in Kärnten.
+Gesamtösterreichische Maßnahmen:
 
+* Ab 15. September 2021  FFP2-Maskenpflicht im Lebensmittelhandel, in Apotheken, Trafiken und öffentlichen Verkehrsmitteln. 
+
+* Ab 8. November 2G-Regel für Aufenthalt im öffentlichen Raum (Gastronomie und Nachtgastronomie eingeschlossen) 
+* Ausnahme: (Schwächere) 3G-Regel den Arbeitsplatz * Stärkere Einschränkungen für Ungeimpfte: Ausgangsbeschränkung falls nicht 2G
+* FFP2-Masken-Pflicht
+
+Ab 16. November 2021 wird diese Regel in Wien verschärft, die 2G-Regel wird zur 2G+-Regel,
+zusätzlich zum Nachweis von geimpft oder genesen ist auch ein negativer PCR-Test notwendig. Homeoffice wird im Bereich der Gemeindeverwaltung stark forciert und die FFP2-Maskenpflicht ausgeweitet, z.B. wird diese Pflicht in der Gastronomie nur für die Dauer des Sitzens an einem Tisch aufgehoben.
+
+
+
+Ab 22. November trat österreichweit noch eine verschärfte Ausgangsbeschränkung in Kraft.
+
+In dieser Welle schneidet Wien den ganzen Verlauf hindurch deutlich besser ab als die anderen Bundesländer, und zwar sowohl bei den Inzidenzen als auch bei den Fallzahlen. Die im Vergleich zu den anderen Bundesländern schärferen Maßnahmen scheinen also positive Wirkung gezeigt zu haben.
+
+Besonders hohe COVID-Todesfallzahlen gibt es in Kärnten.
 
 ### 5. und 6. Welle Winter 2022
 
-
-Wir betrachen die 5. und die 6. Welle gemeinsam, weil diese beide Wellen sehr knapp hintereinander liegen und der Anstieg der Todesfälle der 5. Welle schon mt dem Beginn der 6. Welle überlappt.
-
+Wir betrachten die 5. und die 6.
+Welle gemeinsam, weil diese beide Wellen sehr knapp hintereinander liegen und der Anstieg der Todesfälle der 5.
+Welle schon mit dem Beginn der 6.
+Welle überlappt.
 
 ```{r}
 inz_tote_chart(peak_dates$Datum[5],3,9)
 ```
 
-In der 5. Welle treten die Spitzenwerte der Inzidenz in den Bundesländern zu etwas verschiedenen Zeitpunkten auf, insbesondere in Vorarlberg, Tirol und Salzburg etwas später.
 
-Der Spitzenwert der 6. Welle tritt in Tirol etwas früher und
-in Wien etwas später als in den anderen Bundesländern auf.
 
-Die Inzidenz Wiens liegt zu Beginn der 5. Welle und zum Ende der 6. Welle etwas höher als die der anderen Bundesländer,
-dazwischen jedoch tendenziell niedriger.
+In der 5.
+Welle treten die Spitzenwerte der Inzidenz in den Bundesländern zu etwas verschiedenen Zeitpunkten auf, insbesondere in Vorarlberg, Tirol und Salzburg etwas später.
+
+Der Spitzenwert der 6.
+Welle tritt in Tirol etwas früher und in Wien etwas später als in den anderen Bundesländern auf.
+
+Die Inzidenz Wiens liegt zu Beginn der 5.
+Welle und zum Ende der 6.
+Welle etwas höher als die der anderen Bundesländer, dazwischen jedoch tendenziell niedriger.
 
 `r pagebreak()`
 
 ## Inzidenzen und Großdemonstrationen
 
-Wir untersuchen nun den Verlauf der Inzidenzen vor und nach Großdemonstrationen. 
+Wir untersuchen nun den Verlauf der Inzidenzen vor und nach Großdemonstrationen.
 
-In dieser Welle schneidet Wien deutlich besser als die anderen Bundesländer ab.
 
 
 ```{r}
@@ -634,12 +721,9 @@ demo_chart(
   
 ```
 
-Diese Grafik zeige keine Änderung im Trend der Inzidenz nach der Demonstration.
-
+Diese Grafik zeigt keine Änderung im Trend der Inzidenz nach der Demonstration.
 
 ### Demonstrationen am 20. November und am 4. Dezember 2021
-
-
 
 ```{r}
 demo_chart(
@@ -661,6 +745,9 @@ demo_chart(
   make_chart_html(chart)
   
 ```
+
+Diese 2 Demonstrationen finden nach dem Höhepunkt der 4. Welle statt. In dieser Welle hatte Wien im Vergleich zu anderen Bundesländern sehr niedrige Inzidenzen.
+
 
 Diese Grafik zeige keine Änderung im Trend der Inzidenz nach der Demonstration.
 
@@ -695,12 +782,14 @@ demo_chart(
   make_chart_html(chart)
 ```
 
-Demonstrationen am 27. Feber und am 12. März 2022
+Diese 3 Demonstrationen fanden vor dem Höhepunkt der 5. Welle statt, es ist aber keine ausgeprägte Auswirkung auf die Inzidenzentwicklung festzustellen.
 
+
+Demonstrationen am 27. Feber und am 12. März 2022
 
 ```{r}
 demo_chart(
-  c(demo_dates$Datum[7],demo_dates$Datum[8]+2*7)  
+  c(demo_dates$Datum[7],demo_dates$Datum[8]+ 2*7) 
 ) +  geom_text(x=demo_dates$Datum[7],
             y=2500,
             label="Demonstration",
@@ -717,13 +806,22 @@ demo_chart(
   make_chart_html(chart)
 ```
 
+Diese 2 Demonstrationen fanden vor dem Höhepunkt der 6. Welle statt, auch hier ist keine ausgeprägte Auswirkung auf die Inzidenz festzustellen.
 
 `r pagebreak()`
 
-## Freiluft-Konzerte am 19. und am 25. März
+## Freiluft-Konzerte am 19. und am 25. März 2022
+
+In der 2. Märzhälfte 2022 fanden 2 große Freilunfkonzerte statt. Es herrschte keine Maskenpflicht, die Veranstalter ersuchten die Teilnehmer aer nachdrücklich, freiwillig FFP2-Masken zu tragen. Der Großteil des Publikums tat das allerdings nicht. 
+
+Wir untersuchen daher die Frage, ob sich die Inzidenzen in zeitlicher Nähe zu diesen Konzerten 
+merkbar auffällig entwickelt haben.
+
 
 ### Inzidenz aller Altersgruppen
-  
+
+Wir untersuchen zunächst den Verlauf der Inzidenzen aller Altersgruppen zusammengenommen.
+
 ```{r}
 bl_chart_peak(peak_dates$Datum[6]-2*7,
               peak_dates$Datum[6]+3*7) +
@@ -744,8 +842,11 @@ bl_chart_peak(peak_dates$Datum[6]-2*7,
   make_chart_html(chart)
 ```
 
+Wien hat vor den Konzerten die niedrigste Inzidenz aller Bundesländer. Während in allen Bundesländern außer Niederösterreich die Inzidenz nach dem ersten Konzert schon sinkt, steigt sie in Wien noch etwas. Nach dem zweiten Konzert sinkt die Inzidenz in Wien zwar, aber in deutlich geringerem Ausmaß als in den anderen Bundesländern.
 
-### Inzidenz der Altersgruppen 15-44
+### Inzidenz der Altersgruppe 15-44
+
+Vermutlich gehört der überwiegende Teil des Konzertpublikums der Altersgruppe 15-44 an. Daher sehen wir uns auch die Inzidenzen in diesen Altersgruppen an.
 
 ```{r}
 load(path(
@@ -788,4 +889,8 @@ bl_chart_peak(peak_dates$Datum[6]-2*7,
   chart
   make_chart_html(chart)
 ```
+
+Die Entwicklung der Inzidenz in dieser Altersgruppe unterscheidet sich nicht wesentlich von der aller Altersgruppen gemeinsam. Bis zum ersten Konzert hat Wien eine deutlich geringere Inzidenz als die anderen Bundesländer. Nach dem ersten Konzert steigt die Inzidenz in Wien noch schwach, während sie in den den anderen Bundesländern schon sinkt. Nach dem zweiten Konzert sinkt die Inzidenz in Wien in deutlich geringerem Maße als in den anderen Bundesländern.
+
+Man kann also begründet vermuten (wenn auch nicht beweisen), dass die Menschenansammlung bei den Freiluft-Großkonzerten das Abklingen der 6. COVID-Welle in Wien verlangsamt haben.
 

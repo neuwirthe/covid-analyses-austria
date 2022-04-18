@@ -1,21 +1,32 @@
 ---
 title: "Tests"
 author: "Erich Neuwirth"
-date: '2022-04-14'
+date: "`r Sys.Date()`"
 output:
-  html_document:
-    toc: yes
-    toc_depth: '2'
-    df_print: paged
   pdf_document:
     includes:
       in_header: mystyles.sty
     toc: yes
     toc_depth: 2
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
 fontsize: 12pt
 keep_md: true
 ---
 
+```{r}
+library(tidyverse)
+```
+
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE,
+  warning = FALSE, comment = NULL
+)
+```
 
 ```{r, echo=FALSE}
 output_format <- function(){
@@ -24,8 +35,14 @@ output_format <- function(){
 ```
 
 
+
 Output to `r output_format()`
 
+
+```{r, results="asis"}
+#if(output_format() == "latex") 
+#  cat("\\DraftwatermarkOptions{final}")
+```
 
 ```{r, echo=FALSE}
 pagebreak <- function(){
@@ -73,6 +90,18 @@ Zeile 4
 ## Erstes Unter
 
 ## Zweites Unter
+
+```{r, fig.align="center",fig.width=4}
+my_df <- tibble(
+  x=seq(0,1,0.5),
+  y=x^2
+)
+my_df |>
+  ggplot(aes(x=x,y=y)) +
+  geom_line() +
+  theme_minimal()
+```
+
 
 # Zweites
 
