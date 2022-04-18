@@ -182,21 +182,21 @@ Ein Vergleich des Verlaufs der Inzidenzzahlen in den Bundesländern zeigt einige
 
 In der 1. Welle (Höhepunkt 29. März 2020) waren die Inzidenzen in Wien eher niedrig, die COVID-Todesfallzahlen lagen im Bundesdurchschnitt.
 
-In der 2. Welle (Höhepnkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern.
+In der 2. Welle (Höhepunkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern.
 
 In der 3. Welle (Höhepunkt 29. März 2021) hatte Wien  meist die höchsten Inzidenzen und (nach dem Burgenland) die zweithöchsten COVID-Todesfallzahlen .
 
-In der 4. Welle (Höhepunkt 23. November) galten in Wien deutlich schärfere Einschränkungen als in den anderen Bundesländern. 
+In der 4. Welle (Höhepunkt 23. November 2021) galten in Wien deutlich schärfere Einschränkungen als in den anderen Bundesländern. 
 
 Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID- Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien.
 
 
-In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
+In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann mit den zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
 
 Knapp nach dem Inzidenz-Höchstwert am 18. März, gab es in Wien zwei Freiluft-Großveranstaltungen,
 nämlich ein Konzert am 19. März im Ernst-Happel-Stadion und ein Konzert am 25. März am Heldenplatz. Zu dieser Zeit gab es keine generelle Maskenplficht mehr, und ein Großteil des Publikums trug trotz deutlicher Empfehlung der Veranstalter keine Masken.
 
-In Zeitraum nach diesen beiden Veranstaltungen nahm die Inzidenz in Wien ab, die Abnahme war aber merklich weniger ausgeprägt als in den anderen Bundesländern. Das ist natürlich kein Beweis, dass die Veranstaltungen diese Entwicklung verursacht haben, aber doch ein Hinweis, der nicht vernachlässigt werden sollte.
+Im Zeitraum nach diesen beiden Veranstaltungen nahm die Inzidenz in Wien ab, die Abnahme war aber merklich weniger ausgeprägt als in den anderen Bundesländern. Das ist natürlich kein Beweis, dass die Veranstaltungen diese Entwicklung verursacht haben, aber doch ein Hinweis, der nicht vernachlässigt werden sollte.
 
 Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven der Inzidenz geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion
 
@@ -518,8 +518,8 @@ Während dieser 1. Welle gab es österreichweit die gleichen Einschränkungen:
 
 * Physische Distanzregel (Babyelefant)
 * Absage von Veranstaltungen
-* Schul- und Unviersitätsschließungen
-* Einschränkunge für Geschäfte und Restaurants
+* Schul- und Universitätsschließungen
+* Einschränkungen für Geschäfte und Restaurants
 * Verbot des Betretens öffentlicher Orte
 * MNS-Maskenpflicht ab 30. März 2020    
 
@@ -545,7 +545,7 @@ Seit Mitte September 2020 gab es folgende Maßnahmen
 * Maskenpflicht in Handel, Gastronomie und öffentlich zugänglichen geschlossenen Räumen
 * Maskenplflicht auch im Freien, z.B. auf Märkten
 * Beschränkung der Größe von Besuchergruppen in der Gastronomie
-* Konsumation in der Gstronomie nur sitzend an Tischen
+* Konsumation in der Gastronomie nur sitzend an Tischen
 * Beschränkung der Anzahl von Personen bei Zusammenkünften
 * Lockdown light ab 3. November (Ausgangsbeschränkungen zwischen 20 und 6 Uhr)
 * Harter Lockdown ab 17. November (Ausgangsbeschränkungen den ganzen Tag, Ausnahmen für Notfälle)
@@ -581,13 +581,13 @@ inz_tote_chart(peak_dates$Datum[3],3,5)
 * Zusätzlich in Wien an einzelnen stark belebten Plätzen Maskenpflicht
 
 
-Ab 1. April 2021 (Gründonnerstag) wurden die Lockdown-Regeln aufgrund der schlechten Situation in den Spitälern in Ostösterreich (Wien, Niederösterreich und Burgenland) über Ostern bis 11. April wweiter verschärft. 
+Ab 1. April 2021 (Gründonnerstag) wurden die Lockdown-Regeln aufgrund der schlechten Situation in den Spitälern in Ostösterreich (Wien, Niederösterreich und Burgenland) über Ostern bis 11. April weiter verschärft. 
 
 In diesen 3 Bundesländern war der Rückgang der Inzidenzen um einiges deutlicher ausgeprägt als in den anderen Bundesländern. In Vorarlberg kam es gegen Ende dieser Periode sogar zu einem starken Anstieg der Inzidenz. 
 
 
 
-Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenlandes eine deutlich ausgeprägte Spitze.
+Bei den Todesfallzahlen gibt es in keinem Bundesland mit Ausnahme des Burgenlands eine deutlich ausgeprägte Spitze.
 
 In Wien kam es trotz der schärferen Lockdown-Regeln zu keiner deutlichen Verringerung der Zahl der Todesfälle.
 
@@ -609,7 +609,8 @@ Gesamtösterreichische Maßnahmen:
 * Ab 15. September 2021  FFP2-Maskenpflicht im Lebensmittelhandel, in Apotheken, Trafiken und öffentlichen Verkehrsmitteln. 
 
 * Ab 8. November 2G-Regel für Aufenthalt im öffentlichen Raum (Gastronomie und Nachtgastronomie eingeschlossen) 
-* Ausnahme: (Schwächere) 3G-Regel den Arbeitsplatz * Stärkere Einschränkungen für Ungeimpfte: Ausgangsbeschränkung falls nicht 2G
+* Ausnahme: (Schwächere) 3G-Regel am Arbeitsplatz 
+* Stärkere Einschränkungen für Ungeimpfte: Ausgangsbeschränkung falls nicht 2G
 * FFP2-Masken-Pflicht
 
 Ab 16. November 2021 wird diese Regel in Wien verschärft, die 2G-Regel wird zur 2G+-Regel,
