@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  18 APR 2022 16:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  27 APR 2022 23:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -593,13 +593,13 @@ File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
 )) (/usr/local/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
 Package: xurl 2022/01/09 v 0.10 modify URL breaks
 )
-LaTeX Font Info:    Trying to load font information for T1+fnc on input line 94
+LaTeX Font Info:    Trying to load font information for T1+fnc on input line 95
 .
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/t1fnc.fd
 File: t1fnc.fd 2005/12/13 scaled font definitions for T1/fnc.
 )
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 11.15991pt on input line 94.
+(Font)              scaled to size 11.15991pt on input line 95.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-04-10 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count299
@@ -607,57 +607,57 @@ File: l3backend-pdftex.def 2022-04-10 L3 backend support: PDF output (pdfTeX)
 ) (./wellenverlauf_wien.aux)
 \openout1 = `wellenverlauf_wien.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for FML/fncmi/m/it on input line 94.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for FML/fncmi/m/it on input line 95.
 LaTeX Font Info:    Trying to load font information for FML+fncmi on input line
- 94.
+ 95.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/fmlfncmi.fd
 File: fmlfncmi.fd 2005/12/20 Fontinst v1.928 font definitions for FML/fncmi.
 )
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for FMS/fncm/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for FMS/fncm/m/n on input line 95.
 LaTeX Font Info:    Trying to load font information for FMS+fncm on input line 
-94.
+95.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/fmsfncm.fd
 File: fmsfncm.fd 2005/12/20 Fontinst v1.928 font definitions for FMS/fncm.
 )
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 94.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 95.
 LaTeX Font Info:    Trying to load font information for FMX+futm on input line 
-94.
+95.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fourier/fmxfutm.fd
 File: fmxfutm.fd futm-extension
 )
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 94.
-LaTeX Font Info:    ... okay on input line 94.
-LaTeX Info: Redefining \microtypecontext on input line 94.
-Package microtype Info: Applying patch `item' on input line 94.
-Package microtype Info: Applying patch `toc' on input line 94.
-Package microtype Info: Applying patch `eqnum' on input line 94.
-Package microtype Info: Applying patch `footnote' on input line 94.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 95.
+LaTeX Font Info:    ... okay on input line 95.
+LaTeX Info: Redefining \microtypecontext on input line 95.
+Package microtype Info: Applying patch `item' on input line 95.
+Package microtype Info: Applying patch `toc' on input line 95.
+Package microtype Info: Applying patch `eqnum' on input line 95.
+Package microtype Info: Applying patch `footnote' on input line 95.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 94.
+LaTeX Info: Redefining \showhyphens on input line 95.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -720,11 +720,11 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Redeclaring math accent \widehat on input line 94.
-LaTeX Font Info:    Redeclaring math accent \widetilde on input line 94.
+LaTeX Font Info:    Redeclaring math accent \widehat on input line 95.
+LaTeX Font Info:    Redeclaring math accent \widetilde on input line 95.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 94.
+(lastpage)             ! on input line 95.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
@@ -732,7 +732,7 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 94.
+Package hyperref Info: Link coloring OFF on input line 95.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/usr/local/texlive/2022/texmf-dist/tex/latex/refcount/refcount.sty
@@ -744,31 +744,31 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count306
 )
-LaTeX Info: Redefining \ref on input line 94.
-LaTeX Info: Redefining \pageref on input line 94.
-LaTeX Info: Redefining \nameref on input line 94.
+LaTeX Info: Redefining \ref on input line 95.
+LaTeX Info: Redefining \pageref on input line 95.
+LaTeX Info: Redefining \nameref on input line 95.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 19.28804pt on input line 96.
+(Font)              scaled to size 19.28804pt on input line 97.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 13.39188pt on input line 96.
+(Font)              scaled to size 13.39188pt on input line 97.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 9.29993pt on input line 96.
+(Font)              scaled to size 9.29993pt on input line 97.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 7.43994pt on input line 96.
+(Font)              scaled to size 7.43994pt on input line 97.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 96.
+(Font)              scaled to size 13.24796pt on input line 97.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 96.
+(Font)              scaled to size 9.19998pt on input line 97.
 LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 96.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
+(Font)              scaled to size 7.35999pt on input line 97.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 97.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 97.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -776,20 +776,20 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for FML+fncm on input line 
-96.
+97.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/fmlfncm.fd
 File: fmlfncm.fd 2005/12/20 Fontinst v1.928 font definitions for FML/fncm.
 )
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 13.24796pt on input line 96.
+(Font)              scaled to size 13.24796pt on input line 97.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 96.
+(Font)              scaled to size 9.19998pt on input line 97.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 96.
+(Font)              scaled to size 7.35999pt on input line 97.
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 16.07027pt on input line 99.
+(Font)              scaled to size 16.07027pt on input line 100.
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 16.07027pt on input line 99.
+(Font)              scaled to size 16.07027pt on input line 100.
 (./wellenverlauf_wien.toc
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
 (Font)              scaled to size 8.36993pt on input line 1.
@@ -812,14 +812,14 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 \openout3 = `wellenverlauf_wien.toc'.
 
 LaTeX Font Info:    Font shape `T1/fnc/m/n' will be
-(Font)              scaled to size 142.82245pt on input line 102.
-[1{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+(Font)              scaled to size 142.82245pt on input line 103.
+[1
 
-]
+{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 13.39188pt on input line 104.
+(Font)              scaled to size 13.39188pt on input line 105.
 
-Underfull \hbox (badness 1377) in paragraph at lines 106--108
+Underfull \hbox (badness 1377) in paragraph at lines 107--109
 \T1/fnc/m/n/12 (+20) Ein Ver-gle-ich des Ver-laufs der Inzi-denz-zahlen in den 
 Bun-deslän-dern zeigt einige
  []
@@ -833,13 +833,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [2]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-16-1.pdf, id=32, 351.3125p
+LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
+(Font)              scaled to size 11.15991pt on input line 166.
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-17-1.pdf, id=53, 351.3125p
 t x 152.57pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file
  (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-16
--1.pdf  used on input line 163.
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-17
+-1.pdf  used on input line 173.
+(pdftex.def)             Requested size: 351.3277pt x 152.5766pt.
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-20-1.pdf, id=54, 351.3125p
+t x 152.57pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file
+ (type pdf)
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-20
+-1.pdf  used on input line 177.
 (pdftex.def)             Requested size: 351.3277pt x 152.5766pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -849,22 +859,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[3 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-16-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-19-1.pdf, id=46, 351.3125p
-t x 152.57pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file
- (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-19-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-19
--1.pdf  used on input line 169.
-(pdftex.def)             Requested size: 351.3277pt x 152.5766pt.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-21-1.pdf, id=47, 342.27875
+[3 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-17-1.pdf> <./wellenve
+rlauf_wien_files/figure-latex/unnamed-chunk-20-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf, id=77, 342.27875
 pt x 141.52875pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file
  (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-21-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-21
--1.pdf  used on input line 195.
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-22
+-1.pdf  used on input line 203.
 (pdftex.def)             Requested size: 342.304pt x 141.53918pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -874,16 +877,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-19-1.pdf> <./wellenve
-rlauf_wien_files/figure-latex/unnamed-chunk-21-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-23-1.pdf, id=72, 348.30125
-pt x 313.17pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file
+[4 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf, id=94, 343.2825p
+t x 313.17pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file
  (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-23
--1.pdf  used on input line 218.
-(pdftex.def)             Requested size: 348.31102pt x 313.17877pt.
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-24
+-1.pdf  used on input line 226.
+(pdftex.def)             Requested size: 343.28165pt x 313.16922pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -892,50 +894,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[5 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-23-1.pdf>]
+[5 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf>]
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 11.15991pt on input line 228.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-27-1.pdf, id=86, 344.28625
-pt x 200.75pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file
+(Font)              scaled to size 11.15991pt on input line 240.
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf, id=108, 344.2862
+5pt x 200.75pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file
  (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-27-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-27
--1.pdf  used on input line 230.
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-28
+-1.pdf  used on input line 242.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
-LaTeX Font Info:    Font shape `T1/fnc/m/it' will be
-(Font)              scaled to size 11.15991pt on input line 234.
 LaTeX Font Info:    Trying to load font information for TS1+fnc on input line 2
-42.
+54.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/ts1fnc.fd
 File: ts1fnc.fd 2005/12/13 font definitions for TS1/fnc.
 )
 LaTeX Font Info:    Font shape `TS1/fnc/m/n' will be
-(Font)              scaled to size 11.15991pt on input line 242.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-29-1.pdf, id=87, 344.28625
-pt x 200.75pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-29-1.pdf Graphic file
- (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-29-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-29
--1.pdf  used on input line 273.
-(pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[6 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-27-1.pdf>]
+(Font)              scaled to size 11.15991pt on input line 254.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf, id=109, 344.2862
 5pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-30
--1.pdf  used on input line 320.
+-1.pdf  used on input line 285.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -945,14 +928,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[7 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-29-1.pdf>]
+[6 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf>]
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf, id=129, 344.2862
 5pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-31
--1.pdf  used on input line 363.
+-1.pdf  used on input line 332.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -962,23 +945,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[8 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf>]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[9 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf, id=167, 344.2862
+[7 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf, id=149, 344.2862
 5pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-32
--1.pdf  used on input line 412.
+-1.pdf  used on input line 375.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -988,48 +962,56 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[10 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-35-1.pdf, id=185, 336.2562
-6pt x 200.75pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file
+[8 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[9 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf, id=184, 344.2862
+5pt x 200.75pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf Graphic file
  (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-35-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-35
--1.pdf  used on input line 438.
-(pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf, id=186, 336.2562
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33
+-1.pdf  used on input line 424.
+(pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[10 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf, id=201, 336.2562
 6pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36
--1.pdf  used on input line 447.
+-1.pdf  used on input line 482.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf, id=187, 336.2562
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf, id=202, 336.2562
 6pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37
--1.pdf  used on input line 460.
+-1.pdf  used on input line 491.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[11 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-35-1.pdf> <./wellenv
-erlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf, id=221, 336.2562
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf, id=203, 336.2562
 6pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38
--1.pdf  used on input line 468.
+-1.pdf  used on input line 504.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1039,23 +1021,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[12 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf> <./wellenv
-erlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf, id=250, 336.2562
+[11 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf> <./wellenv
+erlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf, id=235, 336.2562
 6pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39
--1.pdf  used on input line 495.
-(pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-42-1.pdf, id=251, 336.2562
-6pt x 200.75pt>
-File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file
- (type pdf)
-<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-42-1.pdf>
-Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-42
--1.pdf  used on input line 511.
+-1.pdf  used on input line 512.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1065,7 +1039,33 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[13 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf>] 
+[12 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf> <./wellenv
+erlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf>]
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf, id=263, 336.2562
+6pt x 200.75pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file
+ (type pdf)
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40
+-1.pdf  used on input line 539.
+(pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf, id=264, 336.2562
+6pt x 200.75pt>
+File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file
+ (type pdf)
+<use wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf>
+Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43
+-1.pdf  used on input line 555.
+(pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[13 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf>] 
 AED: lastpage setting LastPage
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1075,28 +1075,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[14 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-42-1.pdf>]
+[14 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf>]
 
-Package caption Warning: Unused \captionsetup[table] on input line 175.
+Package caption Warning: Unused \captionsetup[table] on input line 183.
 See the caption package documentation for explanation.
 
 (./wellenverlauf_wien.aux) ) 
 Here is how much of TeX's memory you used:
- 15572 strings out of 478238
- 258540 string characters out of 5843941
- 563560 words of memory out of 5000000
- 33334 multiletter control sequences out of 15000+600000
- 518955 words of font info for 193 fonts, out of 8000000 for 9000
+ 15587 strings out of 478238
+ 258659 string characters out of 5843941
+ 568563 words of memory out of 5000000
+ 33344 multiletter control sequences out of 15000+600000
+ 518405 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,12n,77p,1015b,411s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,11n,77p,1015b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips
 /base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8
 a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb><
 /usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on wellenverlauf_wien.pdf (14 pages, 272973 bytes).
+Output written on wellenverlauf_wien.pdf (14 pages, 279196 bytes).
 PDF statistics:
- 338 PDF objects out of 1000 (max. 8388607)
- 256 compressed objects within 3 object streams
+ 379 PDF objects out of 1000 (max. 8388607)
+ 297 compressed objects within 3 object streams
  49 named destinations out of 1000 (max. 500000)
- 45180 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 43212 words of extra memory for PDF output out of 51595 (max. 10000000)
 

@@ -1,16 +1,16 @@
 ---
 title: "COVID-Wellen - Wien und Bundesländer"
 author: "Erich Neuwirth"
-date: "`r Sys.Date()`"
+date: "28. April 2022"
 output:
   pdf_document:
     includes:
       in_header: mystyles.sty
     toc: yes
-    toc_depth: 2
+    toc_depth: 3
   html_document:
     toc: yes
-    toc_depth: '2'
+    toc_depth: 3
     df_print: paged
 fontsize: 12pt
 ---
@@ -161,20 +161,35 @@ ages_data |>
 all_data
 ```
 
+
+
 ```{r}
-bmi_data |>
-  mutate(Datum = as.Date(Datum)) |>
-  left_join(pop_austria |>
-    select(BundeslandID, Bundesland, pop)) |>
-  select(Datum, BundeslandID, Bundesland, Tot_BMI, pop) |>
+ages_data |>
+  select(Datum, BundeslandID, Bundesland, Tot_AGES, pop) |>
   group_by(BundeslandID, Bundesland) |>
-  mutate(Tote = 100000 * (Tot_BMI - lag(Tot_BMI, 7)) / pop) |>
+  mutate(Tote = 100000 * (Tot_AGES - lag(Tot_AGES, 7)) / pop) |>
   ungroup() |>
   select(Datum, BundeslandID, Bundesland, Tote) |>
   filter(Datum >= as.Date("2020-02-27")) ->
-death_data
+death_data 
+```
+
+```{r}
+# bmi_data |>
+#   mutate(Datum = as.Date(Datum)) |>
+#   left_join(pop_austria |>
+#     select(BundeslandID, Bundesland, pop)) |>
+#   select(Datum, BundeslandID, Bundesland, Tot_BMI, pop) |>
+#   group_by(BundeslandID, Bundesland) |>
+#   mutate(Tote = 100000 * (Tot_BMI - lag(Tot_BMI, 7)) / pop) |>
+#   ungroup() |>
+#   select(Datum, BundeslandID, Bundesland, Tote) |>
+#   filter(Datum >= as.Date("2020-02-27")) ->
+#  d#eath_data
 ```
 `r pagebreak()`
+
+
 
 ## Zusammenfassung
 
@@ -184,11 +199,11 @@ In der 1. Welle (Höhepunkt 29. März 2020) waren die Inzidenzen in Wien eher ni
 
 In der 2. Welle (Höhepunkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern.
 
-In der 3. Welle (Höhepunkt 29. März 2021) hatte Wien  meist die höchsten Inzidenzen und (nach dem Burgenland) die zweithöchsten COVID-Todesfallzahlen .
+In der 3. Welle (Höhepunkt 29. März 2021) hatte Wien  meist die höchsten Inzidenzen und (nach dem Burgenland) die zweithöchsten COVID-Todesfallzahlen.
 
 In der 4. Welle (Höhepunkt 23. November 2021) galten in Wien deutlich schärfere Einschränkungen als in den anderen Bundesländern. 
 
-Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID- Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien.
+Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID-Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien. In dieser Welle waren die Maßnahmen in Wien deutlich strenger als in den übrigen Bundesländern; das scheint Wirkung gezeigt zu haben.
 
 
 In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann mit den zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
@@ -208,6 +223,10 @@ Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnah
 
 Die Pandemie ist in Österreich in mehreren Wellen verlaufen.
 Wir sehen uns an, wie sich die Zahlen in den einzelnen Bundesländern vor und nach den bundesweiten Spitzenwerten entwickelt haben.
+
+*Anmerkung: Quelle Folgenden verwendeten Daten ist die AGES, die Daten stehen auf der [Website der AGES](https://covid19-dashboard.ages.at) im Downloadbereich zur Verfügung*
+
+*Die von der Statistik Austria am 20. April 2022 veröffentlichten bereinigten Sterbefalldaten sind in diesen Bericht eingearbeitet.*
 
 Der Verlauf der Inzidenzen für ganz Österreich seit Beginn der Pandemie:
 
@@ -264,7 +283,6 @@ peak_dates <-
 #https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_Österreich
 ```
 
-`r pagebreak()`
 
 Wir sehen deutlich 6 Spitzen:
 
@@ -288,7 +306,6 @@ all_data |>
   ) +  theme(aspect.ratio = 1/3) ->
   spitzen_chart
   spitzen_chart
-  
 ```
 
 
@@ -386,6 +403,9 @@ pcol
 `r pagebreak()`
 
 ## Inzidenzen und COVID-Todesfälle in den Bundesländern
+
+*Anmerkung: In den folgenden Abschnitten werden die in den verschiedenen Wellen vorgeschriebenen Schutzmaßnahmen beispielhaft - aber nicht vollständig - angeführt*
+
 
 ```{r}
 bl_pal <-
@@ -613,8 +633,10 @@ Gesamtösterreichische Maßnahmen:
 * Stärkere Einschränkungen für Ungeimpfte: Ausgangsbeschränkung falls nicht 2G
 * FFP2-Masken-Pflicht
 
-Ab 16. November 2021 wird diese Regel in Wien verschärft, die 2G-Regel wird zur 2G+-Regel,
-zusätzlich zum Nachweis von geimpft oder genesen ist auch ein negativer PCR-Test notwendig. Homeoffice wird im Bereich der Gemeindeverwaltung stark forciert und die FFP2-Maskenpflicht ausgeweitet, z.B. wird diese Pflicht in der Gastronomie nur für die Dauer des Sitzens an einem Tisch aufgehoben.
+Verschärfte Maßnahmen in Wien:
+* 2G+-Regel statt 2G-Regel ab 16. November, also ist zum Nachweis von geimpft oder genesen auch ein negativer PCR-Test notwendig
+* Homeoffice wird im Bereich der Gemeindeverwaltung stark forciert
+* FFP2-Maskenpflicht ausgeweitet, z.B. wird diese Pflicht in der Gastronomie nur für die Dauer des Sitzens an einem Tisch aufgehoben
 
 
 
@@ -624,7 +646,7 @@ In dieser Welle schneidet Wien den ganzen Verlauf hindurch deutlich besser ab al
 
 Besonders hohe COVID-Todesfallzahlen gibt es in Kärnten.
 
-### 5. und 6. Welle Winter 2022
+### 5. und 6. Welle Winter 2022, Omikron
 
 Wir betrachten die 5. und die 6.
 Welle gemeinsam, weil diese beide Wellen sehr knapp hintereinander liegen und der Anstieg der Todesfälle der 5.
@@ -636,6 +658,21 @@ inz_tote_chart(peak_dates$Datum[5],3,9)
 ```
 
 
+Gesamtösterreichische Maßnahmen:
+
+* Lockdown für Ungeimpfte
+* Sperrstunden Gastgewerbe 23 Uhr
+* Maskenpflicht bei Indoor-Zusammenkünften
+* Krankenanstalten 2G+ für Besucher
+* 3G am Arbeitsplatz
+* PCR gilt 72 Stunden
+* ab 23. März teilweise Lockerung
+
+Zusätzliche Maßnahmen in Wien
+
+* Reduzierte Besuchsmöglichkeiten in Krankenanstalten
+* PCR gilt 48 Stunden
+* 2G+ auch bei Verannstaltungen im Freien 
 
 In der 5.
 Welle treten die Spitzenwerte der Inzidenz in den Bundesländern zu etwas verschiedenen Zeitpunkten auf, insbesondere in Vorarlberg, Tirol und Salzburg etwas später.
@@ -870,7 +907,6 @@ ages_age_data |>
 ```
 
 ```{r}
-  
 bl_chart_peak(peak_dates$Datum[6]-2*7,
               peak_dates$Datum[6]+3*7,
               konzert_alter) +
