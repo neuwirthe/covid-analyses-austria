@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  28 APR 2022 10:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  28 APR 2022 11:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -963,10 +963,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [8 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 415--417
-
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -982,7 +978,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33
--1.pdf  used on input line 440.
+-1.pdf  used on input line 441.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -999,7 +995,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36
--1.pdf  used on input line 498.
+-1.pdf  used on input line 499.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf, id=202, 336.2562
 6pt x 200.75pt>
@@ -1007,7 +1003,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37
--1.pdf  used on input line 507.
+-1.pdf  used on input line 508.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf, id=203, 336.2562
 6pt x 200.75pt>
@@ -1015,7 +1011,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38
--1.pdf  used on input line 520.
+-1.pdf  used on input line 521.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1033,7 +1029,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39
--1.pdf  used on input line 528.
+-1.pdf  used on input line 529.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1051,7 +1047,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40
--1.pdf  used on input line 555.
+-1.pdf  used on input line 556.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf, id=264, 336.2562
 6pt x 200.75pt>
@@ -1059,7 +1055,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43
--1.pdf  used on input line 571.
+-1.pdf  used on input line 572.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1097,7 +1093,7 @@ Here is how much of TeX's memory you used:
 /base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8
 a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb><
 /usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on wellenverlauf_wien.pdf (14 pages, 279202 bytes).
+Output written on wellenverlauf_wien.pdf (14 pages, 279217 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  297 compressed objects within 3 object streams
