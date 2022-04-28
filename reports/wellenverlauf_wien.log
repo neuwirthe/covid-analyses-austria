@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  27 APR 2022 23:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.4.14)  28 APR 2022 10:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -861,13 +861,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [3 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-17-1.pdf> <./wellenve
 rlauf_wien_files/figure-latex/unnamed-chunk-20-1.pdf>]
-<wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf, id=77, 342.27875
+<wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf, id=76, 342.27875
 pt x 141.52875pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-22-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-22
--1.pdf  used on input line 203.
+-1.pdf  used on input line 205.
 (pdftex.def)             Requested size: 342.304pt x 141.53918pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -884,7 +884,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-24
--1.pdf  used on input line 226.
+-1.pdf  used on input line 228.
 (pdftex.def)             Requested size: 343.28165pt x 313.16922pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -896,29 +896,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [5 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-24-1.pdf>]
 LaTeX Font Info:    Font shape `T1/fnc/b/n' will be
-(Font)              scaled to size 11.15991pt on input line 240.
+(Font)              scaled to size 11.15991pt on input line 249.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf, id=108, 344.2862
 5pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-28-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-28
--1.pdf  used on input line 242.
+-1.pdf  used on input line 251.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 LaTeX Font Info:    Trying to load font information for TS1+fnc on input line 2
-54.
+63.
 (/usr/local/texlive/2022/texmf-dist/tex/latex/fouriernc/ts1fnc.fd
 File: ts1fnc.fd 2005/12/13 font definitions for TS1/fnc.
 )
 LaTeX Font Info:    Font shape `TS1/fnc/m/n' will be
-(Font)              scaled to size 11.15991pt on input line 254.
+(Font)              scaled to size 11.15991pt on input line 263.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf, id=109, 344.2862
 5pt x 200.75pt>
 File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-30-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-30
--1.pdf  used on input line 285.
+-1.pdf  used on input line 294.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -935,7 +935,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-31
--1.pdf  used on input line 332.
+-1.pdf  used on input line 341.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -952,7 +952,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-32-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-32
--1.pdf  used on input line 375.
+-1.pdf  used on input line 384.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -963,6 +963,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [8 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-31-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 415--417
+
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -978,7 +982,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-33-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-33
--1.pdf  used on input line 424.
+-1.pdf  used on input line 440.
 (pdftex.def)             Requested size: 344.2854pt x 200.7495pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -995,7 +999,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-36-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-36
--1.pdf  used on input line 482.
+-1.pdf  used on input line 498.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf, id=202, 336.2562
 6pt x 200.75pt>
@@ -1003,7 +1007,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-37-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-37
--1.pdf  used on input line 491.
+-1.pdf  used on input line 507.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf, id=203, 336.2562
 6pt x 200.75pt>
@@ -1011,7 +1015,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-38-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-38
--1.pdf  used on input line 504.
+-1.pdf  used on input line 520.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1029,7 +1033,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-39-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-39
--1.pdf  used on input line 512.
+-1.pdf  used on input line 528.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1047,7 +1051,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-40-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-40
--1.pdf  used on input line 539.
+-1.pdf  used on input line 555.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 <wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf, id=264, 336.2562
 6pt x 200.75pt>
@@ -1055,7 +1059,7 @@ File: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file
  (type pdf)
 <use wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf>
 Package pdftex.def Info: wellenverlauf_wien_files/figure-latex/unnamed-chunk-43
--1.pdf  used on input line 555.
+-1.pdf  used on input line 571.
 (pdftex.def)             Requested size: 336.26056pt x 200.75255pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1077,7 +1081,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [14 <./wellenverlauf_wien_files/figure-latex/unnamed-chunk-43-1.pdf>]
 
-Package caption Warning: Unused \captionsetup[table] on input line 183.
+Package caption Warning: Unused \captionsetup[table] on input line 185.
 See the caption package documentation for explanation.
 
 (./wellenverlauf_wien.aux) ) 
@@ -1088,12 +1092,12 @@ Here is how much of TeX's memory you used:
  33344 multiletter control sequences out of 15000+600000
  518405 words of font info for 197 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,11n,77p,1015b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,11n,77p,1015b,411s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips
 /base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncb8
 a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncr8a.pfb><
 /usr/local/texlive/2022/texmf-dist/fonts/type1/urw/ncntrsbk/uncri8a.pfb>
-Output written on wellenverlauf_wien.pdf (14 pages, 279196 bytes).
+Output written on wellenverlauf_wien.pdf (14 pages, 279202 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  297 compressed objects within 3 object streams

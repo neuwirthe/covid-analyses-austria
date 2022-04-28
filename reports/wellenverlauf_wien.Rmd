@@ -209,11 +209,11 @@ Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die I
 In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann mit den zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
 
 Knapp nach dem Inzidenz-Höchstwert am 18. März, gab es in Wien zwei Freiluft-Großveranstaltungen,
-nämlich ein Konzert am 19. März im Ernst-Happel-Stadion und ein Konzert am 25. März am Heldenplatz. Zu dieser Zeit gab es keine generelle Maskenplficht mehr, und ein Großteil des Publikums trug trotz deutlicher Empfehlung der Veranstalter keine Masken.
+nämlich ein Konzert am 19. März im Ernst-Happel-Stadion und ein Konzert am 25. März am Heldenplatz. Zu dieser Zeit gab es keine generelle Maskenpflicht mehr, und ein Großteil des Publikums trug trotz deutlicher Empfehlung der Veranstalter keine Masken.
 
 Im Zeitraum nach diesen beiden Veranstaltungen nahm die Inzidenz in Wien ab, die Abnahme war aber merklich weniger ausgeprägt als in den anderen Bundesländern. Das ist natürlich kein Beweis, dass die Veranstaltungen diese Entwicklung verursacht haben, aber doch ein Hinweis, der nicht vernachlässigt werden sollte.
 
-Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven der Inzidenz geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion
+Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion
 
 
 
@@ -309,6 +309,7 @@ all_data |>
 ```
 
 
+`r pagebreak()`
 
 Die genauen Daten dieser Spitzen sind
 
@@ -399,6 +400,11 @@ ncol = 1, axis = "lr"
 )
 pcol
 ```
+
+
+Die Zahl der COVID-Todesfälle ist in der 1. vergleichsweise niedrig und in der 2. Welle am höchsten. In der 3. Welle ist diese Zahl wieder niedrig und steigt in der 4. Welle wieder, aber nur halb so hoch wie der Höchstwert der 2. Welle. In der 5. und in der 6. Welle - die bezüglich der COVUD-Todesfallzahlen nicht mehr zu trennen sind - steigen die Zahlen noch einmal auf das Niveau der 3. Welle.
+
+
 
 `r pagebreak()`
 
@@ -563,7 +569,7 @@ inz_tote_chart(peak_dates$Datum[2],3,5)
 Seit Mitte September 2020 gab es folgende Maßnahmen
 
 * Maskenpflicht in Handel, Gastronomie und öffentlich zugänglichen geschlossenen Räumen
-* Maskenplflicht auch im Freien, z.B. auf Märkten
+* Maskenpflicht auch im Freien, z.B. auf Märkten
 * Beschränkung der Größe von Besuchergruppen in der Gastronomie
 * Konsumation in der Gastronomie nur sitzend an Tischen
 * Beschränkung der Anzahl von Personen bei Zusammenkünften
@@ -634,8 +640,9 @@ Gesamtösterreichische Maßnahmen:
 * FFP2-Masken-Pflicht
 
 Verschärfte Maßnahmen in Wien:
+
 * 2G+-Regel statt 2G-Regel ab 16. November, also ist zum Nachweis von geimpft oder genesen auch ein negativer PCR-Test notwendig
-* Homeoffice wird im Bereich der Gemeindeverwaltung stark forciert
+* Homeoffice wird im Bereich der Gemeindeverwaltung stark forciert       
 * FFP2-Maskenpflicht ausgeweitet, z.B. wird diese Pflicht in der Gastronomie nur für die Dauer des Sitzens an einem Tisch aufgehoben
 
 
@@ -661,7 +668,7 @@ inz_tote_chart(peak_dates$Datum[5],3,9)
 Gesamtösterreichische Maßnahmen:
 
 * Lockdown für Ungeimpfte
-* Sperrstunden Gastgewerbe 23 Uhr
+* Sperrstunde Gastgewerbe 23 Uhr
 * Maskenpflicht bei Indoor-Zusammenkünften
 * Krankenanstalten 2G+ für Besucher
 * 3G am Arbeitsplatz
@@ -672,7 +679,7 @@ Zusätzliche Maßnahmen in Wien
 
 * Reduzierte Besuchsmöglichkeiten in Krankenanstalten
 * PCR gilt 48 Stunden
-* 2G+ auch bei Verannstaltungen im Freien 
+* 2G+ auch bei Veranstaltungen im Freien 
 
 In der 5.
 Welle treten die Spitzenwerte der Inzidenz in den Bundesländern zu etwas verschiedenen Zeitpunkten auf, insbesondere in Vorarlberg, Tirol und Salzburg etwas später.
@@ -850,7 +857,7 @@ Diese 2 Demonstrationen fanden vor dem Höhepunkt der 6. Welle statt, auch hier 
 
 ## Freiluft-Konzerte am 19. und am 25. März 2022
 
-In der 2. Märzhälfte 2022 fanden 2 große Freilunfkonzerte statt. Es herrschte keine Maskenpflicht, die Veranstalter ersuchten die Teilnehmer aer nachdrücklich, freiwillig FFP2-Masken zu tragen. Der Großteil des Publikums tat das allerdings nicht. 
+In der 2. Märzhälfte 2022 fanden 2 große Freiluftkonzerte statt. Es herrschte keine Maskenpflicht, die Veranstalter ersuchten die Teilnehmer aber nachdrücklich, freiwillig FFP2-Masken zu tragen. Der Großteil des Publikums tat das allerdings nicht. 
 
 Wir untersuchen daher die Frage, ob sich die Inzidenzen in zeitlicher Nähe zu diesen Konzerten 
 merkbar auffällig entwickelt haben.
@@ -884,7 +891,7 @@ Wien hat vor den Konzerten die niedrigste Inzidenz aller Bundesländer. Während
 
 ### Inzidenz der Altersgruppe 15-44
 
-Vermutlich gehört der überwiegende Teil des Konzertpublikums der Altersgruppe 15-44 an. Daher sehen wir uns auch die Inzidenzen in diesen Altersgruppen an.
+Vermutlich gehört der überwiegende Teil des Konzertpublikums der Altersgruppe 15-44 an. Daher sehen wir uns auch die Inzidenzen in dieser Altersgruppe an.
 
 ```{r}
 load(path(
@@ -927,7 +934,7 @@ bl_chart_peak(peak_dates$Datum[6]-2*7,
   make_chart_html(chart)
 ```
 
-Die Entwicklung der Inzidenz in dieser Altersgruppe unterscheidet sich nicht wesentlich von der aller Altersgruppen gemeinsam. Bis zum ersten Konzert hat Wien eine deutlich geringere Inzidenz als die anderen Bundesländer. Nach dem ersten Konzert steigt die Inzidenz in Wien noch schwach, während sie in den den anderen Bundesländern schon sinkt. Nach dem zweiten Konzert sinkt die Inzidenz in Wien in deutlich geringerem Maße als in den anderen Bundesländern.
+Die Entwicklung der Inzidenz in dieser Altersgruppe unterscheidet sich nicht wesentlich von der aller Altersgruppen gemeinsam. Bis zum ersten Konzert hat Wien eine deutlich geringere Inzidenz als die anderen Bundesländer. Nach dem ersten Konzert steigt die Inzidenz in Wien noch schwach, während sie in den anderen Bundesländern schon sinkt. Nach dem zweiten Konzert sinkt die Inzidenz in Wien in deutlich geringerem Maße als in den anderen Bundesländern.
 
-Man kann also begründet vermuten (wenn auch nicht beweisen), dass die Menschenansammlung bei den Freiluft-Großkonzerten das Abklingen der 6. COVID-Welle in Wien verlangsamt haben.
+Man kann also begründet vermuten (wenn auch nicht beweisen), dass die Menschenansammlungen bei den beiden Freiluft-Großkonzerten das Abklingen der 6. COVID-Welle in Wien verlangsamt haben.
 
