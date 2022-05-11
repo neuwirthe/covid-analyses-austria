@@ -1,7 +1,7 @@
 ---
 title: "COVID-Wellen - Wien und Bundesländer"
 author: "Erich Neuwirth"
-date: "28. April 2022"
+date: "11. Mai 2022"
 output:
   pdf_document:
     includes:
@@ -90,7 +90,6 @@ suppressPackageStartupMessages({
   library(ggiraph)
   library(gt)
   library(patchwork)
-  library(cowplot)
 })
 ```
 
@@ -167,8 +166,9 @@ all_data
 ages_data |>
   select(Datum, BundeslandID, Bundesland, Tot_AGES, pop) |>
   group_by(BundeslandID, Bundesland) |>
-  mutate(Tote = 100000 * (Tot_AGES - lag(Tot_AGES, 7)) / pop) |>
+  mutate(Tote = 1000000 * (Tot_AGES - lag(Tot_AGES, 7)) / pop) |>
   ungroup() |>
+  mutate(Tote=Tote/7) |>
   select(Datum, BundeslandID, Bundesland, Tote) |>
   filter(Datum >= as.Date("2020-02-27")) ->
 death_data 
@@ -187,7 +187,7 @@ bmi_data |>
   left_join(ages_data |>
               select(Datum,BundeslandID,
                      pop)) |>
-  mutate(Tests=Tests*100000/pop) |>
+  mutate(Tests=Tests*100000/pop/7) |>
   select(-pop) |>
   drop_na()->
   tests_data
@@ -198,7 +198,7 @@ tests_data |>
   filter(Tests>0) |>
   left_join(all_data) |>
   mutate(posrate=
-           Inzidenz/Tests) |>
+           (Inzidenz/7)/Tests) |>
   select(Datum,Bundesland,BundeslandID,
          posrate) ->
   posrate_data
@@ -227,13 +227,13 @@ Ein Vergleich des Verlaufs der Inzidenzzahlen in den Bundesländern zeigt einige
 
 In der 1. Welle (Höhepunkt 29. März 2020) waren die Inzidenzen in Wien eher niedrig, die COVID-Todesfallzahlen lagen im Bundesdurchschnitt.
 
-In der 2. Welle (Höhepunkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern.
-
+In der 2. Welle (Höhepunkt 13. November 2020) waren sowohl die Inzidenzen als auch die COVID-Todesfallzahlen in Wien meist niedriger als in den übrigen Bundesländern
+(7-Tage-Schnitt).
 In der 3. Welle (Höhepunkt 29. März 2021) hatte Wien  meist die höchsten Inzidenzen und (nach dem Burgenland) die zweithöchsten COVID-Todesfallzahlen.
 
 In der 4. Welle (Höhepunkt 23. November 2021) galten in Wien deutlich schärfere Einschränkungen als in den anderen Bundesländern. 
 
-Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID-Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien. In dieser Welle waren die Maßnahmen in Wien deutlich strenger als in den übrigen Bundesländern; das scheint Wirkung gezeigt zu haben.
+Wien kam deutlich besser als die übrigen Bundesländer durch diese Welle. Die Inzidenzen waren merkbar geringer, und die COVID-Todesfallzahlen waren deutlich niedriger als im Rest Österreichs. Während dieser Periode waren die COVID-Todesfallzahlen in Kärnten zeitweise mehr als 3x so hoch wie in Wien. In dieser Welle waren die COVID-bedingten Einschränkungen in Wien deutlich strenger Maßnahmen als in den übrigen Bundesländern; das scheint Wirkung gezeigt zu haben.
 
 
 In der 5. (Höhepunkt 2. Feber 2022) und der 6. (Höhepunkt 18. März 2022) Welle hatte Wien am Anfang und gegen Ende eher hohe Inzidenzen, zwischendurch aber eher niedrige. Diese etwas eigenartige Tendenz kann mit den zwei Freiluft-Großveranstaltungen in Zusammenhang stehen.
@@ -243,9 +243,9 @@ nämlich ein Konzert am 19. März im Ernst-Happel-Stadion und ein Konzert am 25.
 
 Im Zeitraum nach diesen beiden Veranstaltungen nahm die Inzidenz in Wien ab, die Abnahme war aber merklich weniger ausgeprägt als in den anderen Bundesländern. Das ist natürlich kein Beweis, dass die Veranstaltungen diese Entwicklung verursacht haben, aber doch ein Hinweis, der nicht vernachlässigt werden sollte.
 
-Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion
+Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnahmegegnern. Die Inzidenzkurven geben aber keine Hinweise auf eine Auswirkung dieser Demonstrationen auf die Ausbreitung der COVID-Infektion.
 
-
+Die Qualität der Zahl der durchgführten PCR-Tests aus den offiziellen Datenpublikationen ist erst ab der 4. Welle ausreichend für eine saubere Analyse. Ab diesem Zeitpunkt wurden in Wien grob gesagt 10x so viele derartige Tests durchgeführt wie in den anderen Bundesländern.
 
 `r pagebreak()`
 
@@ -254,7 +254,9 @@ Es gab in Wien im Verlauf der COVID-Pandemie mehrere Demonstrationen von Maßnah
 Die Pandemie ist in Österreich in mehreren Wellen verlaufen.
 Wir sehen uns an, wie sich die Zahlen in den einzelnen Bundesländern vor und nach den bundesweiten Spitzenwerten entwickelt haben.
 
-*Anmerkung: Quelle Folgenden verwendeten Daten ist die AGES, die Daten stehen auf der [Website der AGES](https://covid19-dashboard.ages.at) im Downloadbereich zur Verfügung*
+*Anmerkung: Quelle der im Folgenden verwendeten Daten ist die AGES, die Daten stehen auf der [Website der AGES](https://covid19-dashboard.ages.at) im Downloadbereich zur Verfügung*
+
+*Die Daten über die Zahl der durchgeführten PCR-Tests stammen aus den [Bundesländermeldungen an den Krisenstab von BMSGPK und BMI](https://info.gesundheitsministerium.gv.at/?re=infektionslage)*
 
 *Die von der Statistik Austria am 20. April 2022 veröffentlichten bereinigten Sterbefalldaten sind in diesen Bericht eingearbeitet.*
 
@@ -422,15 +424,13 @@ Wir werden daher im Folgenden die Zahl der Tests erst ab der 4. Welle in unsere 
 Im folgenden untersuchen wir den Verlauf der Inzidenzen in den Bundesländern in der Zeit von 3 Wochen vor bis 5 Wochen nach den Spitzen.
 Die längere Nachlaufzeit nach der Spitze ist notwendig, weil die Todesfallzahlen den Inzidenzen erst mit Verzögerung folgen.
 
-Wenn wir die Inzidenzen und die Zahlen der Todesfälle gemeinsam betrachten, dann ergibt sich folgendes Bild:
+Wenn wir die Inzidenzen und die Zahlen der Todesfälle (pro Million im 7-Tages-Schnitt) gemeinsam betrachten, dann ergibt sich folgendes Bild:
 
 ```{r}
 death_data |>
   filter(BundeslandID == 10) |>
   filter(Tote >= 0) |>
-  #  filter(Datum >= peak_dates$date[6]-14) |>
-  #  filter(Datum <= peak_dates$date[6]+14) |>
-  #  filter(Datum >= start_date & Datum <= end_date) |>
+ 
   ggplot(aes(x = Datum, y = Tote)) +
   geom_line() +
   scale_x_date(
@@ -442,7 +442,7 @@ death_data |>
     linetype = "dashed",
     data = peak_dates
   ) + 
-  labs(y="COVID-Tote pro 100.000") +
+  labs(y="COVID-Tote pro Mio") +
     theme(
     axis.text.y =
       element_text(margin = margin(0, 0, 0, 10, "pt"))) +
@@ -461,7 +461,7 @@ pcol
 ```
 
 
-Die Zahl der COVID-Todesfälle ist in der 1. vergleichsweise niedrig und in der 2. Welle am höchsten. In der 3. Welle ist diese Zahl wieder niedrig und steigt in der 4. Welle wieder, aber nur halb so hoch wie der Höchstwert der 2. Welle. In der 5. und in der 6. Welle - die bezüglich der COVUD-Todesfallzahlen nicht mehr zu trennen sind - steigen die Zahlen noch einmal auf das Niveau der 3. Welle.
+Die Zahl der COVID-Todesfälle ist in der 1. Welle vergleichsweise niedrig und in der 2. Welle am höchsten. In der 3. Welle ist diese Zahl wieder niedrig und steigt in der 4. Welle wieder, aber nur halb so hoch wie der Höchstwert der 2. Welle. In der 5. und in der 6. Welle - die bezüglich der COVID-Todesfallzahlen nicht mehr zu trennen sind - steigen die Zahlen noch einmal auf das Niveau der 3. Welle.
 
 
 
@@ -602,34 +602,6 @@ inz_tote_chart <-
 ```
 
 
-```{r}
-combined_chart <-
-  function(date,
-           weeks_before = 3,
-           weeks_after = 5,
-           typ=c("Inzidenz",
-                 "Tote pro 100.000")) {
-           
-           
-    from_date <- date - weeks_before * 7
-    to_date <- date + weeks_after * 7
-    
-    chart_data_long |>
-    filter(Datum == date) |>
-    filter(typ=="Inzidenz") |>
-    arrange(desc(value)) |>
-    pull(Bundesland) ->
-  bl_order
-  bl_pal_current <-
-    bl_pal[bl_order]
-  
-}
-```
-
-
-```{r}
-combined_chart(peak_dates[6,]$Datum)
-```
 
 ```{r}
 all_data |>
@@ -662,9 +634,9 @@ all_data |>
     typ =
       case_when(
         typ == "Tote" ~
-          "Tote pro 100.000",
+          "Tote pro Mio (7-Tage-Schnitt)",
         typ == "Tests" ~
-          "PCR-Tests pro 100.000",
+          "PCR-Tests pro 100.000 (7-Tage-Schnitt)",
         typ == "posrate" ~
           "Positivrate",
         TRUE ~ typ
@@ -676,8 +648,8 @@ all_data |>
         levels =
           c(
             "Inzidenz",
-            "Tote pro 100.000",
-            "PCR-Tests pro 100.000",
+            "Tote pro Mio (7-Tage-Schnitt)",
+            "PCR-Tests pro 100.000 (7-Tage-Schnitt)",
             "Positivrate"
           )
       )
@@ -686,38 +658,124 @@ chart_data_long
 ```
 
 
-
 ```{r}
-chart_data_long |>
-#  filter(BundeslandID==10) |>
-  ggplot(aes(x=Datum,y=value,
-             color=Bundesland)) +
-  geom_line() +
-  facet_wrap(vars(typ),ncol=1,
-             scales = "free_y") +
-      scale_color_manual(values = bl_pal) +
-    scale_x_date(
+combined_chart <-
+  function(date,
+           weeks_before = 3,
+           weeks_after = 5,
+           var_typ=c("Inzidenz",
+                 "Tote pro Mio (7-Tage-Schnitt)")) {
+           
+           
+    from_date <- date - weeks_before * 7
+    to_date <- date + weeks_after * 7
+    
+    scales_y <- list(
+      Inzidenz = 
+        scale_y_continuous(limits=c(0,NA)),
+      `Tote pro Mio (7-Tage-Schnitt)` =
+        scale_y_continuous(limits=c(0,NA)),
+      `PCR-Tests pro 100.000 (7-Tage-Schnitt)` = 
+        scale_y_continuous(limits=c(0,NA)),
+      Positivrate =
+        scale_y_continuous(limits=c(0,NA),
+               label=percent_format())
+    )
+  scales_x <- list(    
+    Datum = scale_x_date(
       labels = ger_date_1_Jan_20,
       date_breaks = "1 week",
       date_minor_breaks = "1 week"
-    ) 
+    )) 
+    
+    chart_data_long |>
+      mutate(Datum=as.Date(Datum)) |>
+    filter(Datum == date) |>
+    filter(typ=="Inzidenz") |>
+    arrange(desc(value)) |>
+    pull(Bundesland) ->
+  bl_order
+  bl_pal_current <-
+    bl_pal[bl_order]
+  
+peak_dates |>
+  filter(Datum >= from_date &
+           Datum <= to_date) |>
+  pull(Datum) -> 
+  vert_dates
 
+  chart_data_long |>
+    filter(typ %in% var_typ) |>
+    filter(Datum >= from_date &
+             Datum <= to_date) |>
+      mutate(linesize = 
+              ifelse(BundeslandID %in% 9:10,
+      "wide", "narrow"
+    )) |>
+  ggplot(aes(x=Datum,y=value,
+             color=Bundesland,
+             size=linesize)) +
+  geom_line() +
+      scale_y_continuous(
+        limits=c(0,NA), 
+        labels = \(x)prettyNum(
+          x,
+          big.mark = ".")) +
+    
+  facet_wrap(vars(typ),ncol=1,        
+             scales = "free_y") +
+#    temp_chart
+#if("Positivrate" %in% var_typ){
+#  temp_chart <-
+#    temp_chart + 
+   ggh4x::facetted_pos_scales(
+    y = typ == "Positivrate" ~ 
+      scale_y_continuous(
+        labels = percent_format())) + 
+#}  
+#   ggh4x::facetted_pos_scales(
+#    y = var == "Positivrate" ~ 
+#      scale_y_continuous(
+#        labels = percent_format())) +
+#      scale_y_continuous(limits=c(0,NA),
+#      labels=\(x)ifelse(x > 0 & x <1,
+#                        percent(x),
+#                        prettyNum(x,
+#                                  big.mark = "."))) +
+#  temp_chart +
+    scale_size_manual(values=linesize_pal) +
+    scale_color_manual(
+        values = bl_pal_current) +
+#    scale_x_date(
+#      labels = ger_date_1_Jan_20,
+#      date_breaks = "1 week",
+#      date_minor_breaks = "1 week"
+#    ) +
+    labs(y="") +
+    geom_vline(xintercept=vert_dates,
+               linetype="dashed") +
+    guides(size="none")
+}
 ```
 
 
-```{r}
-inz_tote_chart(peak_dates$Datum[6],3,5)
-```
+
+
 
 
 ### 1. Welle Frühjahr 2020, Wildtyp
 
 
 ```{r}
-inz_tote_chart(peak_dates$Datum[1],3,5,
-               chart_tests=FALSE)
+#inz_tote_chart(peak_dates$Datum[1],3,5)
 ```
 
+
+```{r}
+combined_chart(peak_dates[1,]$Datum) ->
+  chart
+make_chart_html(chart,height_factor = 1.1)
+```
 
 *Anmerkung: Die Namen in der Legende sind in dieser und den folgenden Grafiken nach den höchsten Inzidenzen der Bundesländer geordnet.* 
 
@@ -753,7 +811,14 @@ Auch hier hat Tirol die allerhöchsten Werte, Wien liegt im Mittelfeld.
 ### 2. Welle Herbst 2020, Wildtyp
 
 ```{r}
-inz_tote_chart(peak_dates$Datum[2],3,5)
+#inz_tote_chart(peak_dates$Datum[2],3,5)
+```
+
+
+```{r}
+combined_chart(peak_dates[2,]$Datum) ->
+  chart
+make_chart_html(chart,height_factor = 1.1)
 ```
 
 Seit Mitte September 2020 gab es folgende Maßnahmen
@@ -784,7 +849,13 @@ Unter den Bundesländern hatte Kärnten die höchsten Todesfallzahlen.
 ### 3. Welle Frühjahr 2021, Alpha
 
 ```{r}
-inz_tote_chart(peak_dates$Datum[3],3,5)
+#inz_tote_chart(peak_dates$Datum[3],3,5)
+```
+
+```{r}
+combined_chart(peak_dates[3,]$Datum) ->
+  chart
+make_chart_html(chart,height_factor = 1.1)
 ```
 
 
@@ -792,7 +863,7 @@ inz_tote_chart(peak_dates$Datum[3],3,5)
 
 * Ausgangsbeschränkungen ganztägig
 * Körpernahe Dienstleister, Zoos und Museen geschlossen
-* Alle Geschäfte außer Geschäften, mit Gütern des täglichen Bedarfs geschlossen
+* Alle Geschäfte außer Geschäfte mit Gütern des täglichen Bedarfs geschlossen
 * Distance Learning in Schulen ab 6. April
 * Zusätzlich in Wien an einzelnen stark belebten Plätzen Maskenpflicht
 
@@ -815,9 +886,23 @@ Im Burgenland gibt es zu Beginn der Welle einen ausgeprägten Anstieg, dann mehr
 ### 4. Welle Herbst 2021, Delta
 
 ```{r}
-inz_tote_chart(peak_dates$Datum[4],3,5)
+#inz_tote_chart(peak_dates$Datum[4],3,5)
 ```
 
+
+```{r}
+combined_chart(peak_dates[4,]$Datum,
+               var_typ=
+                           c(
+            "Inzidenz",
+            "Tote pro Mio (7-Tage-Schnitt)",
+            "PCR-Tests pro 100.000 (7-Tage-Schnitt)",
+            "Positivrate"
+          )
+) ->
+  chart
+make_chart_html(chart,height_factor = 1.6)
+```
 In dieser Welle gab es erstmals in Wien schärfere Maßnahmen als in den anderen Bundesländern.
 
 Gesamtösterreichische Maßnahmen:
@@ -842,6 +927,15 @@ In dieser Welle schneidet Wien den ganzen Verlauf hindurch deutlich besser ab al
 
 Besonders hohe COVID-Todesfallzahlen gibt es in Kärnten.
 
+Die Zahl der PCR-Test ist in dieser Welle für grafischen Darstellung ausreichend gut gemeldet. Es ist deutlich sichtbar, dass Wien um Größenordnungen mehr getestet hat als die anderen Bundesländer.     
+Als Folge ist die Positivrate in Wien dramatisch niedriger als in den anderen Bundesländern.
+
+Der Einbruch der Positivrate in Kärnten und Oberösterreich am Anfang der Periode und der Sprung der Testzahlen von Kärnten am Anfang der Periode ist ziemlich sicher auf Nachmeldungsschübe zurückzuführen. 
+
+
+
+`r pagebreak()`
+
 ### 5. und 6. Welle Winter 2022, Omikron
 
 Wir betrachten die 5. und die 6.
@@ -850,9 +944,24 @@ Welle schon mit dem Beginn der 6.
 Welle überlappt.
 
 ```{r}
-inz_tote_chart(peak_dates$Datum[5],3,9)
+#inz_tote_chart(peak_dates$Datum[5],3,9)
 ```
 
+
+```{r}
+combined_chart(peak_dates[5,]$Datum,
+               3,9,
+               var_typ=
+                           c(
+            "Inzidenz",
+            "Tote pro Mio (7-Tage-Schnitt)",
+            "PCR-Tests pro 100.000 (7-Tage-Schnitt)",
+            "Positivrate"
+          )
+) ->
+  chart
+make_chart_html(chart,height_factor = 1.6)
+```
 
 Gesamtösterreichische Maßnahmen:
 
@@ -879,6 +988,8 @@ Welle tritt in Tirol etwas früher und in Wien etwas später als in den anderen 
 Die Inzidenz Wiens liegt zu Beginn der 5.
 Welle und zum Ende der 6.
 Welle etwas höher als die der anderen Bundesländer, dazwischen jedoch tendenziell niedriger.
+
+Auch in diesen beiden Wellen ist die Zahl der durchgeführten PCR-Tests in Wien ungefähr 10x so hoch wie in den anderen Bundesländern. Entsprechend ist die Positivrate natürlich um vieles niedriger als in den anderen Bundesländern.
 
 `r pagebreak()`
 
@@ -1126,110 +1237,3 @@ bl_chart_peak(peak_dates$Datum[6]-2*7,
 Die Entwicklung der Inzidenz in dieser Altersgruppe unterscheidet sich nicht wesentlich von der aller Altersgruppen gemeinsam. Bis zum ersten Konzert hat Wien eine deutlich geringere Inzidenz als die anderen Bundesländer. Nach dem ersten Konzert steigt die Inzidenz in Wien noch schwach, während sie in den anderen Bundesländern schon sinkt. Nach dem zweiten Konzert sinkt die Inzidenz in Wien in deutlich geringerem Maße als in den anderen Bundesländern.
 
 Man kann also begründet vermuten (wenn auch nicht beweisen), dass die Menschenansammlungen bei den beiden Freiluft-Großkonzerten das Abklingen der 6. COVID-Welle in Wien verlangsamt haben.
-
-## Tests und Positivraten
-
-```{r}
-bmi_data |>
-  mutate(Datum=as.Date(Datum)) |>
-  select(Datum,BundeslandID,
-         Tests_PCR_BMI) |>
-  left_join(
-    bmi_data |>
-  mutate(Datum=as.Date(Datum)) |>
-      select(Datum,BundeslandID,
-         Tests_PCR_BMI) |>
-    mutate(Datum=Datum+7) |>
-    rename(Tests_7=Tests_PCR_BMI) 
-  ) |>
-  left_join(all_data |>
-     select(Datum,BundeslandID,Bundesland,
-                     Inzidenz,pop)
-  ) |>
-    mutate(Tests=100000*
-           (Tests_PCR_BMI-Tests_7)/pop) |>
-  select(Datum,BundeslandID,Bundesland,
-         Tests,Inzidenz) |>
-  mutate(Positivrate=Inzidenz/Tests) ->
-  tests_pos_data
-```
-```{r}
-bl_chart_peak(peak_dates$Datum[2]-2*7,
-              peak_dates$Datum[2]+3*7,
-              data=tests_pos_data,
-              var=Tests)
-```
-
-```{r}
-bl_chart_peak(peak_dates$Datum[3]-2*7,
-              peak_dates$Datum[3]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Tests)
-```
-
-Kärnten fehlerhaft
-
-
-```{r}
-bl_chart_peak(peak_dates$Datum[3]-2*7,
-              peak_dates$Datum[3]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Positivrate)
-```
-
-```{r}
-bl_chart_peak(peak_dates$Datum[4]-2*7,
-              peak_dates$Datum[4]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Tests)
-```
-
-```{r}
-bl_chart_peak(peak_dates$Datum[4]-2*7,
-              peak_dates$Datum[4]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Positivrate)
-```
-
-
-```{r}
-bl_chart_peak(peak_dates$Datum[5]-2*7,
-              peak_dates$Datum[5]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Tests)
-```
-
-
-```{r}
-bl_chart_peak(peak_dates$Datum[5]-2*7,
-              peak_dates$Datum[5]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Positivrate)
-```
-
-```{r}
-bl_chart_peak(peak_dates$Datum[6]-2*7,
-              peak_dates$Datum[6]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Tests)
-```
-
-
-```{r}
-bl_chart_peak(peak_dates$Datum[6]-2*7,
-              peak_dates$Datum[6]+3*7,
-              data=tests_pos_data |>
-                filter(Tests >=0),
-              var=Positivrate)
-```
-```{r}
-
-```
-

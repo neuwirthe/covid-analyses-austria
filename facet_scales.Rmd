@@ -1,0 +1,44 @@
+---
+title: "Demo axis labels"
+output: html_document
+date: '2022-05-10'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(scales)
+})
+```
+
+```{r}
+set.seed(123456)
+test_df <-
+  tibble(t=1:10,
+         x=100+runif(10,-10,10),
+         y=10+runif(10,-4,4),
+         p=y/x)
+```
+
+```{r}
+test_df |>
+  pivot_longer(cols=x:p,
+               names_to = "var",
+               values_to = "value") |>
+  mutate(var=factor(var,levels=c("x","y","p"))) ->
+test_df_long
+```
+
+```{r}
+test_df_long |>
+  ggplot(aes(x=t,y=value)) +
+  geom_line() +
+  scale_y_continuous(limits=c(0,NA)) +
+  facet_wrap(vars(var),ncol=1,
+             scales = "free_y")
+```
+
